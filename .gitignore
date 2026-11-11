@@ -4,3 +4,5 @@ __pycache__/
 .venv/
 .env
 data/raw/
+DIC3_作業說明/
+*.pdf

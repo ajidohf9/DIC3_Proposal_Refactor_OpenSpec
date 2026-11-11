@@ -130,9 +130,9 @@ flowchart TB
 
 知識庫收錄內容經專家結構化分級，存入 ChromaDB 向量集合：
 1. **指引文件 A**：《WHO 2021 全球空氣品質指引（繁體精要版）》
-2. **指引文件 B**：《台灣環境部 2024/2025 修訂 AQI 分級與活動建議處方表》
-3. **指引文件 C**：《台灣胸腔暨重症加護醫學會：氣喘患者環境防護臨床共識手冊》
-4. **指引文件 D**：《室內通風換氣與空氣清淨機 CADR 選型計算指南》
+2. **指引文件 B**：《台灣環境部 2024/2025 修訂 AQI 分級暨 2025《空氣品質政策白皮書》早晚分流應變處方表》
+3. **指引文件 C**：《台灣胸腔暨重症加護醫學會氣喘臨床共識暨衛福部國健署空污防護 3 招》
+4. **指引文件 D**：《室內通風換氣（含緊閉留 5 公分縫隙與 10–15m 脈衝換氣）與空氣清淨機 CADR 選型計算指南》
 
 ---
 
@@ -194,7 +194,7 @@ pip install python-docx python-pptx matplotlib pillow requests
 openspec.cmd status --change ai-air-doctor-mvp
 openspec.cmd validate ai-air-doctor-mvp
 
-# 4. 重新繪製架構圖、流程圖與 A4 橫式資訊圖表
+# 4. 重新繪製架構圖、流程圖與 A4 橫式資訊圖表 (Windows 虛擬環境可用 .\.venv\Scripts\python.exe)
 python scripts/diagrams.py
 python scripts/render_infographic.py
 

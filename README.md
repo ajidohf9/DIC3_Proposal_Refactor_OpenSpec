@@ -4,6 +4,19 @@
 
 > **專案定位核心公式**：  
 > `AI Agent (ReAct) + Domain Knowledge (WHO & AQI) + Data Analytics (XGBoost/LSTM + SHAP) + Real-World Application`
+>
+> **核心研究價值（Passive → Proactive）**：  
+> 從「被動式單點 AQI 查詢（Passive Point AQI Lookup）」，邁向「主動式、情境感知、生理劑量量化與實證可追溯的個人化空氣品質健康代理（Proactive, Context-Aware, Dose-Quantified & Evidence-Grounded Air Health Agent）」。
+
+## DIC3 作業五大核心要求快速檢核表
+
+| 作業要求項目 | 本專案對應實踐與關鍵成果 | 檢核位置 |
+| :--- | :--- | :--- |
+| **1. OpenSpec Spec-Driven Workflow** | 安裝 OpenSpec v1.2.0 並建立 `ai-air-doctor-mvp`（`4/4 artifacts complete` 與 4 項能力規格驗證通過） | [openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/) |
+| **2. A–F 摘要 + 5 Cores / 3 Trade-offs / 10 Details** | 提供約 500 字精煉版＋完整工程版 `(A)–(F)` 雙軌摘要（嚴守不虛構 Expected Outcomes）與完整 5/3/10 領域深研 | [docs/proposal.md §1, §5](docs/proposal.md) |
+| **3. `DESIGN.md` 轉換為 OpenSpec 工作流** | 完整轉換至 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md` 18 項可追蹤開發與 E1–E4 驗收任務 | [DESIGN.md](DESIGN.md) ↔ [openspec/](openspec/changes/ai-air-doctor-mvp/) |
+| **4. Introduction Refactor** | 補齊 3I（Interesting · Innovative · Important）說服力、台灣新聞與政策實例 `[24–26]`、Three Core Innovations 與三大方法學學術價值 | [docs/proposal.md §3](docs/proposal.md) |
+| **5. Related Work Refactor** | 1/2 AI Technology + 1/2 Domain Know-how 平衡彙整 26 篇查證文獻暨新聞政策 `[1–26]`，含 8 篇 2024–2026 Article Summary Table | [docs/proposal.md §4](docs/proposal.md) |
 
 ---
 

@@ -4,8 +4,8 @@ Builds:
   - docs/Proposal_AI_Air_Doctor.docx from docs/proposal.md
   - docs/AI_Air_Doctor_Proposal_Analysis.docx from docs/AI_Air_Doctor_Proposal_Analysis.md
 
-Supports: headings, paragraphs, bullets, numbered lists, tables, blockquotes,
-code blocks, **bold**, `code`, markdown image links, and Mermaid diagrams.
+Supports: headings (H1–H4), paragraphs, bullets, numbered lists, tables, blockquotes,
+code blocks, **bold**, *italic*, `code`, markdown image links, and Mermaid diagrams.
 """
 import os
 import re
@@ -59,11 +59,14 @@ def _emit_code_runs(par, seg, size, bold, color, italic):
 
 def add_inline(par, text, size=11, color=None, italic=None):
     cleaned = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", text).replace("<br>", "\n")
-    for part in re.split(r"(\*\*[^*]+\*\*)", cleaned):
+    pattern = r"(\*\*[^*]+\*\*|(?<!\*)\*[^*\s][^*\n]*?(?<!\s)\*(?!\*)|(?<!\*)\*[^*\s]\*(?!\*))"
+    for part in re.split(pattern, cleaned):
         if not part:
             continue
         if part.startswith("**") and part.endswith("**"):
             _emit_code_runs(par, part[2:-2], size, True, color, italic)
+        elif part.startswith("*") and part.endswith("*") and len(part) >= 3:
+            _emit_code_runs(par, part[1:-1], size, None, color, True)
         else:
             _emit_code_runs(par, part, size, None, color, italic)
 
@@ -77,9 +80,26 @@ def shade(cell, hex_color):
     tcpr.append(shd)
 
 
+def style_callout(par, fill_hex="F0FDFA", border_hex="0E7490"):
+    ppr = par._element.get_or_add_pPr()
+    p_bdr = OxmlElement("w:pBdr")
+    left = OxmlElement("w:left")
+    left.set(qn("w:val"), "single")
+    left.set(qn("w:sz"), "24")
+    left.set(qn("w:space"), "8")
+    left.set(qn("w:color"), border_hex)
+    p_bdr.append(left)
+    ppr.append(p_bdr)
+    shd = OxmlElement("w:shd")
+    shd.set(qn("w:val"), "clear")
+    shd.set(qn("w:color"), "auto")
+    shd.set(qn("w:fill"), fill_hex)
+    ppr.append(shd)
+
+
 def _visual_len(s):
-    lines = re.sub(r"\*\*|`|\[([^\]]+)\]\([^)]+\)", r"\1", s).split("\n")
-    return max((sum(2 if ord(ch) > 127 else 1 for ch in ln.strip()) for ln in lines), default=1)
+    plain = re.sub(r"\*\*|(?<!\*)\*(?!\*)|`|\[([^\]]+)\]\([^)]+\)", r"\1", s).replace("<br>", "\n")
+    return max((sum(2 if ord(ch) > 127 else 1 for ch in ln.strip()) for ln in plain.split("\n")), default=1)
 
 
 def _compute_col_widths(rows, total_cm=16.6):
@@ -106,6 +126,7 @@ def add_table(doc, rows):
     t.autofit = False
     widths = _compute_col_widths(rows)
     small = 8.5 if len(header) >= 6 else 10
+    t.rows[0]._tr.get_or_add_trPr().append(OxmlElement("w:tblHeader"))
     for i, h in enumerate(header):
         t.columns[i].width = widths[i]
         c = t.rows[0].cells[i]
@@ -116,7 +137,9 @@ def add_table(doc, rows):
             r.bold = True
         shade(c, "0E7490")
     for r_i, r in enumerate(body):
-        cells = t.add_row().cells
+        row = t.add_row()
+        row._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
+        cells = row.cells
         for i in range(len(header)):
             cells[i].width = widths[i]
             cells[i].text = ""
@@ -223,10 +246,15 @@ def build(md_path, out_path):
         elif s.startswith("### "):
             p = doc.add_heading(level=2)
             set_font(p.add_run(s[4:]), 13, True, "155E75")
+        elif s.startswith("#### "):
+            p = doc.add_heading(level=3)
+            set_font(p.add_run(s[5:]), 11.5, True, "0E7490")
         elif s.startswith("> "):
             p = doc.add_paragraph()
-            p.paragraph_format.left_indent = Cm(0.6)
-            add_inline(p, s[2:], 10, "64748B", italic=True)
+            p.paragraph_format.left_indent = Cm(0.5)
+            p.paragraph_format.right_indent = Cm(0.3)
+            style_callout(p)
+            add_inline(p, s[2:], 10.5, "0F172A")
         elif re.match(r"^[-*] ", s):
             p = doc.add_paragraph(style="List Bullet")
             add_inline(p, s[2:])

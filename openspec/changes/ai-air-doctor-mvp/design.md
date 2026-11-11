@@ -15,8 +15,9 @@ Constraints:
 
 **Goals:**
 - Deliver an end-to-end runnable MVP covering `src/tools/`, `src/models/`, `src/agent/`, and `src/web/` with full traceability to `specs/`.
-- Achieve 24h PM2.5 forecasting RMSE ≤ 9.5 μg/m³ (≥ 35% reduction over Persistence baseline) and 6h $R^2 \ge 0.82$ on the 2025 blind test split (`E1`).
-- Reach ≥ 95–96% clinical guideline alignment and ≤ 2–3% hallucination rate across 30 clinician-reviewed scenarios (`E2`), plus ≥ 4.5/5 expert agreement on SHAP atmospheric attributions (`E3`).
+- Achieve 24h PM2.5 forecasting RMSE ≤ 9.5 μg/m³ (≥ 35% reduction over Persistence baseline) and 6h $R^2 \ge 0.82$ on the 2025 blind test split including the Taichung representative station subset (`Zhongming/Dali/Xitun`) (`E1`).
+- Reach ≥ 95–96% clinical guideline alignment, ≤ 2–3% hallucination rate, and 100% station/citation disclosure across 30 vulnerable/edge scenarios (`E2`), plus ≥ 4.5/5 expert agreement on SHAP atmospheric attributions (`E3`).
+- Guarantee ≤ 4.2s average end-to-end latency (95% ≤ 5s), 100% API-timeout/high-RH safe-degradation coverage, and `SUS ≥ 80` (`E4`).
 - Maintain full handover reproducibility via `README.md`, `DESIGN.md`, and OpenSpec artifacts.
 
 **Non-Goals:**
@@ -53,9 +54,9 @@ Constraints:
 ## Verification & Rollout Plan
 
 1. **Phase 1 (Data & Specs)**: Initialize OpenAPI ingestion (`C-2`), RH calibration, and 72h SQLite cache; verify offline fallback and station radius tests.
-2. **Phase 2 (ML & SHAP)**: Run `Algorithm 2` on 2022–2025 MOENV + CWA data (`split_date = 2025-01-01`); benchmark `E1` (XGBoost vs. Bi-LSTM vs. Persistence/MLR) and `E3` (10 episode SHAP reviews).
-3. **Phase 3 (RAG & Agent)**: Index 4 guideline corpora into ChromaDB (`C-5`), wire LangGraph ReAct (`C-1`) and `SafetyGuardrail` (`C-6`), and evaluate `E2` on 30 clinician scenarios.
-4. **Phase 4 (Gateway & UI)**: Deploy FastAPI, Streamlit, and LINE Bot (`NFR-1`, `E4` 100 concurrent query load test & SUS survey).
+2. **Phase 2 (ML & SHAP)**: Run `Algorithm 2` on 2022–2025 MOENV + CWA data (`split_date = 2025-01-01`, including the Taichung `Zhongming/Dali/Xitun` subset); benchmark `E1` (XGBoost vs. Bi-LSTM vs. Persistence/MLR) and `E3` (10 episode SHAP reviews).
+3. **Phase 3 (RAG & Agent)**: Index WHO 2021, MOENV 2024/2025 & 2025 White Paper morning/evening split, TSPCCM Asthma Manual, HPA Protective 3-Steps, and CADR guidelines into ChromaDB (`C-5`), wire LangGraph ReAct (`C-1`) and `SafetyGuardrail` (`C-6`), and evaluate `E2` on 30 clinician/edge scenarios (≥ 95–96% alignment, 100% citation disclosure).
+4. **Phase 4 (Gateway & UI)**: Deploy FastAPI, Streamlit, and LINE Bot (`NFR-1`, `E4` 100 concurrent query load test with timeout/RH fault-injection verifying 100% safe-degradation coverage, ≤ 4.2s avg latency, and `SUS ≥ 80` survey).
 5. **Rollback**: Any runtime failure in ML forecasting or ChromaDB falls back cleanly to real-time calibrated MOENV observations + static WHO/MOENV lookup tables with degraded-mode notice.
 
 ## Open Questions
