@@ -166,7 +166,7 @@ text(s, 0.9, 2.0, 10, 1.2, "AI Air Doctor", 60, WHITE, True)
 text(s, 0.9, 3.2, 10, 1.0, "結合 IoT 空品數據與環境醫學知識的\n個人化空氣品質健康代理人", 26, WHITE)
 rect(s, 0.9, 4.65, 1.2, 0.06, CYAN, shape=MSO_SHAPE.RECTANGLE)
 text(s, 0.9, 4.9, 10, 0.5, "AI Agent  +  Domain Knowledge  +  Data Analytics  +  Real-World Application", 15, MUTED)
-text(s, 0.9, 5.8, 11, 0.8, ["組員: 7115093066_楊禾睿、7115093063_徐崇皓、7115064183_謝秉樺、7115064202_譚人傑", "課程: 物聯網與智慧系統應用專題    指導教授: 陳煥 教授"], 14, MUTED)
+text(s, 0.9, 5.8, 11, 0.8, ["作者: 7115093066_楊禾睿（個人 OpenSpec Proposal Refactor 繳交版）", "課程: 物聯網與智慧系統應用專題    指導教授: 陳煥 教授"], 14, MUTED)
 
 # ---------------- 2. Motivation ----------------
 s = new_slide("研究動機 Motivation", "空氣污染是全球第二大早逝風險因子 (WHO & HEI 2025)")
@@ -281,7 +281,7 @@ card(s, 0.6, 5.5, 5.9, 1.25, "AI Technology (1/2 AI)", "XGBoost / Bi-LSTM · SHA
 card(s, 6.8, 5.5, 5.9, 1.25, "Domain Knowledge (1/2 Domain)", "WHO 2021 & MOENV 2024 [2,3] · RH>75% 感測物理校正 [15,20] · 152萬人運動劑量 [16,23] · 氣喘與 CO₂ 認知 [21,22]", GREEN, 14, 11.5)
 
 # ---------------- 5. Research Gap ----------------
-s = new_slide("研究缺口 Research Gap", "Existing Research → Limitations → Research Gap → Our Project")
+s = new_slide("研究缺口 Research Gap 與方法比較", "Existing Research → Limitations → 4×5 SWOT (proposal.md §4.4) → Research Gap → Our Project")
 steps = [("Existing Research", "PM2.5 預測模型 (LSTM)\nLLM 空品代理人 (政策)", CYAN),
          ("Limitations", "預測只輸出數字黑盒子\nAgent 缺乏即時感測與個人化", AMBER),
          ("Research Gap", "缺少整合即時 IoT + 24h 預測 +\n環境醫學 RAG 的個人化 Agent", RED),
@@ -558,7 +558,7 @@ s = new_slide("預期貢獻與學術研究價值", "Expected Contributions (實�
 rect(s, 0.6, 1.5, 5.95, 5.2, CARD)
 text(s, 0.85, 1.68, 5.45, 0.4, "🛠️ 一、預期工程與社會實務貢獻（4 維度）", 15.5, CYAN, True)
 contrib_items = [
-    ("1. 規格驅動工程貢獻：", "轉換為 OpenSpec spec-driven 四能力規格與可驗證場景，配合 DESIGN.md 達成無縫團隊移交。"),
+    ("1. 規格驅動工程貢獻：", "轉換為 OpenSpec spec-driven 四能力規格與可驗證場景，配合 DESIGN.md 達成無縫工程移交。"),
     ("2. 高可用感測與預報：", "建置含臺中代表測站檢核與 3s 超時 72h 快取架構，達成 100% 來源揭露與安全降級率。"),
     ("3. 雙軌環境醫學 KB：", "結構化對齊 WHO 2021、MOENV 2024/2025 白皮書、TSPCCM 氣喘與國健署防護 3 招 [21,25,26]。"),
     ("4. 普惠式運動防護：", "透過 Streamlit / LINE Bot 協助 140–200 萬氣喘族群與跑者主動降低有害吸入暴露劑量。"),

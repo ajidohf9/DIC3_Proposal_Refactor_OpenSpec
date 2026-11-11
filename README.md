@@ -16,7 +16,7 @@
 | **2. A–F 摘要 + 5 Cores / 3 Trade-offs / 10 Details** | 提供約 500 字精煉版＋完整工程版 `(A)–(F)` 雙軌摘要（嚴守不虛構 Expected Outcomes）與完整 5/3/10 領域深研 | [docs/proposal.md §1, §5](docs/proposal.md) |
 | **3. `DESIGN.md` 轉換為 OpenSpec 工作流** | 完整轉換至 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md` 19 項可追蹤開發與 E1–E4 驗收任務 | [DESIGN.md](DESIGN.md) ↔ [openspec/](openspec/changes/ai-air-doctor-mvp/) |
 | **4. Introduction Refactor** | 補齊 3I（Interesting · Innovative · Important）說服力、台灣新聞與政策實例 `[24–26]`、Three Core Innovations 與三大方法學學術價值 | [docs/proposal.md §3](docs/proposal.md) |
-| **5. Related Work Refactor** | 1/2 AI Technology + 1/2 Domain Know-how 平衡彙整 26 篇查證文獻暨新聞政策 `[1–26]`，含 8 篇 2024–2026 Article Summary Table | [docs/proposal.md §4](docs/proposal.md) |
+| **5. Related Work Refactor** | 1/2 AI Technology + 1/2 Domain Know-how 平衡彙整 26 篇查證文獻暨新聞政策 `[1–26]`，含 8 篇 2024–2026 Article Summary Table 與 **4×5 SWOT 方法歸納表** | [docs/proposal.md §4](docs/proposal.md) |
 
 ---
 
@@ -33,7 +33,7 @@
 ---
 
 ## 提案階段核心交付物（Proposal Package）
-- 📄 **主提案文件**：[docs/proposal.md](docs/proposal.md)（完整 A–F 摘要與緒論對照、A2Z SOP 映射總表、1/2 AI + 1/2 Domain 文獻摘要表、Deep Research 與演算法虛擬碼）
+- 📄 **主提案文件**：[docs/proposal.md](docs/proposal.md)（完整 A–F 摘要與緒論對照、A2Z SOP 映射總表、1/2 AI + 1/2 Domain 文獻摘要表、4×5 SWOT 歸納、Deep Research 與演算法虛擬碼）
 - 📑 **Word 正式提案書**：[docs/Proposal_AI_Air_Doctor.docx](docs/Proposal_AI_Air_Doctor.docx)
 - 📋 **系統性解析報告（對標《期末專題規範》×《2020 A-Z SOP》）**：[docs/AI_Air_Doctor_Proposal_Analysis.md](docs/AI_Air_Doctor_Proposal_Analysis.md) / [Word 版](docs/AI_Air_Doctor_Proposal_Analysis.docx)
 - 🗺️ **A4 橫式高密度編號資訊圖表**：[docs/img/infographic_A4.png](docs/img/infographic_A4.png)（`3508×2480` 300 DPI，涵蓋 `1.1–7.3` 全編號總覽）
@@ -43,16 +43,17 @@
 
 ---
 
-## 小組成員與分工
+## 作者與指導教授
 
-> **指導教授**：陳煥 教授
+> **指導教授**：陳煥 教授  
+> **作者**：**7115093066_楊禾睿**（個人作業繳交版 — 獨立完成 AI Air Doctor OpenSpec 規格重構、系統架構設計與文件交付）
 
-| 姓名與學號 | 負責角色與模組 | 核心工作項目 |
-|---|---|---|
-| **7115093066_楊禾睿** (組長) | Agent 核心調度與推理架構 (Agent & Planner) | LangGraph 狀態機、ReAct 工具呼叫管線、例外處理與反思機制 |
-| **7115093063_徐崇皓** | 資料工程與時序分析引擎 (Data & ML) | 環境部/氣象署 API 串接、特徵工程、XGBoost/LSTM 模型與 SHAP 歸因 |
-| **7115064183_謝秉樺** | 領域知識與 RAG 系統 (Domain Knowledge) | WHO 2021/AQI 規範整理、ChromaDB 向量庫建置、安全護欄 |
-| **7115064202_譚人傑** | 架構設計與文件交付 (Architecture & Handover) | 系統架構圖/流程圖、DESIGN.md 維護、Word/PPT 自動生成腳本 |
+| 涵蓋架構層級 | 核心工作項目 |
+|---|---|
+| **Agent 核心調度與推理架構 (Agent & Planner)** | LangGraph 狀態機、ReAct 工具呼叫管線、例外處理與反思機制 |
+| **資料工程與時序分析引擎 (Data & ML)** | 環境部／Civil IoT／氣象署 API 串接、特徵工程、XGBoost／Bi-LSTM 預報與 SHAP 歸因 |
+| **領域知識與 RAG 系統 (Domain Knowledge)** | WHO 2021／MOENV 雙軌規範整理、ChromaDB 向量庫建置、三級引用護欄 |
+| **架構設計與文件交付 (Architecture & Handover)** | OpenSpec 規格建立、系統架構圖／流程圖、`DESIGN.md` 與 Word／PPT／Infographic 生成 |
 
 ---
 

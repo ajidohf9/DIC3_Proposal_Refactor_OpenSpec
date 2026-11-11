@@ -2,7 +2,7 @@
 
 **AI Air Doctor: Systematic Proposal Analysis Aligned with Final Project Requirements, 2020 A-Z SOP, and OpenSpec Spec-Driven Workflow**
 
-組員：7115093066_楊禾睿、7115093063_徐崇皓、7115064183_謝秉樺、7115064202_譚人傑  
+作者：7115093066_楊禾睿（個人 OpenSpec Proposal Refactor 繳交版）  
 課程：物聯網與智慧系統應用專題（OpenSpec Refactor 版）  指導教授：陳煥 教授
 
 ---
@@ -71,7 +71,7 @@
 | **L** | **List organization**：文章結構導覽 | 依序安排摘要（§1）、摘要↔緒論暨 A2Z 對照（§2）、緒論與 3I／學術價值（§3）、1/2 AI+1/2 Domain 相關研究（§4）、深研 5/3/10（§5）、Proposed Scheme（§6）與文獻（§7）。 | §2、§3–§7 |
 | **M** | **Methods**：既有文獻方法分類 | 嚴格平衡 1/2 AI Technology（時序回歸 + SHAP + Tool Calling / MCP + RAG）與 1/2 Domain Know-how（法規、吸濕物理、運動生理、CO₂ 認知）。 | §4.1、§4.2 |
 | **N** | **New proposed**：本專案創新技術 | 將 `RH > 75%` 光散射補償、時間防漏預測、運動通氣加權 `effective_dose`、WHO/MOENV 雙軌分級與 `SafetyGuardrail` 自我反思封裝為 OpenSpec 四大能力。 | §3.5、§6.1 |
-| **O** | **Organize**：文獻比較與歸納表 | §4.3 完整表列 8 篇 2024–2026 研究（Ref / Year / Problem / AI / Domain / Dataset / Findings / Limitation），於 §4.4 收斂出 Research Gap。 | §4.3、§4.4 |
+| **O** | **Organize**：文獻比較與歸納表 | §4.3 完整表列 8 篇 2024–2026 研究（Ref / Year / Problem / AI / Domain / Dataset / Findings / Limitation），並於 §4.4 補齊方法比較 **4×5 SWOT 歸納表**與 Research Gap 收斂。 | §4.3、§4.4 |
 | **PA** | **Aim**：研究目標陳述 | 打造懂大氣與環境醫學、會取台灣即時數據、能 24h 定量歸因且 100% 有出處可查的個人化空氣品質健康代理人。 | §1 (C)、§3.3 |
 | **PB** | **Based on**：依託基礎與背景 | 依託 MOENV/Civil IoT/CWA 三大開放平臺 [3–6]、WHO 2021 [2]、MOENV 2024 [3]、胸腔重症氣喘指引 [21] 與四本結構化臨床知識手冊。 | §3.2、§6.1 ⑥ |
 | **PC** | **Cure / Cause**：機制有效的原因 | 以確定性氣象模型與暴露公式取代 LLM 猜測數字；以 ChromaDB RAG 與 `SafetyGuardrail` 強制核對測站與指引來源，杜絕黑木耳清肺等偽建議。 | §5 (Q3-9/10)、§6.1 ⑦ |
@@ -93,7 +93,7 @@
 | **V** | **Verify**：有效性驗證 | 對齊 OpenSpec `specs/*/spec.md` 的 Given-When-Then 驗收場景與 E1–E4 預計達成目標（`RMSE ≤ 9.5`、`對齊 ≥ 95–96%`、`幻覺 ≤ 2–3%`、`SUS ≥ 80`）。 | §1 (F)、§6.5、OpenSpec specs |
 | **W** | **What proposed**：回顧總結 | 解決空品數字與個體健康決策之間的鴻溝，將被動資訊轉為主動、個人化且可驗證的 Domain AI Agent 建議。 | §1、§3.1–§3.3 |
 | **X** | **eXcel**：專精情境與優勢 | 專精於台灣亞熱帶高濕微感測網（`RH > 75%` 補償）、秋冬背風面逆溫預報及氣喘／戶外運動族群雙軌暴露評估。 | §3.1、§3.5 |
-| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、25 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
+| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`main` / `refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、25 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
 | **Z** | **Zen**：反思與未來展望 | 誠實指出無室內 CO₂ 感測器住宅的換氣推估（`Open Questions`）與多污染物 O₃ 深入預報仍待 W1–W8 實作與實地驗證逐步完善。 | §6.6、[DESIGN.md](../DESIGN.md)、`design.md` |
 
 ---

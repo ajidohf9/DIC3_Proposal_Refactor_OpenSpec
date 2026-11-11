@@ -741,7 +741,7 @@ HTML = r"""<!DOCTYPE html>
                 <tr><td class="a2z-let">L</td><td><b>導覽</b>：摘要↔緒論對照、文獻、5/3/10深研、8模組、指標</td></tr>
                 <tr><td class="a2z-let">M</td><td><b>分類</b>：1/2 AI（ML/SHAP/Agent/RAG）+ 1/2 Domain（物/醫）</td></tr>
                 <tr><td class="a2z-let">N</td><td><b>創新</b>：感測+預測+RAG閉環、RH補償、雙軌門檻與護欄</td></tr>
-                <tr><td class="a2z-let">O</td><td><b>歸納</b>：§4.3 8篇2024–26比較表 → §4.4 Research Gap</td></tr>
+                <tr><td class="a2z-let">O</td><td><b>歸納</b>：§4.3 8篇比較 + §4.4 4×5 SWOT → Research Gap</td></tr>
                 <tr><td class="a2z-let">PA</td><td><b>目標</b>：實現有測站與醫學實證可追溯的個人空品健康代理人</td></tr>
                 <tr><td class="a2z-let">PB</td><td><b>基礎</b>：WHO 2021、MOENV 2024、Civil IoT、TSPCCM、COGfx</td></tr>
                 <tr><td class="a2z-let">PC</td><td><b>有效</b>：以確定性劑量×RAG×Guardrail替代黑盒生成</td></tr>
@@ -820,7 +820,7 @@ HTML = r"""<!DOCTYPE html>
             </div>
           </div>
           <div style="background:#0f365c;color:#e2e8f0;border-radius:6px;padding:4px 9px;font-size:10px;display:flex;justify-content:space-between;align-items:center;">
-            <span><b>GitHub Repo:</b> ajidohf9/DIC3_Proposal_Refactor_OpenSpec (Branch: refactor/openspec-proposal)</span>
+            <span><b>GitHub Repo:</b> ajidohf9/DIC3_Proposal_Refactor_OpenSpec (Branch: main / refactor/openspec-proposal)</span>
             <span style="color:#67e8f9;font-weight:700;">No Fabricated Data · Verified Citations [1–26]</span>
           </div>
         </div>
@@ -831,7 +831,7 @@ HTML = r"""<!DOCTYPE html>
 
   <div class="footer">
     <span>AI Air Doctor · 國立中興大學 物聯網與智慧系統應用專題 (OpenSpec Spec-Driven Refactor)</span>
-    <span>組員：7115093066 楊禾睿 · 7115093063 徐崇皓 · 7115064183 謝秉樺 · 7115064202 譚人傑 ｜ 指導教授：陳煥 教授</span>
+    <span>作者：7115093066 楊禾睿（個人 OpenSpec Proposal Refactor 版） ｜ 指導教授：陳煥 教授</span>
   </div>
 </div>
 </body>

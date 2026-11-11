@@ -1,8 +1,8 @@
 # DESIGN.md — AI Air Doctor 系統設計與開發移交文件
 
-> **專案狀態**：Proposal & OpenSpec Refactor 階段（個人作業分支：`refactor/openspec-proposal`）  
+> **專案狀態**：Proposal & OpenSpec Refactor 階段（個人作業繳交版，主分支：`main` / `refactor/openspec-proposal`）  
 > **指導教授**：陳煥 教授  
-> **開發團隊**：7115093066_楊禾睿、7115093063_徐崇皓、7115064183_謝秉樺、7115064202_譚人傑  
+> **作者**：7115093066_楊禾睿（個人獨立重構開發）  
 > **OpenSpec 工作流**：本設計已轉換為 [openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/) 下之 `spec-driven` 工作流（`proposal → specs → design → tasks`）。  
 > **維護規範**：本文件依據作業要求之「標準移交鏈條（Standard Handover Pipeline）」編撰，旨在使任何後續接手的開發者皆能無縫理解、本機重現、驗證並持續迭代本專題。
 

@@ -270,7 +270,7 @@ def build(md_path, out_path):
             p = doc.add_paragraph()
             if s.startswith("**Proposal") or s.startswith("AI Air Doctor:") or s.startswith("**AI Air Doctor:"):
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
-            if line.startswith("組員") or line.startswith("課程"):
+            if line.startswith(("作者", "組員", "課程")):
                 p.alignment = WD_ALIGN_PARAGRAPH.CENTER
             add_inline(p, s.rstrip("\\").strip())
             # page break after cover info
