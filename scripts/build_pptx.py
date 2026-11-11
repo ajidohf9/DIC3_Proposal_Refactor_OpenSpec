@@ -27,7 +27,7 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 BLANK = prs.slide_layouts[6]
-TOTAL = 16
+TOTAL = 17
 _page = [0]
 
 
@@ -163,9 +163,44 @@ for i, (num, desc, c) in enumerate(stats):
 text(s, 0.7, 4.45, 12, 0.4, "資料來源: Health Effects Institute, State of Global Air 2025 & The Lancet", 11, MUTED)
 rect(s, 0.7, 5.0, 11.9, 1.7, CARD2)
 text(s, 1.0, 5.15, 11.4, 1.5, [
-    ("台灣情境挑戰", {"bold": True, "color": CYAN, "size": 17}),
-    "西半部受工業排放與秋冬東北季風境外傳輸雙重影響，中央山脈背風面常引發顯著逆溫滯留與弱風沉降；"
-    "中南部頻繁出現 PM2.5 紅色警戒，對全台超過 200 萬氣喘患者、長者與兒童造成重大健康威脅。"], 15)
+    ("台灣情境挑戰 (MOENV 2024/2025 & NCHU 2025 實證)", {"bold": True, "color": CYAN, "size": 17}),
+    "台灣 2024 年 PM2.5 全國年均降至 12.8 μg/m³ 且環境部於 2024/09 修訂嚴格標準 (年均 12 / 日均 30 μg/m³)，"
+    "但秋冬中南部逆溫滯留仍頻繁超標，影響約 140–200 萬氣喘族群；NCHU 團隊 152 萬人研究 (BMC Med. 2025) 更證實 PM2.5 ≥ 25 μg/m³ 使運動保護力減半。"], 14)
+
+# ---------------- 3. Abstract & Introduction Structure Alignment ----------------
+s = new_slide("Abstract（摘要）與 Introduction（緒論）結構對照", "六段式 (A–F) 嚴密呼應 · 嚴格遵循「未實驗者僅列 Expected Outcomes，不虛構數據」")
+rect(s, 0.6, 1.55, 6.2, 5.2, CARD)
+text(s, 0.85, 1.7, 5.7, 0.4, "📋 Abstract 六段式（A–F）對照", 16, CYAN, True)
+af_items = [
+    ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台灣 2024 年均 12.8 / 新標 12·30 μg/m³、140–200 萬氣喘與 152 萬人運動閾值引題 [1,3,16,21]。"),
+    ("B. But（挑戰）：", "現有 App 僅單點數值無個人化；純 ML 缺語意轉譯；通用 LLM 缺即時感測與護欄易生幻覺；微感測 RH>75% 易虛高 [9–15,20]。"),
+    ("C. Cure（解藥）：", "提出 AI Air Doctor 個人化 Domain AI Agent，並以 OpenSpec 規格驅動實作。"),
+    ("D. Development（方法）：", "整合 LangGraph ReAct、MOENV+Civil IoT+CWA、XGBoost/Bi-LSTM+SHAP、換氣劑量×雙軌門檻、ChromaDB RAG 與護欄 [2–8,17–23]。"),
+    ("E. Experiments（評估）：", "規劃 2022–2025 盲測對比 Persistence/MLR (E1)、30 組醫師情境對比 GPT-4o (E2)、10 場 SHAP 專家評核 (E3) 與 100 併發/SUS (E4)。"),
+    ("F. Findings（預期產出）：", "不虛構數據，預期 RMSE ≤9.5 μg/m³ (降35%+)、對齊率 ≥95–96%、幻覺率 ≤2–3%、100% 可追溯引用、延遲 ≤4.2s、SUS ≥80。"),
+]
+for i, (k, v) in enumerate(af_items):
+    tb = s.shapes.add_textbox(Inches(0.85), Inches(2.15 + i * 0.75), Inches(5.7), Inches(0.72))
+    tf = tb.text_frame
+    tf.word_wrap = True
+    tf.margin_left = tf.margin_right = Inches(0.05)
+    tf.margin_top = tf.margin_bottom = Inches(0.02)
+    p = tf.paragraphs[0]
+    p.line_spacing = 1.08
+    r1 = p.add_run()
+    r1.text = k
+    _font(r1, 11.5, GREEN, True)
+    r2 = p.add_run()
+    r2.text = v
+    _font(r2, 11.5, WHITE, False)
+
+table(s, 7.05, 1.55, 5.65, [
+    ["Abstract (A–F)", "對應 Introduction", "核心對照關係"],
+    ["A. Attention Getter", "A. Attention Getter", "同一組權威統計引題，Intro 展開台灣季風地形衝擊"],
+    ["B. But（挑戰）", "B. Background\nC. Problem\nD. Limitations", "Intro 補齊台灣 IoT 背景、晨跑四大支柱與四類系統瓶頸"],
+    ["C. Cure（解藥）\nD. Development", "E. Innovation", "Intro 聚焦三閉環、RH>75% 校準、雙軌與 OpenSpec 創新"],
+    ["E. Experiments\nF. Findings", "F. Contributions", "統一 E1–E4 預計指標並歸納架構/技術/知識/應用貢獻"],
+], [1.65, 1.55, 2.45], 11.5, 0.96)
 
 # ---------------- 3. Problem ----------------
 s = new_slide("問題定義 Problem", "民眾真正想問的，不是「AQI 多少」，而是「我該怎麼做」")
@@ -190,17 +225,17 @@ table(s, 6.8, 1.75, 5.85, [
 ], [1.95, 1.85, 2.05], 13, 0.85)
 
 # ---------------- 4. Related Work ----------------
-s = new_slide("文獻回顧 Related Work", "½ AI Technology + ½ Domain Know-how (2025–2026 前沿研究)")
+s = new_slide("文獻回顧 Related Work", "½ AI Technology + ½ Domain Know-how (經查證之 2024–2026 前沿研究)")
 table(s, 0.6, 1.65, 12.1, [
     ["Ref", "Year", "Problem", "AI Method", "Domain Knowledge", "Dataset", "Findings", "Limitation"],
-    ["[9]", "2025", "野火空品分析與政策研擬", "Instructor-Worker Agent", "野火煙霧、公衛分級", "2025 LA Wildfire", "自主起草政府通報", "偏宏觀政策無個人化"],
-    ["[10]", "2025", "感測數據非專業民眾難懂", "LLM + MCP 介面", "室內 PM/CO₂ 毒理", "室內 IoT 序列", "數據轉行動指引", "缺乏未來時間預測"],
-    ["[11]", "2025", "複雜地形 PM2.5 高精預測", "CNN-LSTM 混合模型", "風向正交分解、地形", "台灣環境部 3 年站點", "顯著改善風場預測", "純數值輸出無互動"],
-    ["[12]", "2025", "極端高污染突發事件預警", "Transformer + 重採樣", "沙塵時空傳輸特徵", "東亞大氣監測網", "改善極值預測敏感度", "缺少氣象因果解釋"],
-    ["[15]", "2025", "即時 AQI 與運動健康建議", "Multi-Agent 框架", "運動生理換氣係數", "開源 IoT 感測網", "有效平衡運動與空污", "醫學知識庫缺乏校驗"],
-], [0.6, 0.6, 1.8, 2.0, 1.6, 1.6, 2.1, 1.8], 11, 0.62)
-card(s, 0.6, 5.55, 5.9, 1.25, "AI Technology", "CNN-LSTM / Transformer 時序預測 · XGBoost · SHAP 可解釋 · ReAct Agent · RAG 檢索", CYAN, 15, 12)
-card(s, 6.8, 5.55, 5.9, 1.25, "Domain Knowledge", "WHO 2021 指引 · 台灣 AQI 六級 · 暴露換氣生理學 · 輻射逆溫與光化反應", GREEN, 15, 12)
+    ["[9]", "2025", "洛杉磯野火空品與政策", "Instructor-Worker LLM", "野火煙霧、公衛分級", "2025 LA 野火監測", "多代理協作產出政策通報", "偏宏觀政策無個人化預報"],
+    ["[10]", "2025", "非專家難解讀即時感測", "LLM + MCP 伺服器", "PM2.5/PM10/VOCs 規範", "即時空品感測串流", "MCP 工具調用顯著降幻覺", "缺少 24h 預測與醫療 RAG"],
+    ["[14]", "2024", "台灣尖峰 PM2.5 時空變異", "Geo-AI 集成 + SHAP", "交通排放、微氣象擴散", "台灣測站與地理資料", "量化氣象與空間關鍵因子", "純估計模型無互動處方"],
+    ["[15]", "2026", "台灣微感測高濕校正建模", "ML 融合 + RH 補償", "光散射吸濕成長機制", "台灣微感測網 + AOD", "納入 RH 大幅提升精度", "僅網格製圖無前瞻建議"],
+    ["[16]", "2025", "空污下運動健康淨效益", "統合分析與世代匯集", "運動效益 vs PM2.5 劑量", "7 世代 152 萬成人", "≥25μg/m³ 保護效益減半", "需智慧 Agent 落實排程"],
+], [0.55, 0.65, 1.85, 1.95, 1.75, 1.65, 1.9, 1.8], 11, 0.62)
+card(s, 0.6, 5.55, 5.9, 1.25, "AI Technology", "XGBoost / Bi-LSTM · SHAP 可解釋 [14] · MCP / Instructor-Worker [9,10] · ReAct & Health-LLM RAG [13]", CYAN, 15, 12)
+card(s, 6.8, 5.55, 5.9, 1.25, "Domain Knowledge", "WHO 2021 & MOENV 2024 [2,3] · RH>75% 感測物理校正 [15,20] · 152萬人運動劑量 [16,23] · CO₂ 認知 [22]", GREEN, 15, 12)
 
 # ---------------- 5. Research Gap ----------------
 s = new_slide("研究缺口 Research Gap", "Existing Research → Limitations → Research Gap → Our Project")
@@ -227,11 +262,11 @@ table(s, 0.6, 3.85, 12.1, [
 # ---------------- 6. Deep Research: 5 Mindsets (New Slide!) ----------------
 s = new_slide("領域深度研究：五大專家核心思維 (佔比 20%)", "大氣科學與環境醫學專家普遍認同之 5 Core Mindsets")
 m_data = [
-    ("1. 暴露劑量 ≠ 環境濃度", "人體吸收量取決於呼吸換氣量與暴露時間；跑步換氣量增加 5-8 倍，沉積劑量暴增。", "Agent 引入運動係數加權評估"),
-    ("2. 敏感族群無安全閾值", "WHO 證實微量 PM2.5 仍與心肺死亡率線性正相關，低濃度對氣喘者依然致命。", "氣喘者直接切換 WHO 嚴格標準"),
-    ("3. 微環境時空異質性", "道路峽谷效應與熱源使相距 500m 測值相差數倍，單一大型站不足反映街區微氣候。", "整合 Civil IoT 微型感測雙層感知"),
-    ("4. 大氣動力學非線性主導", "空污爆發多因輻射逆溫、混合層高度下壓與靜風，而非排放突然增加。", "特徵工程納入風向量與日夜溫差"),
-    ("5. 前瞻預警重於事後確認", "微粒吸入後肺泡氧化傷害不可逆，提早 2h 關窗開清淨機可降 65% 室內暴露峰值。", "主打未來 24h 預測與開窗窗口建議"),
+    ("1. 暴露劑量 ≠ 環境濃度", "跑步換氣量由 6–8 升至 50–100+ L/min (8–15 倍) 且口呼吸；PM2.5 ≥25μg/m³ 使運動保護力減半 [16,23]。", "personalized-exposure-rag 換氣加權"),
+    ("2. 敏感族群無安全閾值", "WHO 證實低濃度仍呈無閾值線性風險，台灣約 140–200 萬氣喘族群耐受度遠低於常人。", "氣喘者自動切換 WHO 2021 (15μg/m³)"),
+    ("3. 微環境異質與感測物理", "街谷微區濃度差異大，但光散射感測器在 RH>75% 易吸濕膨脹虛高，需氣象校正與標準站比對。", "3km 標準站 + 1km 微感測 + RH 閘門"),
+    ("4. 大氣動力學非線性主導", "高污染主因多為輻射逆溫、混合層下壓與靜風停滯，而非排放源突增，須納入氣象動力場。", "特徵工程含風向量(u,v)與溫差 ΔT"),
+    ("5. 前瞻預警重於事後確認", "氣道發炎具滯後與不可逆性，需於高峰前 1–6 小時啟動關窗、HEPA 或調整戶外訓練窗口。", "時態路由優先 24h 預報與開窗推薦"),
 ]
 for i, (m_title, m_exp, m_sys) in enumerate(m_data):
     y = 1.65 + i * 1.02
@@ -247,12 +282,12 @@ s = new_slide("領域深度研究：三大專業爭論與十個深度問題", "C
 rect(s, 0.6, 1.6, 6.0, 5.2, CARD)
 text(s, 0.85, 1.75, 5.5, 0.4, "⚖️ 三大核心專業爭論", 16, AMBER, True)
 controvs = [
-    ("爭論 1: 微型感測器精度 vs 測站法規代表性",
-     "A: 捕捉超局部污染熱點  ↔  B: 高濕水氣易虛高漂移\n→ 共識: 經溫濕度 ML 動態校正後作為相對趨勢預警"),
-    ("爭論 2: 嚴重紅害時應「極限密閉」還是「開窗通風」？",
-     "A: 阻絕室外致癌微粒  ↔  B: 長期密閉 CO₂ 破 1800ppm 嗜睡\n→ 共識: 依大氣風場調度 10-15 分鐘「脈衝式換氣」+ HEPA 滿載"),
-    ("爭論 3: 採用 WHO 嚴格標準 vs 漸進式國家標準",
-     "A: 捍衛健康人權揭露危害 ↔ B: 硬套引發常態違規與警報疲勞\n→ 共識: 法規採階梯達標，Agent 個人諮詢如實揭露 WHO 分級"),
+    ("Trade-off 1: 微型感測器空間密度 vs 高濕度誤差",
+     "A: 捕捉 1km 局部熱點  ↔  B: RH>75% 吸濕膨脹易虛高漂移\n→ 共識: 經 RH 非線性校正並交叉比對 5km 標準站作為輔助預警"),
+    ("Trade-off 2: 室外紅害防滲透密閉 vs 室內 CO₂ 認知衰退",
+     "A: 緊閉門窗阻隔 PM2.5  ↔  B: CO₂ 達 1000–1400+ppm 顯著降認知 [22]\n→ 共識: 依風場調度 10–15 分鐘「脈衝式換氣」+ HEPA 最大風速"),
+    ("Trade-off 3: WHO 嚴格標準 (15) vs 國家標準 (30) 與警報疲勞",
+     "A: 依 WHO 全面警示  ↔  B: 過度警示引發警報疲勞與麻木\n→ 共識: 法規採 MOENV 2024 (12/30)，Agent 依族群雙軌揭露"),
 ]
 for i, (ct, cb) in enumerate(controvs):
     y = 2.2 + i * 1.45
@@ -261,14 +296,14 @@ for i, (ct, cb) in enumerate(controvs):
     text(s, 0.95, y + 0.42, 5.3, 0.85, cb, 11, WHITE)
 
 rect(s, 6.8, 1.6, 5.9, 5.2, CARD)
-text(s, 7.05, 1.75, 5.4, 0.4, "🧠 十大深度理解問題 (推理層次覆蓋)", 16, VIOLET, True)
+text(s, 7.05, 1.75, 5.4, 0.4, "🧠 十大深度理解問題 (10 Details 推理覆蓋)", 16, VIOLET, True)
 qs = [
-    ("Why / 大氣光化學", "夏季萬里無雲、PM2.5 僅 8μg/m³，為何體育課需緊急中止？ (O₃ 臭氧二次光化反應)"),
-    ("What-if / 逆溫層物理", "清晨風速 0.3m/s 伴隨輻射逆溫，對通勤排放有何致命後果？ (混合層下壓壓制對流)"),
-    ("Trade-off / 微環境平衡", "室外 PM2.5 85μg/m³ 且室內 CO₂ 達 1700ppm，如何權衡？ (短暫縫隙對流 + 清淨機全速)"),
-    ("Failure Case / 感測失效", "雨天微型空氣盒子回報 110μg/m³ 但標準站僅 18，物理成因何在？ (微粒吸水潮解散射激增)"),
-    ("Design / 數據洩漏", "預測模型為何嚴禁 Random K-Fold 切分？ (時序強自相關性造成 Data Leakage 虛假高分)"),
-    ("Evidence / 生理劑量", "為何 PM2.5 35μg/m³ 慢跑 1h 吸入量等同 2 支二手煙？ (換氣量增 8 倍且口呼吸失去鼻腔過濾)"),
+    ("Why / 大氣光化學", "夏季萬里無雲、PM2.5 僅 8μg/m³，為何體育課需中止？ (紫外線催化 O₃ 二次光化)"),
+    ("What-if / 逆溫層物理", "清晨風速 0.3m/s 伴隨輻射逆溫，對通勤排放有何後果？ (低混合層鎖死廢氣)"),
+    ("Trade-off / 微環境平衡", "室外 PM2.5 85 且室內 CO₂ 達 1400–1700ppm，如何權衡？ (10–15m 脈衝對流 + HEPA)"),
+    ("Failure / 感測物理", "陰雨 RH 95% 微感測報 110 但標準站僅 18，成因何在？ (RH>75% 吸濕膨脹誤判)"),
+    ("Design / 時序防漏", "預測模型為何嚴禁 Random K-Fold？ (強時序自相關造成未來 Data Leakage 虛高)"),
+    ("Evidence / 生理與世代", "為何 38μg/m³ 跑步風險大增？ (換氣 8–15 倍且 ≥25μg/m³ 運動保護力減半 [16,23])"),
 ]
 for i, (ql, qd) in enumerate(qs):
     y = 2.2 + i * 0.73
@@ -315,7 +350,7 @@ table(s, 5.5, 1.7, 7.2, [
 ], [1.85, 1.35, 2.2, 1.8], 12, 0.62)
 table(s, 5.5, 5.6, 7.2, [
     ["族群分類 (PM2.5 μg/m³)", "🟢 低風險", "🟡 中風險", "🟠 高風險", "🔴 極高風險"],
-    ["一般民眾 (標準 AQI)", "≤ 30", "31–50", "51–70", "> 70"],
+    ["一般民眾 (MOENV 2024)", "≤ 30", "31–50", "51–70", "> 70"],
     ["敏感族群 (WHO 2021 對齊)", "≤ 15", "16–30", "31–50", "> 50"],
 ], [2.2, 1.25, 1.25, 1.25, 1.25], 12, 0.38)
 
@@ -385,18 +420,18 @@ card(s, 7.9, 1.65, 4.8, 3.1, "Algorithm 2 · 時序特徵與模型", [
     "• 補值機制: 時空 KNN 反距離加權補值",
     "• 特徵工程: Lag 1–24h、風向量分解(u, v)、日夜溫差逆溫指標",
     "• 資料切分: 嚴格 Time-Series Split (2025 為盲測集)",
-    "• 預測模型: XGBoost + LSTM 雙軌，SHAP 歸因"], AMBER, 16, 12.5)
-card(s, 0.6, 5.0, 12.1, 1.75, "系統技術選型架構", "LLM: Gemini 1.5 Pro / GPT-4o   ·   Agent 框架: LangGraph   ·   時序 ML: XGBoost、PyTorch、SHAP   ·   "
-     "向量資料庫: ChromaDB   ·   後端服務: FastAPI   ·   前端交付: Streamlit 儀表板 / LINE Bot", CYAN, 16, 14)
+    "• 預測模型: XGBoost + 2-Layer Bi-LSTM 雙軌，SHAP 歸因"], AMBER, 16, 12.5)
+card(s, 0.6, 5.0, 12.1, 1.75, "系統技術選型與 OpenSpec 架構", "Spec-Driven: OpenSpec 1.2.0 (4 Capabilities)   ·   LLM: Gemini / GPT-4o   ·   Agent: LangGraph   ·   "
+     "時序 ML: XGBoost、PyTorch、SHAP   ·   向量庫: ChromaDB   ·   介面: FastAPI + Streamlit / LINE Bot", CYAN, 16, 13.5)
 
 # ---------------- 14. Experiments ----------------
 s = new_slide("實驗設計與預期成果 Experiments & Expected Findings")
 table(s, 0.6, 1.5, 12.1, [
-    ["實驗編號", "測試項目", "對比基準 (Baseline)", "評估指標 (Metrics)", "預期達成目標"],
-    ["E1 數值預測效能", "24h PM2.5 預測", "Persistence (恆常) / 線性回歸", "MAE, RMSE, R² (1h/6h/24h)", "RMSE 降低 35% 以上，6h R² ≥ 0.82"],
-    ["E2 醫療處方正確性", "30 組醫師審定情境", "原始 GPT-4o / 無時序 RAG", "醫學指引對齊率、幻覺率", "幻覺率 ≤ 3%，指引對齊率 ≥ 95%"],
+    ["實驗編號", "測試項目", "對比基準 (Baseline)", "評估指標 (Metrics)", "預期達成目標 (統一口徑)"],
+    ["E1 數值預測效能", "24h PM2.5 預測", "Persistence (恆常) / 線性回歸", "MAE, RMSE, R² (1h/6h/24h)", "RMSE 降 35%+ (≤9.5), 6h R² ≥ 0.82"],
+    ["E2 醫療處方正確性", "30 組醫師審定情境", "原始 GPT-4o / 無時序 RAG", "醫學指引對齊率、幻覺率", "幻覺率 ≤ 2–3%，對齊率 ≥ 95–96%"],
     ["E3 成因可解釋性", "10 場歷史紅害事件", "無 SHAP 之純文字預測", "專家成因歸因評分 (1–5)", "大氣成因吻合度 ≥ 4.5 分"],
-    ["E4 系統可用性", "100 次連續併發請求", "傳統多層雲端架構", "端到端延遲、SUS 滿意度問卷", "延遲 ≤ 4.2s，SUS 分數 ≥ 80 分"],
+    ["E4 系統可用性", "100 次連續併發請求", "傳統多層雲端架構", "端到端延遲、SUS 滿意度問卷", "平均延遲 ≤ 4.2s (95% ≤ 5s), SUS ≥ 80"],
 ], [1.8, 2.2, 2.7, 2.7, 2.7], 13, 0.6)
 text(s, 0.6, 4.75, 6, 0.5, "🎯 Expected Findings (嚴格依據作業規範，不虛構實驗數據)", 17, GREEN, True)
 for i, t in enumerate(["24h PM2.5 預測誤差明顯低於 Persistence Baseline，捕捉逆溫驟增能力顯著提升",
@@ -419,29 +454,30 @@ for i, (w, t, c) in enumerate(tl):
     rect(s, x, 4.0, 2.3, 1.5, CARD)
     text(s, x + 0.1, 4.1, 2.1, 1.3, t, 15, WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
 rect(s, 0.9, 5.85, 11.5, 0.9, CARD2, line=GREEN)
-text(s, 1.1, 5.95, 11.1, 0.7,
-     "📦 Final Handover 標準: GitHub + README.md + DESIGN.md 完整維護，"
-     "確保即使原開發者不在，下一位開發者仍能透過文件理解、執行、驗證並繼續開發此專題。",
+text(s, 0.9, 5.95, 11.5, 0.8,
+     "📦 OpenSpec + Final Handover: 已完成 openspec/changes/ai-air-doctor-mvp/ (proposal/specs/design/tasks) "
+     "與 GitHub + README.md + DESIGN.md 雙軌維護，確保下一位開發者無縫執行、驗證與開發。",
      14, WHITE, True, PP_ALIGN.CENTER, MSO_ANCHOR.MIDDLE)
 
 # ---------------- 16. References ----------------
-s = new_slide("參考文獻 References (2025–2026 前沿研究)")
+s = new_slide("參考文獻 References (經查證之 2024–2026 核心研究)")
 refs = [
-    "[1] Health Effects Institute (2025). State of Global Air 2025. Boston, MA: HEI.",
-    "[2] WHO (2021). WHO Global Air Quality Guidelines: Particulate Matter, Ozone, NO2. Geneva: WHO.",
-    "[3] 中華民國環境部 (MOENV) (2025). 空氣品質監測網開放資料平台. data.moenv.gov.tw",
-    "[4][5] 國科會與環境部 (2025). 民生公共物聯網 (Civil IoT Taiwan) 資料服務平台. ci.taiwan.gov.tw",
-    "[6] 交通部中央氣象署 (CWA) (2025). 氣象資料開放平臺 API 規範. opendata.cwa.gov.tw",
-    "[7] Yao, S. et al. (2023). ReAct: Synergizing Reasoning and Acting in Language Models. ICLR 2023.",
-    "[8] Lewis, P. et al. (2020). Retrieval-Augmented Generation for Knowledge-Intensive NLP Tasks. NeurIPS 2020.",
-    "[9] Zhang, W. et al. (2025). Instructor-Worker LLM System for Air Quality Policy Recommendation. arXiv.",
-    "[10] Lin, H. & Wang, Y. (2025). LLM-enhanced Air Quality Monitoring Interface via MCP. arXiv.",
-    "[11] Huang, K. C. & Tseng, C. H. (2025). High-resolution PM2.5 forecasting over complex terrain. Atmos. Environ.",
-    "[12] Chang, Y. T. & Kuo, P. H. (2025). Extreme air pollution event forecasting via TFT. Environ. Model. Softw.",
-    "[13] Chen & Guestrin (2016). XGBoost. KDD.    [14] Lundberg & Lee (2017). SHAP. NeurIPS.",
-    "[15] Patel, R. & Kumar, S. (2025). Multi-agent framework for real-time AQI monitoring. PerIoT 2025.",
+    "[1] Health Effects Institute (2025). State of Global Air 2025. Boston, MA: HEI. stateofglobalair.org",
+    "[2] WHO (2021). WHO Global Air Quality Guidelines (PM2.5 24h: 15 μg/m³, annual: 5 μg/m³).",
+    "[3] 中華民國環境部 (MOENV) (2024/2025). 空氣品質標準修正 (12/30 μg/m³) 與開放資料平台 data.moenv.gov.tw",
+    "[4][5] 國科會與環境部 (2025). 民生公共物聯網 (Civil IoT Taiwan) & Chen et al. (2020) IEEE Commun. Mag.",
+    "[6][7][8] 中央氣象署 CWA API (2025); Yao et al. (2023) ReAct (ICLR); Lewis et al. (2020) RAG (NeurIPS).",
+    "[9] Gao, K. et al. (2025). Instructor-Worker LLM System for LA Wildfires Air Quality. arXiv:2503.00566.",
+    "[10] Pan, Y.-E. & Nipu, A. S. (2025). LLM-enhanced Air Quality Monitoring Interface via MCP. arXiv:2511.03706.",
+    "[11] Vieira, R. et al. (2026). LLM-based air quality monitoring & alerts (EnQyMo). arXiv:2609.17954.",
+    "[12] Dey, P. et al. (2026). Meteorology-Driven GPT4AP for Atmospheric Pollution. arXiv:2603.29974.",
+    "[13] Yu, Q. et al. (2024/2025). Health-LLM: Personalized RAG Disease Prediction. arXiv:2402.00746.",
+    "[14] Wong, P.-Y. et al. (2024). Explainable Geo-AI + SHAP for PM2.5 in Taiwan. Environ. Pollut. 123974.",
+    "[15] Jung, C.-R. et al. (2026). High-res PM2.5 in Taiwan w/ LCS & AOD. J. Expo. Sci. Environ. Epidemiol.",
+    "[16] Ku, P.-W. et al. (2025). Ambient PM2.5 & physical activity (1.5M adults). BMC Medicine. (NCHU 團隊)",
+    "[17][18][20][22][23] XGBoost (2016); SHAP (2017); Hua (2021)/Jayaratne (2018) RH; Allen (2016) CO₂; Daigle (2003).",
 ]
-text(s, 0.7, 1.45, 12, 4.6, refs, 12.5, WHITE, spacing=1.15)
+text(s, 0.7, 1.4, 12, 4.75, refs, 11.5, WHITE, spacing=1.1)
 text(s, 0.7, 6.25, 12, 0.5, "Thank you!  Q & A", 24, CYAN, True, PP_ALIGN.CENTER)
 
 prs.save(OUT)

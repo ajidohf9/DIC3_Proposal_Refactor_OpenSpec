@@ -33,53 +33,60 @@ def arrow(ax, p1, p2, color="#64748B", text=None, rad=0.0, lw=1.8):
 
 
 def architecture():
-    fig, ax = plt.subplots(figsize=(13.5, 7.0), dpi=220)
+    fig, ax = plt.subplots(figsize=(13.5, 7.4), dpi=220)
     ax.set_xlim(0, 13.5)
-    ax.set_ylim(0, 7.0)
+    ax.set_ylim(-0.45, 7.2)
     ax.axis("off")
 
     # Title
-    ax.text(6.75, 6.65, "AI Air Doctor 系統總體架構圖 (System Architecture)",
+    ax.text(6.75, 6.82, "AI Air Doctor 系統總體架構圖 (System Architecture)",
             ha="center", fontsize=16, fontweight="bold", color="#0F172A")
-    ax.text(6.75, 6.32, "8 大功能模組以 ①②③④⑤⑥⑦⑧ 統一編號 · 端到端可追溯推理管線",
+    ax.text(6.75, 6.48, "8 大功能模組以 ①②③④⑤⑥⑦⑧ 統一編號 · OpenSpec Spec-Driven 可追溯推理管線",
             ha="center", fontsize=11, color="#64748B")
 
     # Layer 1 & 2: User Scenario and Query Input
-    box(ax, 1.6, 4.8, 2.5, 1.15, "① User & Scenario\n氣喘病患 · 戶外跑者 · 長者", C_USER, fs=10)
-    box(ax, 1.6, 3.2, 2.5, 1.15, "② Query & Profile\n自然語言提問\n+ 本機健康檔案 (SQLite)", "#6D28D9", fs=9.5)
-    arrow(ax, (1.6, 4.2), (1.6, 3.8))
+    box(ax, 1.4, 4.95, 2.35, 1.1, "① User & Scenario\n氣喘病患 · 戶外跑者 · 長者", C_USER, fs=9.5)
+    box(ax, 1.4, 3.35, 2.35, 1.15, "② Query & Profile\n自然語言提問\n+ 本機健康檔案 (SQLite)", "#6D28D9", fs=9.5)
+    arrow(ax, (1.4, 4.38), (1.4, 3.95))
 
     # Layer 3: Planner & Reasoning Agent
-    box(ax, 4.7, 3.9, 2.6, 2.0, "③ Planner & Reasoning\nAgent 大腦 (ReAct)\n━━━━━━━━━━\n意圖解析 · 工具調度\n反思校驗護欄", C_AGENT, fs=10.5)
-    arrow(ax, (2.85, 3.2), (3.4, 3.5), text="傳入查詢")
+    box(ax, 4.95, 4.05, 2.55, 2.0, "③ Planner & Reasoning\nAgent 大腦 (ReAct)\n━━━━━━━━━━\n意圖解析 · 工具調度\n反思校驗護欄", C_AGENT, fs=10)
+    arrow(ax, (2.6, 3.5), (3.65, 3.95))
+    ax.text(3.12, 3.95, "傳入查詢", ha="center", fontsize=9, color="#475569", fontweight="bold")
 
     # Right side: Modules 4, 5, 6
     # Module 4: Data Acquisition
-    box(ax, 8.4, 5.4, 2.6, 0.9, "Tool: 即時微環境感測\n環境部 + Civil IoT", C_TOOL, fs=9.5)
-    box(ax, 11.8, 5.4, 2.4, 0.9, "④ Data Acquisition\n環境部 OpenAPI (標準站)\nCivil IoT (社區感測器)", C_DATA, fs=9)
-    arrow(ax, (6.0, 4.5), (7.1, 5.4))
-    arrow(ax, (9.7, 5.4), (10.6, 5.4))
+    box(ax, 8.55, 5.5, 2.6, 0.9, "Tool: 即時微環境感測\nMOENV + Civil IoT + CWA", C_TOOL, fs=9.5)
+    box(ax, 11.9, 5.5, 2.45, 0.9, "④ Data Acquisition\n環境部 (≤3km) · 微感測 (≤1km)\nRH>75% 校正 · 72h 快取", C_DATA, fs=8.8)
+    arrow(ax, (6.25, 4.65), (7.23, 5.5))
+    arrow(ax, (9.88, 5.5), (10.65, 5.5))
 
     # Module 5: Analytics Engine
-    box(ax, 8.4, 3.9, 2.6, 0.9, "Tool: PM2.5 預測模型\nXGBoost + LSTM", C_TOOL, fs=9.5)
-    box(ax, 11.8, 3.9, 2.4, 0.9, "⑤ Analytics Engine\n24h 時序預測引擎\n+ SHAP 大氣因果歸因", C_DATA, fs=9)
-    arrow(ax, (6.0, 3.9), (7.1, 3.9))
-    arrow(ax, (9.7, 3.9), (10.6, 3.9))
+    box(ax, 8.55, 4.05, 2.6, 0.9, "Tool: PM2.5 預測模型\nXGBoost + 2-Layer Bi-LSTM", C_TOOL, fs=9.2)
+    box(ax, 11.9, 4.05, 2.45, 0.9, "⑤ Analytics Engine\n24h 時序預測引擎\n+ SHAP 大氣因果歸因", C_DATA, fs=9)
+    arrow(ax, (6.25, 4.05), (7.23, 4.05))
+    arrow(ax, (9.88, 4.05), (10.65, 4.05))
 
     # Module 6: Domain Knowledge
-    box(ax, 8.4, 2.4, 2.6, 0.9, "Tool: 醫療指引檢索\nRAG 語意搜尋", C_TOOL, fs=9.5)
-    box(ax, 11.8, 2.4, 2.4, 0.9, "⑥ Domain Knowledge\nChromaDB 向量專家庫\nWHO 2021 + AQI 指南", C_DATA, fs=9)
-    arrow(ax, (6.0, 3.3), (7.1, 2.4))
-    arrow(ax, (9.7, 2.4), (10.6, 2.4))
+    box(ax, 8.55, 2.6, 2.6, 0.9, "Tool: 醫療指引檢索\nRAG 語意搜尋", C_TOOL, fs=9.5)
+    box(ax, 11.9, 2.6, 2.45, 0.9, "⑥ Domain Knowledge\nChromaDB 向量專家庫\nWHO 2021 + MOENV 2024", C_DATA, fs=8.8)
+    arrow(ax, (6.25, 3.45), (7.23, 2.6))
+    arrow(ax, (9.88, 2.6), (10.65, 2.6))
 
     # Module 7: Decision Engine
-    box(ax, 4.7, 1.25, 3.6, 1.05, "⑦ Decision & Recommendation\n暴露劑量換算 (濃度 × 運動係數)\n+ 敏感族群雙軌門檻 + 引用護欄", C_DECISION, fs=9.5)
-    arrow(ax, (4.7, 2.9), (4.7, 1.8), text="推理合成")
+    box(ax, 4.95, 1.35, 3.6, 1.05, "⑦ Decision & Recommendation\n暴露劑量換算 (濃度 × 運動係數)\n+ 敏感族群雙軌門檻 + SafetyGuardrail", C_DECISION, fs=9.2)
+    arrow(ax, (4.95, 3.03), (4.95, 1.9))
+    ax.text(5.45, 2.45, "推理合成", ha="left", fontsize=9.5, color="#475569", fontweight="bold")
 
     # Module 8: Output & Interaction
-    box(ax, 9.8, 1.25, 3.8, 1.05, "⑧ Output & Interaction\n個人化處方 + 24h 走勢預報\n+ 測站來源與醫學文獻可追溯 Citation", C_OUT, fs=9.5)
-    arrow(ax, (6.5, 1.25), (7.9, 1.25), text="結構化報告")
-    arrow(ax, (9.8, 1.8), (1.6, 2.6), rad=-0.35, color="#7C3AED", text="交付使用者介面 (Streamlit / LINE Bot)")
+    box(ax, 10.05, 1.35, 3.8, 1.05, "⑧ Output & Interaction\n個人化處方 + 24h 走勢預報\n+ 測站與醫學文獻可追溯 Citation", C_OUT, fs=9.2)
+    arrow(ax, (6.78, 1.35), (8.12, 1.35))
+    ax.text(7.45, 1.52, "結構化報告", ha="center", fontsize=9, color="#475569", fontweight="bold")
+
+    # Clean bottom return loop from Module 8 to Module 2 without crossing boxes
+    arrow(ax, (10.05, 0.8), (1.4, 2.75), rad=-0.28, color="#7C3AED")
+    ax.text(5.7, -0.18, "交付使用者介面 (FastAPI · Streamlit / LINE Bot)", ha="center",
+            fontsize=9.5, color="#7C3AED", fontweight="bold")
 
     fig.savefig(os.path.join(OUT, "architecture.png"), bbox_inches="tight", facecolor="white")
     plt.close(fig)

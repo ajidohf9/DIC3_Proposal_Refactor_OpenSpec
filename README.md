@@ -22,8 +22,9 @@
 ## 提案階段核心交付物（Proposal Package）
 - 📄 **主提案文件**：[docs/proposal.md](docs/proposal.md)（完整 A–F 摘要、緒論、文獻摘要表、三大核心問題與演算法虛擬碼）
 - 📑 **Word 正式提案書**：[docs/Proposal_AI_Air_Doctor.docx](docs/Proposal_AI_Air_Doctor.docx)
-- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（16 頁深色高質感專業簡報，涵蓋 Deep Research 與 8 大模組）
+- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（17 頁深色高質感專業簡報，涵蓋 A–F 結構對照、Deep Research 與 8 大模組）
 - 🧩 **系統設計與移交文件**：[DESIGN.md](DESIGN.md)（依據 11 步移交鏈條編寫）
+- 📐 **OpenSpec 規格驅動工作流**：[openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/)（由 `DESIGN.md` 轉換之 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md`）
 
 ---
 
@@ -57,10 +58,14 @@ python -m venv venv
 # 2. 安裝必要套件
 pip install python-docx python-pptx matplotlib requests
 
-# 3. 重新產出架構圖與流程圖 (PNG)
+# 3. 檢查並驗證 OpenSpec 規格與任務進度
+openspec.cmd status --change ai-air-doctor-mvp
+openspec.cmd validate ai-air-doctor-mvp
+
+# 4. 重新產出架構圖與流程圖 (PNG)
 python scripts/diagrams.py
 
-# 4. 自動編譯輸出最新 Word 報告與 PPT 簡報
+# 5. 自動編譯輸出最新 Word 報告與 PPT 簡報
 python scripts/build_docx.py
 python scripts/build_pptx.py
 ```

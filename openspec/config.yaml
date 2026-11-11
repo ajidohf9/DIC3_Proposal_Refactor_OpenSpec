@@ -1,0 +1,27 @@
+schema: spec-driven
+
+context: |
+  Project: AI Air Doctor — A Domain AI Agent for personalized air-quality health advisory in Taiwan.
+  Core formula: AI Agent (LangGraph ReAct) + Domain Knowledge (WHO 2021 / MOENV 2024-2025 AQI RAG) + Data Analytics (XGBoost / Bi-LSTM + SHAP) + Real-World IoT Application.
+  Tech stack: Python 3.11+, FastAPI, LangGraph/LangChain, XGBoost, PyTorch (Bi-LSTM), SHAP, ChromaDB, SQLite, Streamlit / LINE Bot.
+  External Data Sources:
+  - Taiwan MOENV OpenAPI (regulatory hourly stations: PM2.5, PM10, O3, NO2, SO2, CO, AQI)
+  - Civil IoT Taiwan SensorThings API (~5-min micro-sensors: AirBox PM2.5, T, RH)
+  - Taiwan CWA OpenAPI (hourly wind speed, wind direction, temperature, relative humidity, rainfall)
+  Domain Constraints:
+  - Micro-sensors exhibit optical hygroscopic bias at RH > 75%; physical/ML humidity gating is mandatory.
+  - Sensitive users (asthma, COPD, elderly, pregnant) auto-switch from national AQI thresholds to strict WHO 2021 24h benchmark (15 ug/m3).
+  - Personal health profiles remain local in SQLite; outputs MUST cite exact station IDs and medical guideline sources and append a clinical disclaimer.
+  - Forecasting splits MUST use strict time-based rolling validation (no random K-Fold leakage).
+
+rules:
+  proposal:
+    - Focus on user/domain problem, capability boundaries, and measurable outcomes; avoid line-by-line code details.
+  specs:
+    - Every requirement MUST use SHALL or MUST and include at least one #### Scenario with WHEN/THEN assertions.
+    - Keep capability names consistent across proposal.md and specs/<capability>/spec.md.
+  design:
+    - Explicitly document architectural decisions, alternatives considered, and domain trade-offs (micro-sensor RH bias vs density, indoor CO2 vs outdoor PM2.5, WHO vs MOENV thresholds).
+  tasks:
+    - Break tasks into small, verifiable checkboxes (- [ ] X.Y ...) ordered by data -> ML -> RAG -> Agent -> UI -> Evaluation.
+

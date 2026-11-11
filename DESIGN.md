@@ -1,8 +1,9 @@
 # DESIGN.md — AI Air Doctor 系統設計與開發移交文件
 
-> **專案狀態**：Proposal 階段  
+> **專案狀態**：Proposal & OpenSpec Refactor 階段（個人作業分支：`refactor/openspec-proposal`）  
 > **指導教授**：陳煥 教授  
 > **開發團隊**：7115093066_楊禾睿、7115093063_徐崇皓、7115064183_謝秉樺、7115064202_譚人傑  
+> **OpenSpec 工作流**：本設計已轉換為 [openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/) 下之 `spec-driven` 工作流（`proposal → specs → design → tasks`）。  
 > **維護規範**：本文件依據作業要求之「標準移交鏈條（Standard Handover Pipeline）」編撰，旨在使任何後續接手的開發者皆能無縫理解、本機重現、驗證並持續迭代本專題。
 
 ---
@@ -27,11 +28,11 @@ Problem ──> Requirements ──> Architecture ──> Components ──> Dat
 ## 2. Requirements（系統軟硬體需求規範）
 
 ### 2.1 功能性需求（Functional Requirements）
-* **FR-1（即時多源感知）**：支援根據使用者輸入之經緯度或地標名稱，自動調取方圓 3 公里內台灣環境部標準測站與民生公共物聯網（Civil IoT）微型感測器之最新即時數值。
-* **FR-2（前瞻趨勢預報）**：提供目標地點未來 1 至 24 小時之逐時 PM2.5 濃度預測與 95% 信賴區間。
+* **FR-1（即時多源感知）**：支援根據使用者輸入之經緯度或地標名稱，調取方圓 **3 公里**內環境部標準測站作為基準，並整合方圓 **1 公里**內民生公共物聯網（Civil IoT）微型感測器即時數值；當 RH > 75%（尤其 > 85%）時執行濕度補償並擴展至 **5 公里**標準站進行離群比對。
+* **FR-2（前瞻趨勢預報）**：提供目標地點未來 1 至 24 小時之逐時 PM2.5 濃度預測與 95% 信賴區間（嚴格時間切分，不採用隨機 K-Fold）。
 * **FR-3（特徵成因歸因）**：透過 SHAP 值動態產出氣象成因分析（逆溫層滯留、弱風累積、光化臭氧）。
-* **FR-4（個人化暴露換算）**：依據使用者健康檔案（年齡、病史）與活動強度換氣係數，換算個體吸收暴露量，並對齊 WHO 2021 與台灣 AQI 雙軌安全門檻。
-* **FR-5（醫療知識檢索與反思）**：整合 RAG 檢索臨床醫學知識，輸出建議必須強制附帶資料來源與醫學指引出處，不符標準者自動觸發反思重新生成。
+* **FR-4（個人化暴露換算）**：依據使用者健康檔案（年齡、病史）與活動強度換氣係數，換算個體吸收暴露量，並對齊 **WHO 2021（日均 15 μg/m³）** 與 **台灣 MOENV 2024/2025 修訂標準（日均 30 μg/m³）** 雙軌門檻。
+* **FR-5（醫療知識檢索與反思）**：整合 RAG 檢索臨床醫學知識，輸出建議必須強制附帶資料來源與醫學指引出處，不符標準者自動觸發 `SafetyGuardrail` 反思重新生成。
 
 ### 2.2 非功能性需求（Non-Functional Requirements）
 * **NFR-1（響應延遲）**：端到端對話串流首字延遲 $\le 1.5$ 秒，完整決策報告生成 $\le 5$ 秒。
@@ -129,7 +130,7 @@ flowchart TB
 
 知識庫收錄內容經專家結構化分級，存入 ChromaDB 向量集合：
 1. **指引文件 A**：《WHO 2021 全球空氣品質指引（繁體精要版）》
-2. **指引文件 B**：《台灣環境部 AQI 分級與活動建議處方表》
+2. **指引文件 B**：《台灣環境部 2024/2025 修訂 AQI 分級與活動建議處方表》
 3. **指引文件 C**：《台灣胸腔暨重症加護醫學會：氣喘患者環境防護臨床共識手冊》
 4. **指引文件 D**：《室內通風換氣與空氣清淨機 CADR 選型計算指南》
 
@@ -147,17 +148,20 @@ flowchart TB
 
 ```
 IOT_group_proposal/
+├── openspec/                     # OpenSpec spec-driven 工作流 (proposal / specs / design / tasks)
+│   ├── config.yaml               # 專案背景與規格規則設定
+│   └── changes/ai-air-doctor-mvp/# 由 DESIGN.md 轉換之完整變更提案與 4 大能力規格
 ├── docs/
-│   ├── proposal.md               # 提案主文件 (完整 A-F 與三大問題)
+│   ├── proposal.md               # 提案主文件 (A–F、Introduction/Related Work Refactor、5 Cores / 3 Trade-offs / 10 Details)
 │   ├── Proposal_AI_Air_Doctor.docx # 自動編譯之 Word 檔
 │   ├── Proposal_AI_Air_Doctor.pptx # 自動編譯之簡報檔
 │   └── img/                      # 系統架構圖與流程圖 (PNG)
-├── src/
+├── src/                          # (規劃實作目錄，詳見 openspec tasks.md)
 │   ├── agent/                    # ReAct 代理人與狀態機
-│   ├── models/                   # XGBoost / LSTM 預測模型
+│   ├── models/                   # XGBoost / Bi-LSTM 預測模型
 │   ├── tools/                    # OpenAPI 串接與 RAG 檢索器
 │   └── web/                      # Streamlit / FastAPI 介面
-├── data/                         # 知識庫原始文檔與樣本測站數據
+├── data/                         # (規劃目錄) 知識庫原始文檔與樣本測站數據
 ├── scripts/
 │   ├── diagrams.py               # 架構圖與流程圖繪製腳本
 │   ├── build_docx.py             # 提案文件 Word 自動生成器
@@ -181,12 +185,16 @@ python -m venv venv
 pip install -r requirements.txt
 ```
 
-### 生成圖表與文件
+### 生成圖表、驗證 OpenSpec 與編譯文件
 ```bash
-# 3. 重新繪製架構圖與流程圖
+# 3. 驗證 OpenSpec spec-driven 規格與任務狀態
+openspec.cmd status --change ai-air-doctor-mvp
+openspec.cmd validate ai-air-doctor-mvp
+
+# 4. 重新繪製架構圖與流程圖
 python scripts/diagrams.py
 
-# 4. 編譯輸出正式提案 Word 與 PPT 文件
+# 5. 編譯輸出正式提案 Word 與 PPT 文件
 python scripts/build_docx.py
 python scripts/build_pptx.py
 ```
@@ -195,9 +203,9 @@ python scripts/build_pptx.py
 
 ## 11. Results & Evaluation（預期成果與驗證指標）
 
-| 評估維度 | 目標基準（Baseline） | 本專題預期達成指標 | 驗證方法 |
+| 評估維度 | 目標基準（Baseline） | 本專題預期達成指標（統一口徑） | 驗證方法 |
 | :--- | :--- | :--- | :--- |
-| **預測 RMSE (24h)** | 14.8 μg/m³ (Persistence) | **$\le 9.5\ \mu\text{g/m}^3$** (降低 35% 誤差) | 2025 年台灣測站真實盲測集 |
-| **醫學建議正確率** | 68% (未外掛工具之原始 GPT) | **$\ge 96\%$** | 30 組臨床醫師設計案例盲測 |
-| **醫療偽偏方幻覺率** | 22% (通用 LLM) | **$\le 2\%$** | 引用來源強制勾稽機制 |
-| **端到端響應時間** | > 8 秒 | **$\le 4.2$ 秒** | 100 次連續併發壓力測試 |
+| **預測 RMSE (24h)** | 14.8 μg/m³ (Persistence) | **$\le 9.5\ \mu\text{g/m}^3$** (降低 35% 以上，6h $R^2 \ge 0.82$) | 2025 年台灣測站純盲測集 (`E1`) |
+| **醫學建議對齊率** | 68% (未外掛工具之原始 LLM) | **$\ge 95\%\text{–}96\%$** | 30 組臨床醫師審定案例盲測 (`E2`) |
+| **醫療偽偏方幻覺率** | 22% (通用 LLM) | **$\le 2\%\text{–}3\%$** | 引用來源強制勾稽與自我反思機制 (`E2`) |
+| **端到端響應時間** | > 8 秒 | **平均 $\le 4.2$ 秒**（95% 請求 $\le 5$ 秒） | 100 次連續併發壓力測試 (`E4`) |
