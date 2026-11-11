@@ -93,7 +93,7 @@
 | **V** | **Verify**：有效性驗證 | 對齊 OpenSpec `specs/*/spec.md` 的 Given-When-Then 驗收場景與 E1–E4 預計達成目標（`RMSE ≤ 9.5`、`對齊 ≥ 95–96%`、`幻覺 ≤ 2–3%`、`SUS ≥ 80`）。 | §1 (F)、§6.5、OpenSpec specs |
 | **W** | **What proposed**：回顧總結 | 解決空品數字與個體健康決策之間的鴻溝，將被動資訊轉為主動、個人化且可驗證的 Domain AI Agent 建議。 | §1、§3.1–§3.3 |
 | **X** | **eXcel**：專精情境與優勢 | 專精於台灣亞熱帶高濕微感測網（`RH > 75%` 補償）、秋冬背風面逆溫預報及氣喘／戶外運動族群雙軌暴露評估。 | §3.1、§3.5 |
-| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、21 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
+| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、22 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
 | **Z** | **Zen**：反思與未來展望 | 誠實指出無室內 CO₂ 感測器住宅的換氣推估（`Open Questions`）與多污染物 O₃ 深入預報仍待 W1–W8 實作與實地驗證逐步完善。 | §6.6、[DESIGN.md](../DESIGN.md)、`design.md` |
 
 ---
@@ -102,7 +102,7 @@
 
 ### 3.1 結構完備度與 OpenSpec SDD 對齊
 * **完整規格驅動鏈**：已透過 OpenSpec v1.2.0 建立 `openspec/changes/ai-air-doctor-mvp/`，經 `openspec validate ai-air-doctor-mvp` 與 `openspec status` 確認 **`Progress: 4/4 artifacts complete`**（`proposal`、`design`、`specs`、`tasks`），並定義 4 份細粒度能力規格（`realtime-iot-ingestion`、`pm25-forecast-shap`、`personalized-exposure-rag`、`react-agent-guardrail`）。
-* **雙軌提案文件同步**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》，並額外產出 A4 橫式高密度編號資訊圖表與 21 頁簡報（滿足簡報篇幅超過 20 頁之最終展示標準）。
+* **雙軌提案文件同步**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》，並額外產出 A4 橫式高密度編號資訊圖表與 22 頁簡報（滿足簡報篇幅超過 20 頁之最終展示標準）。
 
 ### 3.2 學術誠實度（Academic Integrity）
 * **零虛構實驗數據**：全份文件（Abstract F、§2.0、§6.5、簡報、A4 資訊圖表）嚴格標示所有數值目標均為 **Expected Outcomes / 預期驗證指標**，未將計畫達成值偽稱為已執行實驗結果。

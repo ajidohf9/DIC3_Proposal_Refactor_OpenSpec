@@ -61,7 +61,7 @@
 | **Related Work** | **M–O** | 方法分類（1/2 AI + 1/2 Domain）→ 創新技術 → 比較總表與缺口收斂 | §4.1–§4.4；23 篇查證文獻＋§4.3 8 篇 2024–2026 Article Summary Table 收斂 Research Gap。 |
 | **Proposed Scheme** | **PA–PM** | 目標（PA）· 基礎（PB）· 成因（PC）· 典範轉移（PD）· 模組（PE）· 公式（PF）· 圖表（PG）· 實作（PH–PI）· 實例（PJ）· 貢獻（PK）· 模擬（PL）· 邏輯不變式（PM） | §6.1–§6.4；①–⑧ 模組對應 OpenSpec 4 Capabilities；Dose/風(u,v)/ΔT 公式、雙圖、`Algo 1 & 2` 行號虛擬碼與 `TimeBasedRollingSplit` 防漏不變式。 |
 | **Simulation / Eval** | **Q–V** | 評估指標（Q）· 比較基準（R）· 實驗環境（S）· 調參（T）· 產出（U）· 驗證（V） | §6.5 E1–E4；對比 Persistence/GPT-4o/純 RAG/無 SHAP，達成 RMSE ≤ 9.5、對齊 ≥ 95–96%、幻覺 ≤ 2–3%、SUS ≥ 80。 |
-| **Conclusion** | **W–Z** | 回顧總結（W）· 專精優勢（X）· 交付物（Y）· 反思展望（Z） | §6.6、`DESIGN.md` §12；專精台灣高濕與逆溫預警，交付 GitHub + OpenSpec + 21 頁簡報，預留無 CO₂ 感測推估之擴充點。 |
+| **Conclusion** | **W–Z** | 回顧總結（W）· 專精優勢（X）· 交付物（Y）· 反思展望（Z） | §6.6、`DESIGN.md` §12；專精台灣高濕與逆溫預警，交付 GitHub + OpenSpec + 22 頁簡報，預留無 CO₂ 感測推估之擴充點。 |
 
 ---
 
@@ -150,7 +150,7 @@ Why is this project worth doing? 本章依循 **A–F 結構**，與上述摘要
 
 本章依據專業領域深度研究架構，完整定義與剖析本專題之 **5 Cores（五個核心思維模式）**、**3 Trade-offs（三個核心爭論與工程權衡）** 及 **10 Details（十個深度理解問題）**。
 
-### Q1. 五個核心思維模式（5 Cores）
+### 5.1 Q1. 五個核心思維模式（5 Cores）
 
 1. **Core 1：暴露劑量不等於環境濃度（Dose ≠ Ambient Concentration）**
    * **意義**：測站測得的是大氣濃度（μg/m³），但決定人體肺泡發炎程度的關鍵是實際吸入沉積劑量（Dose = C × V̇_E × T）。
@@ -179,7 +179,7 @@ Why is this project worth doing? 本章依循 **A–F 結構**，與上述摘要
 
 ---
 
-### Q2. 三個最重要的專業爭論與系統權衡（3 Trade-offs）
+### 5.2 Q2. 三個最重要的專業爭論與系統權衡（3 Trade-offs）
 
 嚴格依據 **觀點 A ↔ 觀點 B → Evidence → Consensus → Unresolved Problems → 本專案權衡（OpenSpec Mapping）** 架構剖析：
 
@@ -209,7 +209,7 @@ Why is this project worth doing? 本章依循 **A–F 結構**，與上述摘要
 
 ---
 
-### Q3. 十個深度理解問題（10 Details）
+### 5.3 Q3. 十個深度理解問題（10 Details）
 
 以下 10 道高階領域推理題涵蓋 **Why / What-if / Trade-off / Failure Case / Evidence / Comparison / Design Decision / Real-world Scenario / Guardrail / Architecture Decoupling** 十種檢驗維度：
 

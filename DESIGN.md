@@ -152,22 +152,25 @@ IOT_group_proposal/
 │   ├── config.yaml               # 專案背景與規格規則設定
 │   └── changes/ai-air-doctor-mvp/# 由 DESIGN.md 轉換之完整變更提案與 4 大能力規格
 ├── docs/
-│   ├── proposal.md               # 提案主文件 (A–F、Introduction/Related Work Refactor、5 Cores / 3 Trade-offs / 10 Details)
-│   ├── Proposal_AI_Air_Doctor.docx # 自動編譯之 Word 檔
-│   ├── Proposal_AI_Air_Doctor.pptx # 自動編譯之簡報檔
-│   └── img/                      # 系統架構圖與流程圖 (PNG)
-├── src/                          # (規劃實作目錄，詳見 openspec tasks.md)
-│   ├── agent/                    # ReAct 代理人與狀態機
-│   ├── models/                   # XGBoost / Bi-LSTM 預測模型
-│   ├── tools/                    # OpenAPI 串接與 RAG 檢索器
-│   └── web/                      # Streamlit / FastAPI 介面
-├── data/                         # (規劃目錄) 知識庫原始文檔與樣本測站數據
+│   ├── proposal.md                      # 提案主文件 (A–F、A2Z 映射、Introduction/Related Work Refactor、5/3/10 深研與虛擬碼)
+│   ├── Proposal_AI_Air_Doctor.docx      # 自動編譯之 Word 提案書
+│   ├── Proposal_AI_Air_Doctor.pptx      # 自動編譯之 22 頁專業簡報檔 (>20 pages)
+│   ├── AI_Air_Doctor_Proposal_Analysis.md   # 對標《期末專題規範》×《2020 A-Z SOP》× OpenSpec 之完整系統性解析報告
+│   ├── AI_Air_Doctor_Proposal_Analysis.docx # 解析報告 Word 編譯版
+│   └── img/                             # architecture.png、flowchart.png、infographic_A4.png (300 DPI A4)
+├── src/                                 # (規劃實作目錄，詳見 openspec tasks.md)
+│   ├── agent/                           # ReAct 代理人與狀態機
+│   ├── models/                          # XGBoost / Bi-LSTM 預測模型
+│   ├── tools/                           # OpenAPI 串接與 RAG 檢索器
+│   └── web/                             # Streamlit / FastAPI 介面
+├── data/                                # (規劃目錄) 知識庫原始文檔與樣本測站數據
 ├── scripts/
-│   ├── diagrams.py               # 架構圖與流程圖繪製腳本
-│   ├── build_docx.py             # 提案文件 Word 自動生成器
-│   └── build_pptx.py             # 提案簡報 PPT 自動生成器
-├── DESIGN.md                     # 本設計移交文件
-└── README.md                     # 專案首頁說明
+│   ├── diagrams.py                      # 系統架構圖與流程圖繪製腳本
+│   ├── render_infographic.py            # A4 橫式高密度編號資訊圖表渲染腳本
+│   ├── build_docx.py                    # 提案與解析報告雙 Word 自動生成器
+│   └── build_pptx.py                    # 22 頁提案簡報 PPT 自動生成器
+├── DESIGN.md                            # 本設計移交文件
+└── README.md                            # 專案首頁說明
 ```
 
 ---
@@ -177,12 +180,12 @@ IOT_group_proposal/
 ### 環境準備
 ```bash
 # 1. 建立並啟動 Python 虛擬環境
-python -m venv venv
+python -m venv .venv
 # Windows:
-.\venv\Scripts\activate
+.\.venv\Scripts\activate
 
-# 2. 安裝核心相依套件
-pip install -r requirements.txt
+# 2. 安裝文件與圖表生成套件 (src/ 實作期套件將於 W1–W2 建立 requirements.txt)
+pip install python-docx python-pptx matplotlib pillow requests
 ```
 
 ### 生成圖表、驗證 OpenSpec 與編譯文件
@@ -191,10 +194,11 @@ pip install -r requirements.txt
 openspec.cmd status --change ai-air-doctor-mvp
 openspec.cmd validate ai-air-doctor-mvp
 
-# 4. 重新繪製架構圖與流程圖
+# 4. 重新繪製架構圖、流程圖與 A4 橫式資訊圖表
 python scripts/diagrams.py
+python scripts/render_infographic.py
 
-# 5. 編譯輸出正式提案 Word 與 PPT 文件
+# 5. 編譯輸出正式提案與解析 Word 及 22 頁 PPT 文件
 python scripts/build_docx.py
 python scripts/build_pptx.py
 ```
@@ -208,4 +212,5 @@ python scripts/build_pptx.py
 | **預測 RMSE (24h)** | 14.8 μg/m³ (Persistence) | **$\le 9.5\ \mu\text{g/m}^3$** (降低 35% 以上，6h $R^2 \ge 0.82$) | 2025 年台灣測站純盲測集 (`E1`) |
 | **醫學建議對齊率** | 68% (未外掛工具之原始 LLM) | **$\ge 95\%\text{–}96\%$** | 30 組臨床醫師審定案例盲測 (`E2`) |
 | **醫療偽偏方幻覺率** | 22% (通用 LLM) | **$\le 2\%\text{–}3\%$** | 引用來源強制勾稽與自我反思機制 (`E2`) |
-| **端到端響應時間** | > 8 秒 | **平均 $\le 4.2$ 秒**（95% 請求 $\le 5$ 秒） | 100 次連續併發壓力測試 (`E4`) |
+| **SHAP 成因可解釋性** | 無歸因解釋之純文字輸出 | **專家診斷一致度 $\ge 4.5 / 5$** (Likert) | 10 場台灣典型高污染事件評核 (`E3`) |
+| **端到端延遲與易用性** | > 8 秒 | **平均 $\le 4.2$ 秒**（95% 請求 $\le 5$ 秒）、**SUS $\ge 80$** | 100 次連續併發壓力測試與問卷 (`E4`) |

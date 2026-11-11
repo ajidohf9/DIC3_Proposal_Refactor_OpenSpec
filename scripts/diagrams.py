@@ -93,52 +93,62 @@ def architecture():
 
 
 def flowchart():
-    fig, ax = plt.subplots(figsize=(9.5, 12.5), dpi=220)
-    ax.set_xlim(0, 9.5)
-    ax.set_ylim(0, 12.5)
+    fig, ax = plt.subplots(figsize=(10.2, 13.6), dpi=220)
+    ax.set_xlim(-0.2, 10.0)
+    ax.set_ylim(0, 13.6)
     ax.axis("off")
-    cx = 4.75
-    W, H = 4.8, 0.72
+    cx = 4.65
+    W, H = 5.55, 0.72
 
-    # Flowchart nodes
-    box(ax, cx, 11.8, 3.8, 0.65, "開始: 使用者自然語言提問", C_USER, shape="round,pad=0.02,rounding_size=0.35")
-    box(ax, cx, 10.75, W, H, "① 意圖實體解析: 地點 / 時間 / 活動強度", C_STEP)
-    box(ax, cx, 9.7, W, H, "② 檢索個體檔案 (年齡/氣喘病史) 並載入門檻", C_STEP)
-    box(ax, cx, 8.55, 4.0, 0.85, "查詢時間是當前\n還是未來時段 (1~24h)?", C_DECISION, shape="round,pad=0.02,rounding_size=0.45")
+    # Flowchart nodes aligned with proposal.md §6.3 & infographic_A4.png
+    box(ax, cx, 13.0, 4.4, 0.62, "開始: 使用者自然語言提問 + 健康檔案", C_USER, shape="round,pad=0.02,rounding_size=0.35")
+    box(ax, cx, 12.0, W, H, "① 意圖與實體解析: 時間 T / 地點 L / 活動強度 A", C_STEP)
+    box(ax, cx, 10.9, 4.1, 0.76, "輸入參數是否完整?\n(時間 / 地點 / 活動)", C_DECISION, fs=10, shape="round,pad=0.02,rounding_size=0.45")
+    box(ax, cx, 9.75, W, H, "② 檢索本機 SQLite 檔案 並載入雙軌門檻", C_STEP)
+    box(ax, cx, 8.6, 4.1, 0.82, "查詢時間 T 是當前\n還是未來時段 (1–24h)?", C_DECISION, fs=10, shape="round,pad=0.02,rounding_size=0.45")
 
-    box(ax, 2.2, 7.15, 3.6, H, "③ 抓取即時測站與微型感測\n(環境部 + Civil IoT API)", C_TOOL, fs=9.5)
-    box(ax, 7.3, 7.15, 3.6, H, "④ 執行時序預測管線\n(XGBoost / LSTM + SHAP)", C_TOOL, fs=9.5)
+    box(ax, 2.05, 7.2, 3.8, H, "③ 抓取即時測站與微型感測\n(MOENV + Civil IoT + CWA)", C_TOOL, fs=9.5)
+    box(ax, 7.25, 7.2, 3.8, H, "④ 執行時序預測管線\n(XGBoost / Bi-LSTM + SHAP)", C_TOOL, fs=9.5)
 
-    box(ax, cx, 5.85, W, H, "⑤ 感測資料校準與時空補償 (過濾水氣雜訊)", C_STEP)
-    box(ax, cx, 4.8, W, H, "⑥ 計算暴露劑量 = PM2.5 × 活動換氣係數", C_STEP)
-    box(ax, cx, 3.75, W, H, "⑦ 依風險等級 RAG 檢索 WHO / AQI 臨床處方", C_STEP)
-    box(ax, cx, 2.7, W, H, "⑧ LLM 整合推理: 生成處方建議與成因診斷", C_STEP)
+    box(ax, cx, 5.9, W + 0.2, H, "⑤ 容錯與校正: API>3s 降級 72h 快取 · RH>75% 補償 / 5km 比對", C_DATA, fs=9.4)
+    box(ax, cx, 4.82, W, H, "⑥ 計算暴露劑量 = PM2.5 × 換氣係數 & 雙軌門檻分級", C_STEP, fs=9.8)
+    box(ax, cx, 3.74, W + 0.25, H, "⑦ 依風險等級 RAG 檢索 ChromaDB (WHO / MOENV / TSPCCM)", C_STEP, fs=9.4)
+    box(ax, cx, 2.66, W, H, "⑧ LLM 整合推理: 合成個人化處方與 SHAP 成因診斷", C_STEP, fs=9.8)
 
-    box(ax, cx, 1.6, 4.2, 0.75, "安全護欄: 是否包含\n真實測站與文獻 Citation?", C_DECISION, shape="round,pad=0.02,rounding_size=0.45")
-    box(ax, cx, 0.55, 3.6, 0.65, "完成: 輸出結構化報告 + 依據", C_OUT, shape="round,pad=0.02,rounding_size=0.35")
+    box(ax, cx, 1.56, 4.3, 0.76, "SafetyGuardrail: 是否包含\n真實測站與文獻 Citation?", C_DECISION, fs=10, shape="round,pad=0.02,rounding_size=0.45")
+    box(ax, cx, 0.52, 4.6, 0.64, "完成: 輸出結構化處方 + 24h預報 + 來源 + 免責聲明", C_OUT, fs=9.5, shape="round,pad=0.02,rounding_size=0.35")
 
-    # Arrows
-    arrow(ax, (cx, 11.45), (cx, 11.12))
-    arrow(ax, (cx, 10.38), (cx, 10.07))
-    arrow(ax, (cx, 9.32), (cx, 9.0))
+    # Main vertical & branching arrows
+    arrow(ax, (cx, 12.66), (cx, 12.38))
+    arrow(ax, (cx, 11.62), (cx, 11.30))
+    arrow(ax, (cx, 10.50), (cx, 10.13))
+    ax.text(cx + 0.18, 10.30, "是 (完整)", fontsize=9.2, color="#10B981", fontweight="bold")
+    arrow(ax, (cx, 9.37), (cx, 9.03))
 
-    arrow(ax, (2.8, 8.2), (2.2, 7.55), text="當前")
-    arrow(ax, (6.7, 8.2), (7.3, 7.55), text="未來 (預測)")
+    # Clarification loop on right side without overlapping boxes
+    arrow(ax, (6.72, 10.9), (cx + W / 2 + 0.04, 12.0), rad=0.55, color="#D97706")
+    ax.text(cx + W / 2 + 0.55, 11.45, "否: 主動追問\n補齊地點/活動", fontsize=9, color="#D97706", fontweight="bold", va="center")
 
-    arrow(ax, (2.2, 6.75), (3.6, 6.22))
-    arrow(ax, (7.3, 6.75), (5.9, 6.22))
+    # Temporal routing arrows with cleanly offset labels
+    arrow(ax, (2.75, 8.28), (2.05, 7.60))
+    ax.text(1.85, 8.05, "當前 (≤1h)", ha="right", fontsize=9.5, color="#0D9488", fontweight="bold")
+    arrow(ax, (6.55, 8.28), (7.25, 7.60))
+    ax.text(7.45, 8.05, "未來 (1–24h)", ha="left", fontsize=9.5, color="#0D9488", fontweight="bold")
 
-    arrow(ax, (cx, 5.48), (cx, 5.17))
-    arrow(ax, (cx, 4.43), (cx, 4.12))
-    arrow(ax, (cx, 3.38), (cx, 3.07))
-    arrow(ax, (cx, 2.33), (cx, 2.0))
+    arrow(ax, (2.05, 6.82), (3.55, 6.28))
+    arrow(ax, (7.25, 6.82), (5.75, 6.28))
 
-    arrow(ax, (cx, 1.2), (cx, 0.9))
-    ax.text(cx + 0.25, 1.05, "是 (通過)", fontsize=9.5, color="#10B981", fontweight="bold")
+    arrow(ax, (cx, 5.52), (cx, 5.20))
+    arrow(ax, (cx, 4.44), (cx, 4.12))
+    arrow(ax, (cx, 3.36), (cx, 3.04))
+    arrow(ax, (cx, 2.28), (cx, 1.96))
 
-    # Reflection loop for missing citations
-    arrow(ax, (6.85, 1.6), (7.4, 2.7), rad=0.45, color="#DC2626")
-    ax.text(8.4, 2.1, "否: 觸發反思重新生成", fontsize=9.5, color="#DC2626", fontweight="bold")
+    arrow(ax, (cx, 1.16), (cx, 0.86))
+    ax.text(cx + 0.18, 1.00, "是 (通過)", fontsize=9.5, color="#10B981", fontweight="bold")
+
+    # Reflection loop for missing citations cleanly placed on right
+    arrow(ax, (6.82, 1.56), (cx + W / 2 + 0.04, 2.66), rad=0.50, color="#DC2626")
+    ax.text(cx + W / 2 + 0.62, 2.11, "否: 觸發自我反思\n補齊真實出處", fontsize=9.2, color="#DC2626", fontweight="bold", va="center")
 
     fig.savefig(os.path.join(OUT, "flowchart.png"), bbox_inches="tight", facecolor="white")
     plt.close(fig)

@@ -47,17 +47,25 @@ def set_font(run, size=None, bold=None, color=None, mono=False, italic=None):
         run.font.color.rgb = RGBColor.from_string(color)
 
 
+def _emit_code_runs(par, seg, size, bold, color, italic):
+    for token in re.split(r"(`[^`]+`)", seg):
+        if not token:
+            continue
+        if token.startswith("`") and token.endswith("`"):
+            set_font(par.add_run(token[1:-1]), size - 1, bold, "C7254E", mono=True, italic=italic)
+        else:
+            set_font(par.add_run(token), size, bold, color, italic=italic)
+
+
 def add_inline(par, text, size=11, color=None, italic=None):
     cleaned = re.sub(r"\[([^\]]+)\]\(([^)]+)\)", r"\1", text).replace("<br>", "\n")
-    for part in re.split(r"(\*\*[^*]+\*\*|`[^`]+`)", cleaned):
+    for part in re.split(r"(\*\*[^*]+\*\*)", cleaned):
         if not part:
             continue
         if part.startswith("**") and part.endswith("**"):
-            set_font(par.add_run(part[2:-2]), size, True, color, italic=italic)
-        elif part.startswith("`") and part.endswith("`"):
-            set_font(par.add_run(part[1:-1]), size - 1, False, "C7254E", mono=True)
+            _emit_code_runs(par, part[2:-2], size, True, color, italic)
         else:
-            set_font(par.add_run(part), size, None, color, italic=italic)
+            _emit_code_runs(par, part, size, None, color, italic)
 
 
 def shade(cell, hex_color):
@@ -69,21 +77,48 @@ def shade(cell, hex_color):
     tcpr.append(shd)
 
 
+def _visual_len(s):
+    lines = re.sub(r"\*\*|`|\[([^\]]+)\]\([^)]+\)", r"\1", s).split("\n")
+    return max((sum(2 if ord(ch) > 127 else 1 for ch in ln.strip()) for ln in lines), default=1)
+
+
+def _compute_col_widths(rows, total_cm=16.6):
+    ncols = len(rows[0])
+    weights = []
+    for j in range(ncols):
+        vals = sorted(_visual_len(r[j] if j < len(r) else "") for r in rows)
+        p85 = vals[min(len(vals) - 1, int(0.85 * len(vals)))]
+        # Smooth power curve so tiny badge cols stay compact while wide prose cols expand
+        weights.append(max(4, p85) ** 0.62)
+    wsum = sum(weights) or 1.0
+    raw = [total_cm * w / wsum for w in weights]
+    min_w = 1.35 if ncols <= 5 else 1.1
+    clamped = [max(min_w, x) for x in raw]
+    scale = total_cm / sum(clamped)
+    return [Cm(x * scale) for x in clamped]
+
+
 def add_table(doc, rows):
     header, body = rows[0], rows[1:]
     t = doc.add_table(rows=1, cols=len(header))
     t.style = "Table Grid"
     t.alignment = WD_TABLE_ALIGNMENT.CENTER
+    t.autofit = False
+    widths = _compute_col_widths(rows)
     small = 8.5 if len(header) >= 6 else 10
     for i, h in enumerate(header):
+        t.columns[i].width = widths[i]
         c = t.rows[0].cells[i]
+        c.width = widths[i]
         c.text = ""
         add_inline(c.paragraphs[0], h, small, "FFFFFF")
-        c.paragraphs[0].runs and setattr(c.paragraphs[0].runs[0], "bold", True)
+        for r in c.paragraphs[0].runs:
+            r.bold = True
         shade(c, "0E7490")
     for r_i, r in enumerate(body):
         cells = t.add_row().cells
         for i in range(len(header)):
+            cells[i].width = widths[i]
             cells[i].text = ""
             add_inline(cells[i].paragraphs[0], r[i] if i < len(r) else "", small)
             if r_i % 2:

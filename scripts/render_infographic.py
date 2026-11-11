@@ -470,7 +470,7 @@ HTML = r"""<!DOCTYPE html>
     </div>
     <div class="header-sub">
       <div><strong>對照基準：</strong>《期末專題提案作業規範》×《2020 A-Z SOP》× OpenSpec 1.2.0 Spec-Driven Workflow</div>
-      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（21 頁）· openspec/changes/ai-air-doctor-mvp</div>
+      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（22 頁）· openspec/changes/ai-air-doctor-mvp</div>
     </div>
   </div>
 
@@ -768,7 +768,7 @@ HTML = r"""<!DOCTYPE html>
                 <tr><td class="a2z-let">V</td><td><b>驗證</b>：OpenSpec Scenarios + E1–E4 預計量化驗收標準</td></tr>
                 <tr><td class="a2z-let">W</td><td><b>總結</b>：打通感測、預報、暴露生理與臨床RAG四道關鍵關卡</td></tr>
                 <tr><td class="a2z-let">X</td><td><b>專精</b>：台灣季風逆溫、高濕微感測網與氣喘戶外運動場景</td></tr>
-                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + PPT</td></tr>
+                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + 22頁PPT</td></tr>
                 <tr><td class="a2z-let">Z</td><td><b>展望</b>：實作 W1–W8 與無 CO₂ 感測推估換氣擴充議題</td></tr>
               </tbody>
             </table>
