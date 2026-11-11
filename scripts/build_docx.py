@@ -193,7 +193,12 @@ def build(md_path, out_path):
             else:
                 t = doc.add_table(rows=1, cols=1)
                 t.style = "Table Grid"
+                t.alignment = WD_TABLE_ALIGNMENT.CENTER
+                t.autofit = False
+                t.columns[0].width = Cm(16.6)
+                t.rows[0]._tr.get_or_add_trPr().append(OxmlElement("w:cantSplit"))
                 c = t.rows[0].cells[0]
+                c.width = Cm(16.6)
                 shade(c, "F1F5F9")
                 c.text = ""
                 p = c.paragraphs[0]

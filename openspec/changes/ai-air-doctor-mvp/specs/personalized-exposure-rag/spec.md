@@ -15,7 +15,7 @@ The system SHALL compute effective exposure dose by multiplying PM2.5 concentrat
 - **THEN** the engine computes `effective_dose = 38 * 1.8 = 68.4` and classifies the risk level as Very High under the strict WHO 2021 vulnerable-group threshold (> 50 μg/m³)
 
 ### Requirement: Verified ChromaDB clinical guideline retrieval
-The system SHALL retrieve top-k evidence snippets from a curated ChromaDB collection containing four structured documents: WHO 2021 Global Air Quality Guidelines, Taiwan MOENV 2024/2025 AQI Clinical Action Table, Taiwan Society of Pulmonary and Critical Care Medicine (TSPCCM) Asthma Consensus Manual, and Indoor Ventilation & CADR Selection Guide.
+The system SHALL retrieve top-k evidence snippets from a curated ChromaDB collection containing structured clinical and policy documents: WHO 2021 Global Air Quality Guidelines, Taiwan MOENV 2024/2025 AQI Clinical Action Table & 2025 Air Quality Policy White Paper (morning/evening split forecast rules), Taiwan Society of Pulmonary and Critical Care Medicine (TSPCCM) Asthma Consensus Manual, HPA Protective 3-Steps (including 5 cm ventilation gap guidance), and Indoor Ventilation & CADR Selection Guide.
 
 #### Scenario: Retrieving protective guidance for very-high-risk asthma exposure
 - **WHEN** `MedicalRAGRetriever` is queried with activity `running`, condition `asthma`, and risk `Very High`

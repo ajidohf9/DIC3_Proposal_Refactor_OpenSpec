@@ -210,7 +210,7 @@ s = new_slide("Abstract（摘要）與 Introduction（緒論）結構對照", "�
 rect(s, 0.6, 1.55, 6.2, 5.2, CARD)
 text(s, 0.85, 1.7, 5.7, 0.4, "📋 Abstract 六段式（A–F，約 500 字精煉對照）", 15.5, CYAN, True)
 af_items = [
-    ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台 2024 年均 12.8 / 白皮書早晚分流、路跑紅害新聞、140–200 萬氣喘與 152 萬人運動閾值 [1,3,16,21,24–26]。"),
+    ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台 2024 年均 12.8、白皮書分流、紅害路跑新聞、氣喘及 152 萬運動閾值 [1,3,16,21,24–26]。"),
     ("B. But（挑戰）：", "現有 App 僅單點數值無個人化；純 ML 缺語意轉譯；通用 LLM 缺即時感測與護欄易生幻覺；微感測 RH>75% 易虛高 [9–15,20]。"),
     ("C. Cure（解藥）：", "提出 AI Air Doctor 個人化 Domain AI Agent，並以 OpenSpec 規格驅動實作。"),
     ("D. Development（方法）：", "整合 LangGraph ReAct、MOENV+Civil IoT+CWA、XGBoost/Bi-LSTM+SHAP、換氣劑量×雙軌門檻、ChromaDB RAG 與護欄 [2–8,17–23]。"),
@@ -232,7 +232,7 @@ table(s, 7.05, 1.55, 5.65, [
 s = new_slide("期末專題規範符合度總覽 (1.1–1.4 × OpenSpec)", "超越單一 Model 與 Chatbot · 規格驅動之 Domain AI Agent 雙軌對齊")
 table(s, 0.6, 1.55, 12.1, [
     ["編號", "規範評估維度", "AI Air Doctor 設計實踐", "OpenSpec / 文件對應", "符合度"],
-    ["1.1", "AI Agent\n(推理與調度)", "LangGraph ReAct 狀態機、參數追問迴圈、時態路由與 Tool Calling，搭配強制引用反思護欄", "react-agent-guardrail\nAlgorithm 1 (L01–29)", "✓ 高"],
+    ["1.1", "AI Agent\n(推理與調度)", "LangGraph ReAct 狀態機、追問與時態路由、Tool Calling 及強制引用護欄", "react-agent-guardrail\nAlgorithm 1 (L01–29)", "✓ 高"],
     ["1.2", "Domain Knowledge\n(領域知識)", "WHO 2021 (15) 與 MOENV 2024 (12/30)、運動換氣係數 (1.0–1.8×)、RH>75% 校正與 CO₂ 換氣權衡", "personalized-exposure-rag\nDeep Research §5", "✓ 高"],
     ["1.3", "Data Analytics\n(數據分析)", "MOENV (3km) + Civil IoT (1km/5km) + CWA、時空 KNN 補值、風向量 (u,v)、XGBoost/Bi-LSTM + SHAP", "realtime-iot-ingestion\npm25-forecast-shap", "✓ 高"],
     ["1.4", "Real-World App\n(真實應用)", "鎖定台灣 140–200 萬氣喘族群 [21] 與 152 萬人運動閾值 [16]，支援 Streamlit 與 LINE Bot 雙介面", "Proposal §1–§3\nDESIGN.md §1–§12", "✓ 高"],
@@ -329,11 +329,11 @@ controvs = [
      CYAN),
     ("Trade-off 2：室外紅害防滲透密閉（阻絕 PM2.5）vs. 室內通風換氣（CO₂ 認知衰退）",
      "觀點 A（極限封閉）：紅害時緊閉門窗開 HEPA 阻絕微粒 ↔ 觀點 B（換氣派）：CO₂ 達 1,000–1,400+ ppm 即顯著傷害決策與認知（COGfx [22]）。",
-     "共識與 OpenSpec 落地（personalized-exposure-rag）：結合物業 24h 預報找出擴散較佳窗口，排程 10–15 分鐘「脈衝換氣」＋ HEPA 最大 CADR。",
+     "共識與 OpenSpec 落地（personalized-exposure-rag）：結合未來 24h 預報找出擴散窗口，排程 10–15 分鐘脈衝換氣＋HEPA 最大 CADR。",
      AMBER),
     ("Trade-off 3：WHO 2021 嚴格指引（15 μg/m³）vs. 法定標準（30 μg/m³）與警報疲勞",
      "觀點 A（公衛極嚴）：低濃度亦具風險應一律用 WHO 15 μg/m³ [2] ↔ 觀點 B（溝通治理）：全體天天發紅害警報將導致民眾麻木的 Alert Fatigue。",
-     "共識與 OpenSpec 落地（personalized-exposure-rag）：採雙軌差異化揭露——一般對齊台灣 2024 標準 [3]；氣喘/長者/孕幼強制對齊 WHO 2021。",
+     "共識與 OpenSpec 落地（personalized-exposure-rag）：雙軌差異化——一般對齊台灣 2024 標準 [3]；氣喘/長者/孕幼採 WHO 2021。",
      VIOLET),
 ]
 for i, (ct, cv, co, cc) in enumerate(controvs):
@@ -441,7 +441,7 @@ table(s, 5.5, 1.7, 7.2, [
 table(s, 5.5, 5.6, 7.2, [
     ["族群分類 (PM2.5 μg/m³)", "🟢 低風險", "🟡 中風險", "🟠 高風險", "🔴 極高風險"],
     ["一般民眾 (MOENV 2024)", "≤ 30", "31–50", "51–70", "> 70"],
-    ["敏感族群 (WHO 2021 對齊)", "≤ 15", "16–30", "31–50", "> 50"],
+    ["敏感族群 (WHO 2021)", "≤ 15", "16–30", "31–50", "> 50"],
 ], [2.2, 1.25, 1.25, 1.25, 1.25], 12, 0.38)
 
 # ---------------- 10. Architecture ----------------
@@ -608,7 +608,7 @@ table(s, 0.6, 1.55, 6.45, [
 
 review_cards = [
     ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 500 字與完整版 A–F、3I 與 Three Core Innovations、A2Z 26+ 字母、8 模組/雙演算法與 Deep Research (5/3/10)，OpenSpec 4/4 完成。", CYAN),
-    ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆明確標註為 Expected Outcomes，且與 DESIGN.md 及 OpenSpec 數值 100% 統一（含 100% 來源揭露與安全降級覆蓋率）。", GREEN),
+    ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆標註 Expected Outcomes，與 DESIGN.md 及 OpenSpec 數值 100% 統一（含來源揭露與安全降級覆蓋率）。", GREEN),
     ("3. 文獻新聞查核 & 貢獻價值", "已淘汰 5 筆無效舊引文並完成 [1]–[26] arXiv/DOI/新聞查核 [24–26]；獨立論證 4 大實務貢獻與 3 項方法學學術價值。", AMBER),
 ]
 for i, (rt, rb, rc) in enumerate(review_cards):
@@ -632,16 +632,16 @@ s = new_slide("時程規劃與交接規範 Timeline & Handover Package")
 tl = [("W1–2", "Proposal 提案\n文獻 · API 串接", CYAN), ("W3–4", "特徵工程\n預測模型訓練", GREEN),
       ("W5–6", "知識庫 RAG\nAgent 工具開發", AMBER), ("W7", "前端 UI 整合\nStreamlit / LINE", VIOLET),
       ("W8", "四大實驗評估\n期末移交與展示", RED)]
-rect(s, 0.9, 3.35, 11.5, 0.08, CARD2, shape=MSO_SHAPE.RECTANGLE)
+rect(s, 0.67, 3.35, 11.99, 0.08, CARD2, shape=MSO_SHAPE.RECTANGLE)
 for i, (w, t, c) in enumerate(tl):
-    x = 0.9 + i * 2.6
-    o = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + 0.85), Inches(3.1), Inches(0.55), Inches(0.55))
+    x = 0.67 + i * 2.46
+    o = s.shapes.add_shape(MSO_SHAPE.OVAL, Inches(x + 0.80), Inches(3.1), Inches(0.55), Inches(0.55))
     o.fill.solid(); o.fill.fore_color.rgb = c; o.line.fill.background()
-    text(s, x, 2.3, 2.3, 0.6, w, 22, c, True, PP_ALIGN.CENTER)
-    rect(s, x, 4.0, 2.3, 1.5, CARD)
-    text(s, x + 0.1, 4.1, 2.1, 1.3, t, 15, WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
-rect(s, 0.9, 5.85, 11.5, 0.9, CARD2, line=GREEN)
-text(s, 0.9, 5.95, 11.5, 0.8,
+    text(s, x, 2.3, 2.15, 0.6, w, 22, c, True, PP_ALIGN.CENTER)
+    rect(s, x, 4.0, 2.15, 1.5, CARD)
+    text(s, x + 0.08, 4.1, 1.99, 1.3, t, 15, WHITE, align=PP_ALIGN.CENTER, anchor=MSO_ANCHOR.MIDDLE)
+rect(s, 0.67, 5.85, 11.99, 0.9, CARD2, line=GREEN)
+text(s, 0.67, 5.95, 11.99, 0.8,
      "📦 OpenSpec + Final Handover: 已完成 openspec/changes/ai-air-doctor-mvp/ (proposal/specs/design/tasks) "
      "與 GitHub + README.md + DESIGN.md 雙軌維護，確保下一位開發者無縫執行、驗證與開發。",
      14, WHITE, True, PP_ALIGN.CENTER, MSO_ANCHOR.MIDDLE)

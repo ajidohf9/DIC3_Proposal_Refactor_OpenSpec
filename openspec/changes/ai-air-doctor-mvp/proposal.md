@@ -23,7 +23,7 @@ Air pollution remains the second-leading global risk factor for premature mortal
 ## Impact
 
 - **Planned Source Modules (`src/`)**: `src/tools/` (OpenAPI collectors, RH calibration, ChromaDB RAG), `src/models/` (feature pipeline, XGBoost/LSTM training & inference, SHAP explainer), `src/agent/` (LangGraph state machine, exposure matrix, `SafetyGuardrail`), and `src/web/` (FastAPI gateway, Streamlit dashboard, LINE Bot webhook).
-- **Data & Storage**: Local SQLite database for user health profiles and 72-hour station telemetry cache; ChromaDB vector collection populated from WHO 2021, MOENV 2024/2025 AQI, TSPCCM asthma consensus, and indoor ventilation/CADR guidelines.
+- **Data & Storage**: Local SQLite database for user health profiles and 72-hour station telemetry cache; ChromaDB vector collection populated from WHO 2021, MOENV 2024/2025 AQI & 2025 Policy White Paper (morning/evening split), TSPCCM asthma consensus, HPA Protective 3-Steps (`5 cm` ventilation gap), and indoor ventilation/CADR guidelines.
 - **External Dependencies**: `langgraph`, `langchain-core`, `xgboost`, `torch`, `shap`, `scikit-learn`, `chromadb`, `sentence-transformers`, `fastapi`, `streamlit`, `geopy`, `tenacity`, `requests`.
-- **Verification**: Covers experiments E1 (2025 blind forecasting benchmark), E2 (30 clinician-reviewed scenarios), E3 (10 historical pollution episode SHAP evaluations), and E4 (100 concurrent query latency & SUS usability tests).
+- **Verification**: Covers experiments E1 (2025 blind forecasting benchmark including Taichung `Zhongming/Dali/Xitun` subset), E2 (30 clinician-reviewed scenarios), E3 (10 historical pollution episode SHAP evaluations), and E4 (100 concurrent query latency, fault-injection safe-degradation, & SUS usability tests).
 
