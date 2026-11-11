@@ -470,7 +470,7 @@ HTML = r"""<!DOCTYPE html>
     </div>
     <div class="header-sub">
       <div><strong>對照基準：</strong>《期末專題提案作業規範》×《2020 A-Z SOP》× OpenSpec 1.2.0 Spec-Driven Workflow</div>
-      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（22 頁）· openspec/changes/ai-air-doctor-mvp</div>
+      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（24 頁）· openspec/changes/ai-air-doctor-mvp</div>
     </div>
   </div>
 
@@ -519,16 +519,16 @@ HTML = r"""<!DOCTYPE html>
         <div class="panel-body">
           <div class="subhead"><span class="subnum">2.1</span> Abstract A–F 對照與結構分工（對應 Proposal §1–§3）</div>
           <div class="af-list">
-            <div class="af-row"><div class="af-letter l-a">A</div><div class="af-key">Attention 引題</div><div class="af-val">HEI 2025 全球 790 萬早逝（PM2.5 佔 490 萬）[1]、台 2024 年均 12.8 / 新標 12·30 [3]、140–200 萬氣喘 [21]、152 萬人 ≥25 μg/m³ 運動效益減半 [16]。</div></div>
+            <div class="af-row"><div class="af-letter l-a">A</div><div class="af-key">Attention 引題</div><div class="af-val">HEI 2025 790 萬早逝 [1]、台 12.8 / 2025 白皮書早晚分流 [3,25]、路跑紅害實例 [24]、152 萬人運動閾值 [16,21,26]。</div></div>
             <div class="af-row"><div class="af-letter l-b">B</div><div class="af-key">But 挑戰缺口</div><div class="af-val">現有 App 缺個人暴露與預報；純 ML 缺語意轉譯；通用 LLM 缺即時連線易幻覺；微感測 RH&gt;75% 易虛高 [9–15,20]。</div></div>
             <div class="af-row"><div class="af-letter l-c">C</div><div class="af-key">Cure 核心解藥</div><div class="af-val">提出 <b>AI Air Doctor</b> 個人化 Domain AI Agent，並以 OpenSpec <span class="tag-code">spec-driven</span>（4/4 artifacts）規格驅動實作。</div></div>
             <div class="af-row"><div class="af-letter l-d">D</div><div class="af-key">Development 方法</div><div class="af-val">LangGraph ReAct + MOENV/Civil IoT/CWA + XGBoost/Bi-LSTM + SHAP + 換氣劑量雙軌門檻 + ChromaDB RAG 與護欄 [2–8,17–23]。</div></div>
-            <div class="af-row"><div class="af-letter l-e">E</div><div class="af-key">Experiments 評估</div><div class="af-val">E1 2022–2025 盲測 vs Persistence/MLR；E2 30 醫師情境 vs GPT-4o；E3 10 場 SHAP；E4 100 併發/SUS。</div></div>
-            <div class="af-row"><div class="af-letter l-f">F</div><div class="af-key">Findings 預期</div><div class="af-val"><b>不虛構數據（僅 Expected）</b>：RMSE ≤9.5 (降35%+)、對齊 ≥95–96%、幻覺 ≤2–3%、100% 引用、延遲 ≤4.2s、SUS ≥80。</div></div>
+            <div class="af-row"><div class="af-letter l-e">E</div><div class="af-key">Experiments 評估</div><div class="af-val">E1 2022–25 盲測(含臺中測站) vs Persistence；E2 30 異常/脆弱情境 vs GPT-4o；E3 10 場 SHAP；E4 100 併發/降級/SUS。</div></div>
+            <div class="af-row"><div class="af-letter l-f">F</div><div class="af-key">Findings 預期</div><div class="af-val"><b>不虛構數據（僅 Expected）</b>：RMSE ≤9.5 (降35%+)、對齊 ≥95–96%、幻覺 ≤2–3%、100% 揭露/降級率、SUS ≥80。</div></div>
           </div>
-          <div class="subhead"><span class="subnum">2.2</span> Introduction 論證精神（Why is this project worth doing?）</div>
+          <div class="subhead"><span class="subnum">2.2</span> Introduction 論證：台灣案例新聞 × 3I 說服力（§3.1–§3.7）</div>
           <div class="intro-box">
-            <b>晨跑決策痛點</b>（65 歲氣喘者大安森林公園 07:00 慢跑）：必須同時打通 ① 即時微感測校準、② 24h 前瞻逆溫預報、③ 運動換氣 8–15 倍劑量換算 [23]、④ 雙軌臨床 RAG；完整界定官方 App、ML 黑盒、通用 LLM 與近年政策 Agent [9–12] 之 4 大限制。
+            <b>Interesting · Innovative · Important</b>：回應台中/高雄紅害路跑爭議 [24] 與國健署 5cm 換氣/樂活 App 限制 [26]，打通微感測校準、24h 逆溫預報、8–15× 通氣劑量 [23] 與臨床護欄。
           </div>
         </div>
       </div>
@@ -537,7 +537,7 @@ HTML = r"""<!DOCTYPE html>
       <div class="panel" style="flex:1;">
         <div class="panel-head indigo"><span class="num-pill">3</span> Related Work 與 Deep Research 三大核心問題（3.1–3.5）</div>
         <div class="panel-body">
-          <div class="kv-row"><b>3.1 AI × Domain 平衡（1/2 AI + 1/2 Domain）</b>：§4 涵蓋 23 篇經 arXiv/DOI 核實文獻，拒絕單一模型或未驗證引用。</div>
+          <div class="kv-row"><b>3.1 AI × Domain 平衡（1/2 AI + 1/2 Domain）</b>：§4+§7 涵蓋 26 篇經 arXiv/DOI/新聞政策核實來源 [1–26]，拒絕虛構。</div>
           <div class="kv-row"><b>3.2 AI 技術面</b>：XGBoost [17] / Bi-LSTM + SHAP [14,18,19]；ReAct [7]、RAG [8]、Multi-Agent [9]、MCP [10]、EnQyMo [11]、GPT4AP [12]、Health-LLM [13]。</div>
           <div class="kv-row green"><b>3.3 Domain 面</b>：WHO 2021 [2] 與 MOENV 2024 [3]；RH&gt;75% 吸濕膨脹物理校正 [15,20]；通氣量 <i>V</i><sub>E</sub> 6–8→50–100+ L/min [23]；CO₂ 認知衰退 [22]。</div>
           <div class="kv-row indigo"><b>3.4 Article Summary Table（§4.3）</b>：8 篇 2024–2026 核心研究 [9–16] 對比 Table → 收斂台灣在地整合 Research Gap。</div>
@@ -727,17 +727,17 @@ HTML = r"""<!DOCTYPE html>
             <table class="a2z-table">
               <thead><tr><th>#</th><th>A2Z 定義 → AI Air Doctor 落實映射</th></tr></thead>
               <tbody>
-                <tr><td class="a2z-let">A</td><td><b>引題</b>：HEI 790萬早逝、台年均12.8、152萬人運動研究</td></tr>
+                <tr><td class="a2z-let">A</td><td><b>引題</b>：HEI 790萬、路跑紅害實例[24]、白皮書/152萬人研究</td></tr>
                 <tr><td class="a2z-let">B</td><td><b>挑戰</b>：缺個人暴露預報、RH&gt;75%誤差、LLM醫療幻覺</td></tr>
                 <tr><td class="a2z-let">C</td><td><b>解藥</b>：AI Air Doctor Domain Agent + OpenSpec SDD</td></tr>
                 <tr><td class="a2z-let">D</td><td><b>方法</b>：ReAct+雙層IoT+XGBoost/Bi-LSTM+SHAP+RAG</td></tr>
-                <tr><td class="a2z-let">E</td><td><b>評估</b>：2022–25盲測(E1)、30情境(E2)、10 SHAP(E3)、E4</td></tr>
-                <tr><td class="a2z-let">F</td><td><b>成果</b>：不虛構；RMSE≤9.5、對齊≥95%、幻覺≤2–3%</td></tr>
+                <tr><td class="a2z-let">E</td><td><b>評估</b>：2022–25盲測(含臺中站)、30異常/脆弱、10 SHAP</td></tr>
+                <tr><td class="a2z-let">F</td><td><b>成果</b>：不虛構；RMSE≤9.5、對齊≥95–96%、100%降級率</td></tr>
                 <tr><td class="a2z-let">G</td><td><b>背景</b>：80+MOENV站、上萬Civil IoT、CWA、MCP/OpenSpec</td></tr>
                 <tr><td class="a2z-let">H</td><td><b>瓶頸</b>：公式數值無法轉譯、LLM脫離台灣感測與醫學約束</td></tr>
                 <tr><td class="a2z-let">I</td><td><b>文獻</b>：XGBoost/Geo-AI [14,19]→MCP/Policy Agent [9–12]</td></tr>
                 <tr><td class="a2z-let">J</td><td><b>評析</b>：App被動、ML缺語言、LLM幻覺、近年缺雙軌校正</td></tr>
-                <tr><td class="a2z-let">K</td><td><b>貢獻</b>：OpenSpec規格、台灣時序管線、向量指南、雙端UI</td></tr>
+                <tr><td class="a2z-let">K</td><td><b>貢獻</b>：3I說服力、4大實務貢獻與3項方法學學術價值</td></tr>
                 <tr><td class="a2z-let">L</td><td><b>導覽</b>：摘要↔緒論對照、文獻、5/3/10深研、8模組、指標</td></tr>
                 <tr><td class="a2z-let">M</td><td><b>分類</b>：1/2 AI（ML/SHAP/Agent/RAG）+ 1/2 Domain（物/醫）</td></tr>
                 <tr><td class="a2z-let">N</td><td><b>創新</b>：感測+預測+RAG閉環、RH補償、雙軌門檻與護欄</td></tr>
@@ -768,7 +768,7 @@ HTML = r"""<!DOCTYPE html>
                 <tr><td class="a2z-let">V</td><td><b>驗證</b>：OpenSpec Scenarios + E1–E4 預計量化驗收標準</td></tr>
                 <tr><td class="a2z-let">W</td><td><b>總結</b>：打通感測、預報、暴露生理與臨床RAG四道關鍵關卡</td></tr>
                 <tr><td class="a2z-let">X</td><td><b>專精</b>：台灣季風逆溫、高濕微感測網與氣喘戶外運動場景</td></tr>
-                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + 22頁PPT</td></tr>
+                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + 24頁PPT</td></tr>
                 <tr><td class="a2z-let">Z</td><td><b>展望</b>：實作 W1–W8 與無 CO₂ 感測推估換氣擴充議題</td></tr>
               </tbody>
             </table>
@@ -784,26 +784,26 @@ HTML = r"""<!DOCTYPE html>
           <table class="eval-mini">
             <thead><tr><th style="width:28px;">#</th><th>資料集 / 對象</th><th>Baseline 對比基準</th><th>評估指標</th></tr></thead>
             <tbody>
-              <tr><td><b>E1</b></td><td>MOENV 2022–25 (2025 盲測)</td><td>Persistence · 多元線性回歸</td><td>MAE / RMSE / R²</td></tr>
-              <tr><td><b>E2</b></td><td>30 組醫師審定合成情境</td><td>無工具 GPT-4o · 純 RAG</td><td>對齊率 / 幻覺率</td></tr>
+              <tr><td><b>E1</b></td><td>MOENV 22–25 (含臺中測站盲測)</td><td>Persistence · 多元線性回歸</td><td>MAE / RMSE / R²</td></tr>
+              <tr><td><b>E2</b></td><td>30 組脆弱與異常越界情境</td><td>無工具 GPT-4o · 純 RAG</td><td>對齊 / 幻覺 / 來源</td></tr>
               <tr><td><b>E3</b></td><td>10 場台灣典型紅害事件</td><td>無 SHAP 之純文字預測</td><td>Likert (1–5) 一致</td></tr>
-              <tr><td><b>E4</b></td><td>100 次並行自然語言查詢</td><td>傳統多層雲端推理架構</td><td>延遲 · SUS 分數</td></tr>
+              <tr><td><b>E4</b></td><td>100 併發查詢 + 故障注入</td><td>傳統多層雲端推理架構</td><td>延遲 · 降級 · SUS</td></tr>
             </tbody>
           </table>
           <div class="subhead"><span class="subnum amber">6.2</span> 預期成效（Expected Outcomes Only）</div>
           <div class="kpi-row">
             <div class="kpi-card"><div class="kpi-val">≤ 9.5 μg/m³</div><div class="kpi-lbl">E1: 24h RMSE<br/>降35%+ / 6h R²≥0.82</div></div>
-            <div class="kpi-card green"><div class="kpi-val">≥ 95–96%</div><div class="kpi-lbl">E2: 指引對齊率<br/>幻覺率 ≤ 2–3%</div></div>
+            <div class="kpi-card green"><div class="kpi-val">≥ 95–96%</div><div class="kpi-lbl">E2: 對齊率<br/>100%來源 / 幻覺≤3%</div></div>
             <div class="kpi-card teal"><div class="kpi-val">≥ 4.5 / 5</div><div class="kpi-lbl">E3: SHAP 歸因<br/>10場專家吻合度</div></div>
-            <div class="kpi-card teal"><div class="kpi-val">≤ 4.2s / ≥80</div><div class="kpi-lbl">E4: 平均延遲<br/>SUS 系統易用性</div></div>
+            <div class="kpi-card teal"><div class="kpi-val">100% / ≥80</div><div class="kpi-lbl">E4: 安全降級率<br/>延遲≤4.2s · SUS≥80</div></div>
           </div>
-          <div class="kv-row green"><b>6.3 實證與容錯成果價值</b>：100% 測站與 RAG 出處追溯；API&gt;3s 自動降級 72h 本地快取；固定渲染免責聲明。</div>
+          <div class="kv-row green"><b>6.3 實證價值與學術貢獻</b>：高濕 IoT 同化、防漏時序 XAI、雙層強制護欄；API&gt;3s 降級 72h 快取與固定免責。</div>
         </div>
       </div>
 
       <!-- 7. Conclusion & Handover -->
       <div class="panel" style="flex:1;">
-        <div class="panel-head emerald"><span class="num-pill">7</span> 整體結論：符合度、方法完整性與交接亮點（7.1–7.3）</div>
+        <div class="panel-head emerald"><span class="num-pill">7</span> 整體結論：3I 說服力、學術價值與交接亮點（7.1–7.3）</div>
         <div class="panel-body" style="justify-content:space-between;">
           <div class="concl-grid">
             <div class="concl-card">
@@ -811,17 +811,17 @@ HTML = r"""<!DOCTYPE html>
               完整滿足 4 大核心維度；OpenSpec <span class="tag-code">ai-air-doctor-mvp</span> 通過驗證（4/4 Artifacts Complete）。
             </div>
             <div class="concl-card">
-              <b>7.2 A2Z 完整論證閉環</b>
-              具備 Abstract↔Intro (A–F)、5 Cores / 3 Trade-offs / 10 Details 及 A2Z 全 26+ 字母映射。
+              <b>7.2 3I 論證 × 學術價值</b>
+              結合路跑紅害實例 [24–26]、4 大實務貢獻與 3 項跨領域方法學價值，A2Z 全 38 項完備。
             </div>
             <div class="concl-card">
               <b>7.3 學術誠實與工程移交</b>
-              嚴守「未實驗不虛構數據」、23 篇查證文獻 [1–23]、DESIGN.md × GitHub W1–W8 移交標準。
+              嚴守「未實驗不虛構數據」、26 篇查證文獻與新聞 [1–26]、DESIGN.md × GitHub W1–W8 移交。
             </div>
           </div>
           <div style="background:#0f365c;color:#e2e8f0;border-radius:6px;padding:4px 9px;font-size:10px;display:flex;justify-content:space-between;align-items:center;">
             <span><b>GitHub Repo:</b> ajidohf9/DIC3_Proposal_Refactor_OpenSpec (Branch: refactor/openspec-proposal)</span>
-            <span style="color:#67e8f9;font-weight:700;">No Fabricated Data · Verified Citations [1–23]</span>
+            <span style="color:#67e8f9;font-weight:700;">No Fabricated Data · Verified Citations [1–26]</span>
           </div>
         </div>
       </div>

@@ -25,13 +25,13 @@
 ### 1.2 Abstract（摘要）與 Introduction（緒論）結構對照
 
 * **Abstract 六段式（A–F）完整呼應**：
-  * **A. Attention Getter**：引用 HEI《State of Global Air 2025》全球 790 萬空污早逝（室外 PM2.5 佔 490 萬、86% 源於非傳染性疾病）[1]、台灣 2024 年均 `12.8 μg/m³` 與 2024/09 修訂標準（`12 / 30 μg/m³`）[3]、140–200 萬氣喘人口 [21] 及 152 萬人運動保護減半實證 [16]。
-  * **B. But（挑戰）**：精確點出現行監測 App 無個人劑量與前瞻預報、傳統 ML 缺語意轉譯、通用 LLM 缺即時感測與臨床護欄易生幻覺，以及微感測器 `RH > 75%` 虛高問題 [9–15, 20]。
+  * **A. Attention Getter**：引用 HEI《State of Global Air 2025》全球 790 萬空污早逝 [1]、台灣 2024 年均 `12.8 μg/m³`（台中降至 `12.9 μg/m³`）[3, 24]、2024/09 修訂標準 [3]、2025/05《空氣品質政策白皮書》2030/2035 願景暨早晚分流預報 [25]、中南部馬拉松紅害爭議實例 [24]、140–200 萬氣喘人口暨國健署防護 3 招 [21, 26] 及 152 萬人運動保護減半實證 [16]。
+  * **B. But（挑戰）**：精確點出現行監測 App（環境即時通、樂活氣象 APP）僅被動顯示單點數值、無個人劑量與前瞻預報、傳統 ML 缺語意轉譯、通用 LLM 缺即時感測與臨床護欄易生幻覺，以及微感測器 `RH > 75%` 虛高問題 [9–15, 20]。
   * **C. Cure（解藥）**：提出 **AI Air Doctor** Domain AI Agent，並以 OpenSpec `spec-driven`（4/4 artifacts）落實規格驅動工程。
   * **D. Development（方法）**：結合 LangGraph ReAct、雙層 IoT（3 km + 1 km/5 km）與 CWA 氣象、XGBoost/Bi-LSTM 24h 預報 + SHAP、活動換氣暴露係數 × 雙軌門檻、ChromaDB RAG 與 `SafetyGuardrail`。
-  * **E. Experiments（評估）**：規劃 E1（2022–2025 盲測對比 Persistence／線性回歸）、E2（30 組醫師審定合成情境對比無工具 GPT-4o 與純 RAG）、E3（10 場典型紅害事件 SHAP 專家一致度）、E4（100 次並行請求延遲與 SUS 問卷）。
-  * **F. Findings（預期產出）**：嚴格遵循「**未實驗者僅列 Expected Outcomes，不虛構數據**」，預期達成 24h RMSE 較基準降 35% 以上（`≤ 9.5 μg/m³`，6h `R² ≥ 0.82`）、指引對齊率 `≥ 95%–96%`、幻覺率 `≤ 2%–3%`、100% 可追溯引用、平均延遲 `≤ 4.2s`（95% `≤ 5s`）、SUS `≥ 80`。
-* **Introduction 論證精神（Why is this project worth doing?）**：以「65 歲慢性氣喘者明天 07:00 大安森林公園慢跑 5 公里與家中開窗時機」為主線案例，論證即時感測校準、24h 逆溫預報、生理暴露換算與雙軌醫學指引四大缺一不可的技術支柱，並以對比表界定官方 App、ML 預測模型、通用 LLM 與近年空品 Agent（[9–12]）的技術極限。
+  * **E. Experiments（評估）**：規劃 E1（2022–2025 盲測含臺中代表測站對比 Persistence／線性回歸）、E2（30 組異常與脆弱情境對比無工具 GPT-4o 與純 RAG）、E3（10 場典型紅害事件 SHAP 專家一致度）、E4（100 次並行請求延遲、安全降級率與 SUS 問卷）。
+  * **F. Findings（預期產出）**：嚴格遵循「**未實驗者僅列 Expected Outcomes，不虛構數據**」，預期達成 24h RMSE 較基準降 35% 以上（`≤ 9.5 μg/m³`，6h `R² ≥ 0.82`）、指引對齊率 `≥ 95%–96%`、幻覺率 `≤ 2%–3%`、**100% 來源揭露與安全降級觸發率**、平均延遲 `≤ 4.2s`（95% `≤ 5s`）、SUS `≥ 80`。
+* **Introduction 論證精神（3I 原則 × 新聞案例 × 預期貢獻與學術價值）**：以「65 歲氣喘者明早 07:00 公園慢跑與開窗時機」及台灣馬拉松紅害新聞爭議 [24] 為主軸，於 [proposal.md](proposal.md) §3.6–§3.7 系統整理 **預期工程與實務貢獻（4 維度）**、**預期學術研究價值（3 項跨領域方法學價值）** 與 **3I 說服力論證（Interesting · Innovative · Important）**。
 
 ### 1.3 Related Work 與 Deep Research 三大核心問題
 
@@ -57,18 +57,18 @@
 
 | 字母 | A2Z SOP 核心定義 | AI Air Doctor 具體落實與內容映射 | 對應章節／OpenSpec 規格 |
 | :---: | :--- | :--- | :--- |
-| **A** | **Attention Getter**：動機與引題 | 引用 HEI 2025 全球 790 萬早逝（PM2.5 佔 490 萬）[1]、台灣 2024 年均 `12.8 μg/m³` [3]、140–200 萬氣喘族群 [21] 與 152 萬人 `PM2.5 ≥ 25 μg/m³` 運動效益減半 [16]。 | §1 (A)、§2.0、§3.1 |
-| **B** | **But**：挑戰與現有不足 | 官方 App 缺個人暴露與預報；純 ML 缺行動轉譯；通用 LLM 缺即時感測與護欄易幻覺；微感測 `RH > 75%` 易虛高 [9–15, 20]。 | §1 (B)、§2.0、§3.4 |
+| **A** | **Attention Getter**：動機與引題 | 引用 HEI 2025 全球 790 萬早逝 [1]、台灣 2024 年均 `12.8` / 白皮書 2030·2035 目標 [3, 25]、中南部路跑紅害實例 [24]、140–200 萬氣喘 [21, 26] 與 152 萬人 `≥ 25 μg/m³` 運動減效 [16]。 | §1 (A)、§2.0、§3.1 |
+| **B** | **But**：挑戰與現有不足 | 官方 App（環境即時通／樂活氣象）缺個人暴露與預報；純 ML 缺行動轉譯；通用 LLM 缺即時感測與護欄易幻覺；微感測 `RH > 75%` 易虛高 [9–15, 20]。 | §1 (B)、§2.0、§3.4 |
 | **C** | **Cure**：提出的創新解藥 | 提出個人化領域智慧代理人 **AI Air Doctor**，整合雙層感測、時序預報＋SHAP 與臨床 RAG 護欄。 | §1 (C)、§6.1 |
 | **D** | **Development**：方法設計依據 | LangGraph ReAct 串接 MOENV（3 km）+ Civil IoT（1 km/5 km）+ CWA、XGBoost/Bi-LSTM + SHAP、換氣係數 × 雙軌門檻、ChromaDB 與反思護欄。 | §1 (D)、§6.1–§6.4 |
-| **E** | **Experiments**：評估規劃 | 規劃 2022–2025 逐時資料（2025 盲測）對比 Persistence/MLR（E1）、30 組醫師情境對比 GPT-4o（E2）、10 場 SHAP 專家評核（E3）與 100 併發/SUS（E4）。 | §1 (E)、§6.5 |
-| **F** | **Findings**：預期成果（無虛構） | 嚴禁虛構數據；預期 24h RMSE `≤ 9.5 μg/m³`（降 35%+，6h `R² ≥ 0.82`）、指引對齊 `≥ 95–96%`、幻覺 `≤ 2–3%`、100% 引用、延遲 `≤ 4.2s`、SUS `≥ 80`。 | §1 (F)、§6.5 |
-| **G** | **General**：領域大背景現況 | 台灣具備 80+ 座環境部標準測站、上萬顆民生公共物聯網微型感測器與 CWA 開放氣象，配合 ReAct、RAG、MCP 與 OpenSpec SDD 工程化趨勢 [3–8, 10]。 | §3.2 |
-| **H** | **However**：深層技術與應用瓶頸 | 面對真實提問（65 歲氣喘者明早 07:00 公園慢跑），現有系統難以同時解決微環境校正、前瞻逆溫預報、運動通氣 8–15 倍劑量與可驗證處方四大關卡。 | §3.3、§3.4 |
+| **E** | **Experiments**：評估規劃 | 規劃 2022–2025 逐時資料（2025 盲測含臺中代表站）對比 Persistence/MLR（E1）、30 組脆弱／異常情境（E2）、10 場 SHAP 評核（E3）與 100 併發/降級/SUS（E4）。 | §1 (E)、§6.5 |
+| **F** | **Findings**：預期成果（無虛構） | 嚴禁虛構數據；預期 24h RMSE `≤ 9.5 μg/m³`（降 35%+，6h `R² ≥ 0.82`）、對齊 `≥ 95–96%`、幻覺 `≤ 2–3%`、100% 引用與安全降級率、延遲 `≤ 4.2s`、SUS `≥ 80`。 | §1 (F)、§6.5 |
+| **G** | **General**：領域大背景現況 | 台灣具備 80+ 座環境部測站（並推出早晚分流預報 [25]）、上萬顆民生公共物聯網微型感測器與 CWA 氣象，結合 ReAct、RAG、MCP 與 OpenSpec SDD [3–8, 10]。 | §3.2 |
+| **H** | **However**：深層技術與應用瓶頸 | 面對真實提問與路跑／密閉換氣衝突 [22, 24]，現有系統難以同時解決微環境校正、前瞻逆溫預報、運動通氣 8–15 倍劑量與可驗證處方四大關卡。 | §3.3、§3.4 |
 | **I** | **In literature**：文獻發展梳理 | 從傳統樹模型／時空集成（XGBoost [17]、Geo-AI+SHAP [14]、Puli ML [19]）演進至代理型空品／醫療 LLM（Instructor-Worker [9]、MCP [10]、EnQyMo [11]、GPT4AP [12]、Health-LLM [13]）。 | §4.1 |
-| **J** | **Judgement**：各方法優劣點評析 | 表列對比官方 App（缺預報與劑量）、ML 模型（黑盒無自然語言処方）、通用 LLM（無即時數據與幻覺）、近期 Agent（缺台灣高濕校正與雙軌臨床 RAG）。 | §3.4、§4.3 |
-| **K** | **Keypoint**：設計精神與核心貢獻 | 三維閉環架構、高濕校準與雙層空間感知、動態暴露雙軌門檻、強制引用護欄與 OpenSpec 規格驅動；歸納工程、技術、知識與應用四大貢獻。 | §3.5、§3.6 |
-| **L** | **List organization**：文章結構導覽 | 依序安排摘要（§1）、摘要↔緒論暨 A2Z 對照（§2）、緒論 A–F（§3）、1/2 AI+1/2 Domain 相關研究（§4）、深研 5/3/10（§5）、Proposed Scheme（§6）與文獻（§7）。 | §2、§3–§7 |
+| **J** | **Judgement**：各方法優劣點評析 | 表列對比官方 App（缺預報與劑量）、ML 模型（黑盒無自然語言處方）、通用 LLM（無即時數據與幻覺）、近期 Agent（缺台灣高濕校正與雙軌臨床 RAG）。 | §3.4、§4.3 |
+| **K** | **Keypoint**：核心設計與學術貢獻 | 三維閉環架構與 `SafetyGuardrail`；於 §3.6–§3.7 系統歸納 **四大實務貢獻**、**三大跨領域學術研究價值** 與 **3I 說服力論證**。 | §3.5、§3.6、§3.7 |
+| **L** | **List organization**：文章結構導覽 | 依序安排摘要（§1）、摘要↔緒論暨 A2Z 對照（§2）、緒論與 3I／學術價值（§3）、1/2 AI+1/2 Domain 相關研究（§4）、深研 5/3/10（§5）、Proposed Scheme（§6）與文獻（§7）。 | §2、§3–§7 |
 | **M** | **Methods**：既有文獻方法分類 | 嚴格平衡 1/2 AI Technology（時序回歸 + SHAP + Tool Calling / MCP + RAG）與 1/2 Domain Know-how（法規、吸濕物理、運動生理、CO₂ 認知）。 | §4.1、§4.2 |
 | **N** | **New proposed**：本專案創新技術 | 將 `RH > 75%` 光散射補償、時間防漏預測、運動通氣加權 `effective_dose`、WHO/MOENV 雙軌分級與 `SafetyGuardrail` 自我反思封裝為 OpenSpec 四大能力。 | §3.5、§6.1 |
 | **O** | **Organize**：文獻比較與歸納表 | §4.3 完整表列 8 篇 2024–2026 研究（Ref / Year / Problem / AI / Domain / Dataset / Findings / Limitation），於 §4.4 收斂出 Research Gap。 | §4.3、§4.4 |
@@ -93,25 +93,29 @@
 | **V** | **Verify**：有效性驗證 | 對齊 OpenSpec `specs/*/spec.md` 的 Given-When-Then 驗收場景與 E1–E4 預計達成目標（`RMSE ≤ 9.5`、`對齊 ≥ 95–96%`、`幻覺 ≤ 2–3%`、`SUS ≥ 80`）。 | §1 (F)、§6.5、OpenSpec specs |
 | **W** | **What proposed**：回顧總結 | 解決空品數字與個體健康決策之間的鴻溝，將被動資訊轉為主動、個人化且可驗證的 Domain AI Agent 建議。 | §1、§3.1–§3.3 |
 | **X** | **eXcel**：專精情境與優勢 | 專精於台灣亞熱帶高濕微感測網（`RH > 75%` 補償）、秋冬背風面逆溫預報及氣喘／戶外運動族群雙軌暴露評估。 | §3.1、§3.5 |
-| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、22 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
+| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、24 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
 | **Z** | **Zen**：反思與未來展望 | 誠實指出無室內 CO₂ 感測器住宅的換氣推估（`Open Questions`）與多污染物 O₃ 深入預報仍待 W1–W8 實作與實地驗證逐步完善。 | §6.6、[DESIGN.md](../DESIGN.md)、`design.md` |
 
 ---
 
-## 三、OpenSpec SDD 整合與綜合評審亮點／後續實作建議
+## 三、OpenSpec SDD 整合、3I 說服力與綜合評審亮點
 
 ### 3.1 結構完備度與 OpenSpec SDD 對齊
 * **完整規格驅動鏈**：已透過 OpenSpec v1.2.0 建立 `openspec/changes/ai-air-doctor-mvp/`，經 `openspec validate ai-air-doctor-mvp` 與 `openspec status` 確認 **`Progress: 4/4 artifacts complete`**（`proposal`、`design`、`specs`、`tasks`），並定義 4 份細粒度能力規格（`realtime-iot-ingestion`、`pm25-forecast-shap`、`personalized-exposure-rag`、`react-agent-guardrail`）。
-* **雙軌提案文件同步**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》，並額外產出 A4 橫式高密度編號資訊圖表與 22 頁簡報（滿足簡報篇幅超過 20 頁之最終展示標準）。
+* **雙軌提案文件同步**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》，並額外產出 A4 橫式高密度編號資訊圖表與 24 頁簡報（滿足簡報篇幅超過 20 頁之最終展示標準）。
 
 ### 3.2 學術誠實度（Academic Integrity）
 * **零虛構實驗數據**：全份文件（Abstract F、§2.0、§6.5、簡報、A4 資訊圖表）嚴格標示所有數值目標均為 **Expected Outcomes / 預期驗證指標**，未將計畫達成值偽稱為已執行實驗結果。
-* **統一量化指標口徑**：`DESIGN.md`、`proposal.md`、`openspec/` 與簡報全面對齊同一組目標（RMSE `≤ 9.5 μg/m³` 降 35%+、6h `R² ≥ 0.82`、對齊率 `≥ 95–96%`、幻覺率 `≤ 2–3%`、SHAP 一致度 `≥ 4.5/5`、延遲 `≤ 4.2s`、SUS `≥ 80`）。
+* **統一量化指標口徑**：`DESIGN.md`、`proposal.md`、`openspec/` 與簡報全面對齊同一組目標（RMSE `≤ 9.5 μg/m³` 降 35%+、6h `R² ≥ 0.82`、對齊率 `≥ 95–96%`、幻覺率 `≤ 2–3%`、100% 來源揭露與安全降級覆蓋率、SHAP 一致度 `≥ 4.5/5`、延遲 `≤ 4.2s`、SUS `≥ 80`）。
 
-### 3.3 文獻引用查證確認
-* 已全面汰除早期草稿中無法驗證或主題誤植的 5 筆舊參考文獻，確認目前 `[1]–[23]` 全數具備真實 **arXiv ID / DOI / 官方平臺網址**（涵蓋 2024–2026 前沿研究 [9–16] 與台灣 MOENV 2024/09 修訂標準 [3]）。
+### 3.3 文獻與台灣案例新聞查證確認
+* 已全面汰除早期草稿中無法驗證或主題誤植的 5 筆舊參考文獻，確認目前 `[1]–[26]` 全數具備真實 **arXiv ID / DOI / 官方政策與媒體新聞出處**（涵蓋 2024–2026 前沿研究 [9–16]、MOENV 2024/09 修訂標準暨 2025/05《空氣品質政策白皮書》[3, 25]、台灣路跑紅害爭議實例 [24] 及國健署空污防護 3 招 [26]）。
 
-### 3.4 後續實作（W1–W8）與 Final Handover 檢查清單
+### 3.4 3I 說服力與預期貢獻暨學術價值總結
+* **3I 說服力**：**Interesting**（直擊晨跑 8–15 倍吸入劑量與密閉室 CO₂ 累積兩難）、**Innovative**（IoT 高濕校正 + 防漏時序 SHAP + 雙軌臨床 RAG + 100% 引用護欄閉環）、**Important**（環境部 2025 白皮書與早晚分流轉折、140–200 萬氣喘族群與 152 萬人運動保護減半痛點）。
+* **學術價值三大亮點**：① 亞熱帶高濕（RH > 75%）低成本微感測網同化補償機制；② `TimeBasedRollingSplit` 防洩漏與物理風場 `(u, v)` / `ΔT` SHAP 成因解釋混合框架；③ 確定性劑量計算結合 ReAct 反思護欄抑制高風險健康領域幻覺。
+
+### 3.5 後續實作（W1–W8）與 Final Handover 檢查清單
 1. 依 `openspec/changes/ai-air-doctor-mvp/tasks.md` 依序開發多源擷取、防漏時序模型、ChromaDB RAG 與 LangGraph 護欄。
 2. 實作階段產生真實指標後，以實測數據替換 Expected Outcomes 並同步更新 [DESIGN.md](../DESIGN.md)（Results / Implementation Mapping / Limitations）。
 3. 期末維持 **GitHub + `README.md` + `DESIGN.md` + `openspec/`** 工程交接標準，確保下一位開發者能直接重現、驗證與擴充。

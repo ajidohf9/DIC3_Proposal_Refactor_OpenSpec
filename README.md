@@ -24,7 +24,7 @@
 - 📑 **Word 正式提案書**：[docs/Proposal_AI_Air_Doctor.docx](docs/Proposal_AI_Air_Doctor.docx)
 - 📋 **系統性解析報告（對標《期末專題規範》×《2020 A-Z SOP》）**：[docs/AI_Air_Doctor_Proposal_Analysis.md](docs/AI_Air_Doctor_Proposal_Analysis.md) / [Word 版](docs/AI_Air_Doctor_Proposal_Analysis.docx)
 - 🗺️ **A4 橫式高密度編號資訊圖表**：[docs/img/infographic_A4.png](docs/img/infographic_A4.png)（`3508×2480` 300 DPI，涵蓋 `1.1–7.3` 全編號總覽）
-- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（22 頁專業簡報，涵蓋規範符合度、A–F 結構對照、Deep Research 5/3/10、8 大模組、雙演算法與 A2Z SOP 總覽）
+- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（24 頁專業簡報，涵蓋規範符合度、台灣案例新聞與 3I 說服力論證、A–F 結構對照、Deep Research 5/3/10、8 大模組、預期貢獻與學術價值及 A2Z SOP 總覽）
 - 🧩 **系統設計與移交文件**：[DESIGN.md](DESIGN.md)（依據 11 步移交鏈條編寫）
 - 📐 **OpenSpec 規格驅動工作流**：[openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/)（由 `DESIGN.md` 轉換之 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md`）
 

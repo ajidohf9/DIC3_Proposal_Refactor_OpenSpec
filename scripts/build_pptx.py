@@ -27,7 +27,7 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 BLANK = prs.slide_layouts[6]
-TOTAL = 22
+TOTAL = 24
 _page = [0]
 
 
@@ -184,17 +184,38 @@ text(s, 1.0, 5.15, 11.4, 1.5, [
     "台灣 2024 年 PM2.5 全國年均降至 12.8 μg/m³ 且環境部於 2024/09 修訂嚴格標準 (年均 12 / 日均 30 μg/m³)，"
     "但秋冬中南部逆溫滯留仍頻繁超標，影響約 140–200 萬氣喘族群；NCHU 團隊 152 萬人研究 (BMC Med. 2025) 更證實 PM2.5 ≥ 25 μg/m³ 使運動保護力減半。"], 14)
 
-# ---------------- 3. Abstract & Introduction Structure Alignment ----------------
+# ---------------- 3. Taiwan Case News & 3I Persuasiveness ----------------
+s = new_slide("台灣實證案例新聞與 3I 說服力論證", "真實事件案例 [24–26] · Interesting × Innovative × Important 完整說服閉環")
+case_cards = [
+    ("📰 案例一：紅害馬拉松爭議 [24]",
+     "2018 台中資訊盃公益馬拉松與高雄馬拉松均曾出現測站紅害／紫爆 (>100 μg/m³) 仍如期開跑，跑者遭批「人體空氣清淨機」，凸顯缺乏賽前逐時預報與運動劑量警語。", RED),
+    ("📜 案例二：政策白皮書早晚分流 [25]",
+     "環境部 2025/05 發布《空氣品質政策白皮書》訂定 2030 (10 μg/m³)、2035 (8 μg/m³) 目標並推第一日「早晚分流預報」，然仍缺整合個人病史與 1km 微感測校正之決策代理。", CYAN),
+    ("🩺 案例三：國健署防護 3 招局限 [26]",
+     "國健署秋冬呼籲氣喘者減戶外活動、緊閉門窗留約 5 公分縫隙並用樂活氣象 APP；但既有 App 僅單點查詢，未計算 8–15× 跑步通氣劑量或 10–15 分鐘脈衝換氣窗口。", AMBER),
+]
+for i, (ct, cb, cc) in enumerate(case_cards):
+    card(s, 0.6 + i * 4.1, 1.55, 3.9, 2.35, ct, cb, cc, 14.5, 11.5)
+
+three_i = [
+    ("Interesting (趣味與切身兩難)", "直擊日常悖論：為健康晨跑反因口呼吸使肺沉積增 >4.5× [23]；為擋霾緊閉窗戶卻使室內 CO₂ 破 1400 ppm 認知衰退 [22]。", GREEN),
+    ("Innovative (跨模態閉環創新)", "首創將 Civil IoT (1km) 高濕補償、TimeBasedRollingSplit 防漏 24h 預報 + SHAP、雙軌 RAG 與 100% 護欄以 OpenSpec 封裝。", VIOLET),
+    ("Important (公衛與政策急迫)", "切合 2025 白皮書減半目標、全台 140–200 萬氣喘族群 [21] 與中興大學 152 萬人 ≥25 μg/m³ 運動效益驟減實證 [16]。", CYAN),
+]
+for i, (it, ib, ic) in enumerate(three_i):
+    card(s, 0.6 + i * 4.1, 4.15, 3.9, 2.5, it, ib, ic, 14.5, 11.5)
+
+# ---------------- 4. Abstract & Introduction Structure Alignment ----------------
 s = new_slide("Abstract（摘要）與 Introduction（緒論）結構對照", "六段式 (A–F) 嚴密呼應 · 嚴格遵循「未實驗者僅列 Expected Outcomes，不虛構數據」")
 rect(s, 0.6, 1.55, 6.2, 5.2, CARD)
 text(s, 0.85, 1.7, 5.7, 0.4, "📋 Abstract 六段式（A–F）對照", 16, CYAN, True)
 af_items = [
-    ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台灣 2024 年均 12.8 / 新標 12·30 μg/m³、140–200 萬氣喘與 152 萬人運動閾值引題 [1,3,16,21]。"),
+    ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台 2024 年均 12.8 / 白皮書早晚分流、路跑紅害新聞、140–200 萬氣喘與 152 萬人運動閾值 [1,3,16,21,24–26]。"),
     ("B. But（挑戰）：", "現有 App 僅單點數值無個人化；純 ML 缺語意轉譯；通用 LLM 缺即時感測與護欄易生幻覺；微感測 RH>75% 易虛高 [9–15,20]。"),
     ("C. Cure（解藥）：", "提出 AI Air Doctor 個人化 Domain AI Agent，並以 OpenSpec 規格驅動實作。"),
     ("D. Development（方法）：", "整合 LangGraph ReAct、MOENV+Civil IoT+CWA、XGBoost/Bi-LSTM+SHAP、換氣劑量×雙軌門檻、ChromaDB RAG 與護欄 [2–8,17–23]。"),
-    ("E. Experiments（評估）：", "規劃 2022–2025 盲測對比 Persistence/MLR (E1)、30 組醫師情境對比 GPT-4o (E2)、10 場 SHAP 專家評核 (E3) 與 100 併發/SUS (E4)。"),
-    ("F. Findings（預期產出）：", "不虛構數據，預期 RMSE ≤9.5 μg/m³ (降35%+)、對齊率 ≥95–96%、幻覺率 ≤2–3%、100% 可追溯引用、延遲 ≤4.2s、SUS ≥80。"),
+    ("E. Experiments（評估）：", "規劃 2022–2025 盲測 (含臺中代表站) vs Persistence (E1)、30 異常/脆弱情境 (E2)、10 場 SHAP (E3) 與 100 併發/降級/SUS (E4)。"),
+    ("F. Findings（預期產出）：", "不虛構數據，預期 RMSE ≤9.5 (降35%+)、對齊 ≥95–96%、幻覺 ≤2–3%、100% 來源揭露與安全降級率、延遲 ≤4.2s、SUS ≥80。"),
 ]
 for i, (k, v) in enumerate(af_items):
     inline_box(s, 0.85, 2.13 + i * 0.76, 5.7, 0.75, k, v, GREEN, size=10.8, spacing=1.06)
@@ -485,21 +506,42 @@ card(s, 7.9, 1.65, 4.8, 3.1, "Algorithm 2 · 時序特徵與模型", [
 card(s, 0.6, 5.0, 12.1, 1.75, "系統技術選型與 OpenSpec 架構", "Spec-Driven: OpenSpec 1.2.0 (4 Capabilities)   ·   LLM: Gemini / GPT-4o   ·   Agent: LangGraph   ·   "
      "時序 ML: XGBoost、PyTorch、SHAP   ·   向量庫: ChromaDB   ·   介面: FastAPI + Streamlit / LINE Bot", CYAN, 16, 13.5)
 
-# ---------------- 14. Experiments ----------------
+# ---------------- 17. Experiments ----------------
 s = new_slide("實驗設計與預期成果 Experiments & Expected Findings")
 table(s, 0.6, 1.5, 12.1, [
     ["實驗編號", "測試項目", "對比基準 (Baseline)", "評估指標 (Metrics)", "預期達成目標 (統一口徑)"],
-    ["E1 數值預測效能", "24h PM2.5 預測", "Persistence (恆常) / 線性回歸", "MAE, RMSE, R² (1h/6h/24h)", "RMSE 降 35%+ (≤9.5), 6h R² ≥ 0.82"],
-    ["E2 醫療處方正確性", "30 組醫師審定情境", "原始 GPT-4o / 無時序 RAG", "醫學指引對齊率、幻覺率", "幻覺率 ≤ 2–3%，對齊率 ≥ 95–96%"],
+    ["E1 數值預測效能", "24h PM2.5 預測\n(含臺中測站子集)", "Persistence / 線性回歸", "MAE, RMSE, R² (1h/6h/24h)", "RMSE 降 35%+ (≤9.5), 6h R² ≥ 0.82"],
+    ["E2 醫療處方安全性", "30 組脆弱/越界情境", "原始 GPT-4o / 無時序 RAG", "指引對齊率、幻覺率、來源率", "幻覺 ≤ 2–3%，對齊 ≥ 95–96%，100% 來源"],
     ["E3 成因可解釋性", "10 場歷史紅害事件", "無 SHAP 之純文字預測", "專家成因歸因評分 (1–5)", "大氣成因吻合度 ≥ 4.5 分"],
-    ["E4 系統可用性", "100 次連續併發請求", "傳統多層雲端架構", "端到端延遲、SUS 滿意度問卷", "平均延遲 ≤ 4.2s (95% ≤ 5s), SUS ≥ 80"],
-], [1.8, 2.2, 2.7, 2.7, 2.7], 13, 0.6)
-text(s, 0.6, 4.75, 6, 0.5, "🎯 Expected Findings (嚴格依據作業規範，不虛構實驗數據)", 17, GREEN, True)
-for i, t in enumerate(["24h PM2.5 預測誤差明顯低於 Persistence Baseline，捕捉逆溫驟增能力顯著提升",
-                       "Agent 建議正確性與可引用依據達 95% 以上，有效消弭醫療偏方幻覺",
-                       "能針對氣喘、孕幼等敏感族群精準換算個人暴露量，提供可執行的生活防護"]):
+    ["E4 系統高可用性", "100 併發 + 故障注入", "傳統多層雲端架構", "延遲、安全降級覆蓋率、SUS", "延遲 ≤ 4.2s，安全降級 100%，SUS ≥ 80"],
+], [1.85, 2.2, 2.55, 2.75, 2.75], 12.2, 0.6)
+text(s, 0.6, 4.75, 7, 0.5, "🎯 Expected Findings (嚴格依據作業規範，不虛構實驗數據)", 17, GREEN, True)
+for i, t in enumerate(["24h PM2.5 (含臺中忠明/大里/西屯逆溫場景) 誤差降 35%+，具物理可解釋性",
+                       "Agent 處方對齊率 ≥95–96%、100% 測站與醫學文獻來源揭露、幻覺 ≤2–3%",
+                       "API>3s 72h 快取暨 RH>85% 異常比對達 100% 安全降級覆蓋率，避免盲點風險"]):
     rect(s, 0.6 + i * 4.07, 5.3, 3.9, 1.45, CARD)
-    text(s, 0.8 + i * 4.07, 5.4, 3.5, 1.3, t, 14, WHITE, anchor=MSO_ANCHOR.MIDDLE)
+    text(s, 0.8 + i * 4.07, 5.4, 3.5, 1.3, t, 13.5, WHITE, anchor=MSO_ANCHOR.MIDDLE)
+
+# ---------------- 18. Expected Contributions & Academic Value ----------------
+s = new_slide("預期貢獻與學術研究價值", "Expected Contributions (實務工程四大維度) × Academic Value (三大方法學貢獻)")
+rect(s, 0.6, 1.5, 5.95, 5.2, CARD)
+text(s, 0.85, 1.68, 5.45, 0.4, "🛠️ 一、預期工程與社會實務貢獻（4 維度）", 15.5, CYAN, True)
+contrib_items = [
+    ("1. 規格驅動工程貢獻：", "轉換為 OpenSpec spec-driven 四能力規格與可驗證場景，配合 DESIGN.md 達成無縫團隊移交。"),
+    ("2. 高可用感測與預報：", "建置含臺中代表測站檢核與 3s 超時 72h 快取架構，達成 100% 來源揭露與安全降級率。"),
+    ("3. 雙軌環境醫學 KB：", "結構化對齊 WHO 2021、MOENV 2024/2025 白皮書、TSPCCM 氣喘與國健署防護 3 招 [21,25,26]。"),
+    ("4. 普惠式運動防護：", "透過 Streamlit / LINE Bot 協助 140–200 萬氣喘族群與跑者主動降低有害吸入暴露劑量。"),
+]
+for i, (ck, cv) in enumerate(contrib_items):
+    inline_box(s, 0.85, 2.22 + i * 1.1, 5.45, 1.0, ck, cv, GREEN, size=12, spacing=1.15)
+
+acad_cards = [
+    ("🎓 學術價值 I：跨尺度高濕 IoT 資料同化方法", "提出結合 CWA 濕度場與 5km 法規基準站交叉比對之 RH>75% 非線性補償框架，解決亞熱帶參與式微感測網漂移難題 [15,20]。", VIOLET),
+    ("🎓 學術價值 II：防漏時序與物理可解釋混合預報", "確立 TimeBasedRollingSplit 嚴格防自相關洩漏準則，結合風向量 (u,v)、逆溫 ΔT 與 SHAP 彌補「高精度卻無物理敘事」研究斷層 [14,19]。", AMBER),
+    ("🎓 學術價值 III：高風險健康代理人雙層安全護欄", "驗證「確定性生理劑量數學工具 + ReAct 強制引用反思迴圈」可將醫療偏方幻覺壓抑至 ≤2–3%，提供具通則性 Domain Agent 設計範式 [9–13]。", CYAN),
+]
+for i, (at, ab, ac) in enumerate(acad_cards):
+    card(s, 6.78, 1.5 + i * 1.78, 5.95, 1.64, at, ab, ac, 14, 11.5)
 
 # ---------------- 17. A2Z SOP Part I (A-O, PA-PM) ----------------
 s = new_slide("A2Z SOP 全結構映射總覽 (I)：A–O & PA–PM", "對標《2020 A-Z SOP》完整論文與提案邏輯映射 (docs/AI_Air_Doctor_Proposal_Analysis.md)")
@@ -508,7 +550,7 @@ table(s, 0.6, 1.5, 5.95, [
     ["Abstract", "A–C", "A: 790萬/台12.8/152萬人  B: 單點/無預報/RH>75%/幻覺  C: AI Air Doctor"],
     ["Abstract", "D–F", "D: ReAct+IoT+ML+SHAP+RAG  E: E1–E4 規劃  F: Expected Outcomes 不虛構"],
     ["Intro", "G–I", "G: 80+MOENV+萬顆Civil IoT+OpenSpec  H: 晨跑四大關卡  I: ML→MCP/Agent演進"],
-    ["Intro", "J–L", "J: 四類系統瓶頸表  K: 工程/技術/知識/應用貢獻  L: 全文 §1–§7 章節導覽"],
+    ["Intro", "J–L", "J: 四類系統瓶頸表  K: 3I 說服力與實務/學術價值  L: §1–§7 導覽"],
     ["Related", "M–O", "M: 1/2 AI + 1/2 Domain  N: 三閉環+RH校正+雙軌護欄  O: §4.3 8篇表→缺口"],
 ], [1.05, 0.75, 4.15], 11, 0.86)
 
@@ -521,38 +563,38 @@ table(s, 6.75, 1.5, 5.95, [
     ["PJ–PM", "65歲氣喘跑者案例 (38×1.8=68.4)；TimeBasedRollingSplit 防洩漏與雙軌不變式"],
 ], [0.95, 5.0], 11, 0.86)
 
-# ---------------- 18. A2Z SOP Part II (Q-Z) & Review Highlights ----------------
-s = new_slide("A2Z SOP 全結構映射 (II)：Q–Z 與綜合審查總檢", "Simulation (Q–V) · Conclusion (W–Z) · 學術誠實度與文獻 DOI 查核")
+# ---------------- 21. A2Z SOP Part II (Q-Z) & Review Highlights ----------------
+s = new_slide("A2Z SOP 全結構映射 (II)：Q–Z 與綜合審查總檢", "Simulation (Q–V) · Conclusion (W–Z) · 學術誠實度與文獻新聞查核")
 table(s, 0.6, 1.55, 6.45, [
     ["字母", "A2Z 定義", "AI Air Doctor 驗證與交付落實"],
-    ["Q. 指標", "評估指標", "MAE/RMSE/R² (1h/6h/24h)、指引對齊率、幻覺率、Likert、延遲/SUS"],
+    ["Q. 指標", "評估指標", "MAE/RMSE/R²、指引對齊、幻覺率、100% 來源揭露與安全降級率、SUS"],
     ["R. 基準", "比較對象", "Persistence/MLR (E1)、無工具 GPT-4o & 純 RAG (E2)、無 SHAP (E3)"],
-    ["S–T", "環境調參", "2022–25 全台逐時、72h SQLite 快取、RH 75/85%閘門、XGB n=500/Bi-LSTM"],
-    ["U–V", "產出驗證", "處方+24h趨勢+Top-3 SHAP+Citation；RMSE ≤9.5、對齊 ≥95%、SUS ≥80"],
+    ["S–T", "環境調參", "2022–25 全台與臺中測站、72h 快取、RH 75/85%閘門、XGB n=500/LSTM"],
+    ["U–V", "產出驗證", "處方+24h+SHAP+Citation；RMSE ≤9.5、對齊 ≥95–96%、100% 降級"],
     ["W–X", "總結專精", "打通感測/預報/暴露/RAG 關卡；專精台灣高濕校正與逆溫預警"],
-    ["Y–Z", "交付展望", "GitHub + README + DESIGN.md + OpenSpec + 22頁簡報；無CO₂感測推估展望"],
+    ["Y–Z", "交付展望", "GitHub + README + DESIGN.md + OpenSpec + 24頁簡報；無CO₂推估展望"],
 ], [0.95, 1.15, 4.35], 11, 0.72)
 
 review_cards = [
-    ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 A–F 摘要與緒論對照、A2Z 26+ 字母映射、8 模組/流程圖/行號虛擬碼，以及 Deep Research (5/3/10)，並以 OpenSpec v1.2.0 驗證 4/4 artifacts。", CYAN),
-    ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆明確標註為 Proposed Expected Outcomes，絕不將預期值偽稱為實測結果，且與 DESIGN.md 及 OpenSpec 數值 100% 統一。", GREEN),
-    ("3. 文獻查核 & W1–W8 移交標準", "已淘汰 5 筆舊草稿無效引文，確認 [1]–[23] 全數具備 arXiv ID / DOI / 官方來源；後續依 tasks.md 實作並同步回寫 DESIGN.md。", AMBER),
+    ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 A–F 摘要與緒論、3I 說服力與案例新聞、A2Z 26+ 字母、8 模組/流程/虛擬碼與 Deep Research (5/3/10)，OpenSpec 通過 4/4 artifacts。", CYAN),
+    ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆明確標註為 Expected Outcomes，且與 DESIGN.md 及 OpenSpec 數值 100% 統一（含 100% 來源揭露與安全降級覆蓋率）。", GREEN),
+    ("3. 文獻新聞查核 & 貢獻價值", "已淘汰 5 筆無效舊引文並完成 [1]–[26] arXiv/DOI/新聞查核 [24–26]；獨立論證 4 大實務貢獻與 3 項方法學學術價值。", AMBER),
 ]
 for i, (rt, rb, rc) in enumerate(review_cards):
     card(s, 7.25, 1.55 + i * 1.75, 5.45, 1.62, rt, rb, rc, 14.5, 11.5)
 
-# ---------------- 19. A4 High-Density Numbered Infographic ----------------
+# ---------------- 22. A4 High-Density Numbered Infographic ----------------
 s = new_slide("系統全覽資訊圖表（A4 橫式高密度編號）", "依據課程 Prompt 製作 (1.1–7.3 全編號 · 3508×2480 300 DPI · docs/img/infographic_A4.png)")
 rect(s, 0.55, 1.45, 7.62, 5.38, WHITE)
 s.shapes.add_picture(os.path.join(IMG, "infographic_A4.png"), Inches(0.62), Inches(1.51), height=Inches(5.26))
 card(s, 8.35, 1.45, 4.38, 5.38, "📐 圖表結構導讀 (1–7)", [
     "1 符合度總覽 (1.1–1.4)：AI Agent、領域知識、數據分析、真實應用。",
-    "2 Abstract ↔ Intro (2.1–2.2)：A–F 六段對照與晨跑四支柱痛點。",
-    "3 文獻與深研 (3.1–3.5)：1/2 AI + 1/2 Domain 23 篇查證文獻，5 Cores / 3 Trade-offs / 10 Details。",
-    "4 Proposed Scheme (4.1–4.4)：①–⑧ 模組、SVG 雙迴圈流程圖、Algo 1 & 2 行號虛擬碼。",
+    "2 Abstract ↔ Intro (2.1–2.2)：A–F 對照、路跑新聞案例 [24–26] 與 3I 論證。",
+    "3 文獻與深研 (3.1–3.5)：1/2 AI + 1/2 Domain 26 篇查證文獻，Deep Research 5/3/10。",
+    "4 Proposed Scheme (4.1–4.4)：①–⑧ 模組、SVG 雙迴圈流程圖、Algo 1 & 2。",
     "5 A2Z SOP Outline (5.1)：A–Z 暨 PA–PM 全 38 項映射。",
-    "6–7 評估與結論 (6.1–7.3)：E1–E4 Expected Outcomes 與 OpenSpec 移交。",
-], CYAN, 15.5, 12)
+    "6–7 評估、貢獻與學術價值 (6.1–7.3)：E1–E4、100% 安全降級與三大研究價值。",
+], CYAN, 15.5, 11.5)
 
 # ---------------- 20. Timeline & Handover ----------------
 s = new_slide("時程規劃與交接規範 Timeline & Handover Package")
@@ -573,8 +615,8 @@ text(s, 0.9, 5.95, 11.5, 0.8,
      "與 GitHub + README.md + DESIGN.md 雙軌維護，確保下一位開發者無縫執行、驗證與開發。",
      14, WHITE, True, PP_ALIGN.CENTER, MSO_ANCHOR.MIDDLE)
 
-# ---------------- 22. References ----------------
-s = new_slide("參考文獻 References (經查證之 23 篇完整研究與官方來源)")
+# ---------------- 24. References ----------------
+s = new_slide("參考文獻 References (經查證之 26 篇研究、政策與案例新聞來源)")
 refs = [
     "[1] Health Effects Institute (2025). State of Global Air 2025. Boston, MA: HEI. stateofglobalair.org",
     "[2] WHO (2021). WHO Global Air Quality Guidelines (PM2.5 24h: 15 μg/m³, annual: 5 μg/m³).",
@@ -591,9 +633,12 @@ refs = [
     "[16] Ku, P.-W. et al. (2025). Ambient PM2.5 & physical activity (1.5M adults). BMC Medicine. (NCHU 團隊)",
     "[17][18][19] Chen & Guestrin (2016) XGBoost; Lundberg & Lee (2017) SHAP; Yin et al. (2022) Puli Ensemble.",
     "[20][21][22][23] Hua (2021)/Jayaratne (2018) RH; TSPCCM 氣喘統計; Allen (2016) CO₂; Daigle (2003) 沉積負荷.",
+    "[24] 台灣環境資訊中心/運動筆記 (2016–18). 高雄/台中資訊盃馬拉松紅害跑者爭議；台中 PM2.5 年均 18.8→12.9 μg/m³ 新聞.",
+    "[25] 中華民國環境部 (2025/05/16). 《空氣品質政策白皮書》(2030:10/2035:8 μg/m³) 與 4日/早晚分流預報. moenv.gov.tw",
+    "[26] 衛福部國健署 (2024–25). 秋冬空污季與氣喘「防護 3 招」(減戶外活動、留 5cm 縫隙、樂活氣象 APP). hpa.gov.tw",
 ]
-text(s, 0.7, 1.38, 12, 4.8, refs, 11, WHITE, spacing=1.06)
-text(s, 0.7, 6.28, 12, 0.5, "Thank you!  Q & A", 24, CYAN, True, PP_ALIGN.CENTER)
+text(s, 0.7, 1.32, 12, 5.05, refs, 10.2, WHITE, spacing=1.03)
+text(s, 0.7, 6.42, 12, 0.45, "Thank you!  Q & A", 23, CYAN, True, PP_ALIGN.CENTER)
 
 prs.save(OUT)
 print("saved", os.path.abspath(OUT))
