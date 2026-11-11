@@ -75,7 +75,7 @@
 | **PA** | **Aim**：研究目標陳述 | 打造懂大氣與環境醫學、會取台灣即時數據、能 24h 定量歸因且 100% 有出處可查的個人化空氣品質健康代理人。 | §1 (C)、§3.3 |
 | **PB** | **Based on**：依託基礎與背景 | 依託 MOENV/Civil IoT/CWA 三大開放平臺 [3–6]、WHO 2021 [2]、MOENV 2024 [3]、胸腔重症氣喘指引 [21] 與四本結構化臨床知識手冊。 | §3.2、§6.1 ⑥ |
 | **PC** | **Cure / Cause**：機制有效的原因 | 以確定性氣象模型與暴露公式取代 LLM 猜測數字；以 ChromaDB RAG 與 `SafetyGuardrail` 強制核對測站與指引來源，杜絕黑木耳清肺等偽建議。 | §5 (Q3-9/10)、§6.1 ⑦ |
-| **PD** | **Design**：系統架構典範轉移 | 從「民眾自己讀靜態 AQI 色塊」轉變為「Agent 依個人病史與活動強度主動預報、歸因並產出可執行防護時程」。 | §3.5、§6.1 |
+| **PD** | **Design**：系統架構典範轉移 | **核心研究價值**：從「被動式單點 AQI 查詢（Passive Point AQI Lookup）」邁向「主動式、情境感知、生理劑量量化與實證可追溯的個人化空氣品質健康代理（Proactive, Context-Aware & Evidence-Grounded Agent）」。 | §3.5、§6.1 |
 | **PE** | **Paper Element**：模組元件清單 | 嚴格對應 ①–⑧ 八大模組與 `C-1 AgentOrchestrator` 至 `C-6 SafetyGuardrail` 元件及 OpenSpec 4 大 Capability Specs。 | §6.1、[DESIGN.md](../DESIGN.md) §4 |
 | **PF** | **Formulation**：功能與數學形式 | `effective_dose = PM2.5 × activity_weight`；風向量 `u = -spd·sin(dir·π/180)`、`v = -spd·cos(dir·π/180)`；逆溫潛勢 `ΔT = T_surface - T_dewpoint`；日夜 `sin/cos`。 | §6.4 Algo 1 & 2 |
 | **PG** | **Graph**：架構圖與流程圖 | 提供具 ①–⑧ 編號之系統架構圖（`architecture.png`）與含參數追問、API 降級、RH 校準及護欄反思之流程圖（`flowchart.png`），另附 A4 總覽資訊圖表（`infographic_A4.png`）。 | §6.2、§6.3、§6.7 |
@@ -93,7 +93,7 @@
 | **V** | **Verify**：有效性驗證 | 對齊 OpenSpec `specs/*/spec.md` 的 Given-When-Then 驗收場景與 E1–E4 預計達成目標（`RMSE ≤ 9.5`、`對齊 ≥ 95–96%`、`幻覺 ≤ 2–3%`、`SUS ≥ 80`）。 | §1 (F)、§6.5、OpenSpec specs |
 | **W** | **What proposed**：回顧總結 | 解決空品數字與個體健康決策之間的鴻溝，將被動資訊轉為主動、個人化且可驗證的 Domain AI Agent 建議。 | §1、§3.1–§3.3 |
 | **X** | **eXcel**：專精情境與優勢 | 專精於台灣亞熱帶高濕微感測網（`RH > 75%` 補償）、秋冬背風面逆溫預報及氣喘／戶外運動族群雙軌暴露評估。 | §3.1、§3.5 |
-| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、24 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
+| **Y** | **Yields**：預期最終交付物 | 依期末 Final Handover 標準交付 GitHub Repo（`refactor/openspec-proposal`）、[README.md](../README.md)、[DESIGN.md](../DESIGN.md)、OpenSpec 規格、25 頁簡報與後續 Demo 影片。 | [DESIGN.md](../DESIGN.md) §12 |
 | **Z** | **Zen**：反思與未來展望 | 誠實指出無室內 CO₂ 感測器住宅的換氣推估（`Open Questions`）與多污染物 O₃ 深入預報仍待 W1–W8 實作與實地驗證逐步完善。 | §6.6、[DESIGN.md](../DESIGN.md)、`design.md` |
 
 ---
@@ -102,7 +102,7 @@
 
 ### 3.1 結構完備度與 OpenSpec SDD 對齊
 * **完整規格驅動鏈**：已透過 OpenSpec v1.2.0 建立 `openspec/changes/ai-air-doctor-mvp/`，經 `openspec validate ai-air-doctor-mvp` 與 `openspec status` 確認 **`Progress: 4/4 artifacts complete`**（`proposal`、`design`、`specs`、`tasks`），並定義 4 份細粒度能力規格（`realtime-iot-ingestion`、`pm25-forecast-shap`、`personalized-exposure-rag`、`react-agent-guardrail`）。
-* **雙軌提案文件同步**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》，並額外產出 A4 橫式高密度編號資訊圖表與 24 頁簡報（滿足簡報篇幅超過 20 頁之最終展示標準）。
+* **雙軌提案文件與雙軌摘要**：同時符合《期末專題提案作業規範》與《2020 A-Z SOP》；§1 並並列 **約 500 字精煉版 A–F 專業摘要** 與詳盡工程規格版摘要，搭配 [Three Core Innovations](proposal.md#L112-L125) 核心研究價值論述、A4 橫式高密度編號資訊圖表與 **25 頁簡報**（滿足簡報篇幅超過 20 頁之最終展示標準）。
 
 ### 3.2 學術誠實度（Academic Integrity）
 * **零虛構實驗數據**：全份文件（Abstract F、§2.0、§6.5、簡報、A4 資訊圖表）嚴格標示所有數值目標均為 **Expected Outcomes / 預期驗證指標**，未將計畫達成值偽稱為已執行實驗結果。

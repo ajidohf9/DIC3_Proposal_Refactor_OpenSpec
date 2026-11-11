@@ -470,7 +470,7 @@ HTML = r"""<!DOCTYPE html>
     </div>
     <div class="header-sub">
       <div><strong>對照基準：</strong>《期末專題提案作業規範》×《2020 A-Z SOP》× OpenSpec 1.2.0 Spec-Driven Workflow</div>
-      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（24 頁）· openspec/changes/ai-air-doctor-mvp</div>
+      <div><strong>分析對象：</strong>docs/proposal.md · DESIGN.md · Proposal_AI_Air_Doctor.pptx（25 頁）· openspec/changes/ai-air-doctor-mvp</div>
     </div>
   </div>
 
@@ -750,7 +750,7 @@ HTML = r"""<!DOCTYPE html>
             <table class="a2z-table">
               <thead><tr><th>#</th><th>A2Z 定義 → AI Air Doctor 落實映射</th></tr></thead>
               <tbody>
-                <tr><td class="a2z-let">PD</td><td><b>典範</b>：由「看AQI數字」轉為「主動推演個人安全處方」</td></tr>
+                <tr><td class="a2z-let">PD</td><td><b>典範</b>：被動AQI查詢 → 主動情境感知與實證個人防護</td></tr>
                 <tr><td class="a2z-let">PE</td><td><b>元件</b>：①–⑧ 八模組對應 4 大 OpenSpec Capabilities</td></tr>
                 <tr><td class="a2z-let">PF</td><td><b>公式</b>：Dose=C×w_act；風(u,v)；逆溫潛勢ΔT=Ts−Td</td></tr>
                 <tr><td class="a2z-let">PG</td><td><b>圖示</b>：architecture.png (8模組) + flowchart.png (雙迴圈)</td></tr>
@@ -768,7 +768,7 @@ HTML = r"""<!DOCTYPE html>
                 <tr><td class="a2z-let">V</td><td><b>驗證</b>：OpenSpec Scenarios + E1–E4 預計量化驗收標準</td></tr>
                 <tr><td class="a2z-let">W</td><td><b>總結</b>：打通感測、預報、暴露生理與臨床RAG四道關鍵關卡</td></tr>
                 <tr><td class="a2z-let">X</td><td><b>專精</b>：台灣季風逆溫、高濕微感測網與氣喘戶外運動場景</td></tr>
-                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + 24頁PPT</td></tr>
+                <tr><td class="a2z-let">Y</td><td><b>交付</b>：GitHub Repo + README + DESIGN.md + OpenSpec + 25頁PPT</td></tr>
                 <tr><td class="a2z-let">Z</td><td><b>展望</b>：實作 W1–W8 與無 CO₂ 感測推估換氣擴充議題</td></tr>
               </tbody>
             </table>
@@ -811,8 +811,8 @@ HTML = r"""<!DOCTYPE html>
               完整滿足 4 大核心維度；OpenSpec <span class="tag-code">ai-air-doctor-mvp</span> 通過驗證（4/4 Artifacts Complete）。
             </div>
             <div class="concl-card">
-              <b>7.2 3I 論證 × 學術價值</b>
-              結合路跑紅害實例 [24–26]、4 大實務貢獻與 3 項跨領域方法學價值，A2Z 全 38 項完備。
+              <b>7.2 3I × 三大核心創新價值</b>
+              Passive→Proactive 健康代理定位、路跑新聞 [24–26]、500字A–F摘要與3大方法學價值。
             </div>
             <div class="concl-card">
               <b>7.3 學術誠實與工程移交</b>

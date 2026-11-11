@@ -154,7 +154,7 @@ IOT_group_proposal/
 ├── docs/
 │   ├── proposal.md                      # 提案主文件 (A–F、A2Z 映射、Introduction/Related Work Refactor、5/3/10 深研與虛擬碼)
 │   ├── Proposal_AI_Air_Doctor.docx      # 自動編譯之 Word 提案書
-│   ├── Proposal_AI_Air_Doctor.pptx      # 自動編譯之 24 頁專業簡報檔 (>20 pages)
+│   ├── Proposal_AI_Air_Doctor.pptx      # 自動編譯之 25 頁專業簡報檔 (>20 pages)
 │   ├── AI_Air_Doctor_Proposal_Analysis.md   # 對標《期末專題規範》×《2020 A-Z SOP》× OpenSpec 之完整系統性解析報告
 │   ├── AI_Air_Doctor_Proposal_Analysis.docx # 解析報告 Word 編譯版
 │   └── img/                             # architecture.png、flowchart.png、infographic_A4.png (300 DPI A4)
@@ -168,7 +168,7 @@ IOT_group_proposal/
 │   ├── diagrams.py                      # 系統架構圖與流程圖繪製腳本
 │   ├── render_infographic.py            # A4 橫式高密度編號資訊圖表渲染腳本
 │   ├── build_docx.py                    # 提案與解析報告雙 Word 自動生成器
-│   └── build_pptx.py                    # 24 頁提案簡報 PPT 自動生成器
+│   └── build_pptx.py                    # 25 頁提案簡報 PPT 自動生成器
 ├── DESIGN.md                            # 本設計移交文件
 └── README.md                            # 專案首頁說明
 ```
@@ -198,7 +198,7 @@ openspec.cmd validate ai-air-doctor-mvp
 python scripts/diagrams.py
 python scripts/render_infographic.py
 
-# 5. 編譯輸出正式提案與解析 Word 及 24 頁 PPT 文件
+# 5. 編譯輸出正式提案與解析 Word 及 25 頁 PPT 文件
 python scripts/build_docx.py
 python scripts/build_pptx.py
 ```

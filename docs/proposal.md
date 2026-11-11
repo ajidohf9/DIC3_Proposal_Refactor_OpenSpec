@@ -9,6 +9,17 @@
 
 ## 1. Abstract 摘要
 
+### 1.1 精煉版專業摘要（A–F 結構標示，約 500 字）
+
+**(A) Attention Getter**：空污年奪全球 790 萬命 [1]；台灣雖加嚴標準並推出早晚分流預報 [3,25]，但中南部逆溫季仍曾傳路跑紅害爭議 [24]，威脅 140–200 萬氣喘族群，且 PM2.5≥25 μg/m³ 使運動保護力減半 [16,21]。  
+**(B) But**：現有 App 缺個人暴露預報；純 ML 缺行動轉譯；通用 LLM 缺即時連線易生醫療幻覺；微感測於 RH>75% 易虛高 [9–15,20]。  
+**(C) Cure**：提出個人化領域代理人 **AI Air Doctor**，並以 OpenSpec 規格驅動開發。  
+**(D) Development**：以 LangGraph ReAct 串接環境部、Civil IoT（高濕補償/72h 快取）及氣象署；採時序防漏訓練 XGBoost/Bi-LSTM 預報與 SHAP 歸因，結合換氣劑量、WHO/MOENV 雙軌 RAG 與引用護欄 [2–8,17–23]。  
+**(E) Experiments**：規劃 2022–2025（含臺中站）盲測、30 組脆弱越界情境、10 場 SHAP 評核與 100 併發壓測（E1–E4）。  
+**(F) Findings**：不虛構數據，預期 24h RMSE 降 35%+（≤9.5 μg/m³）、對齊 ≥95–96%、幻覺 ≤2–3%、100% 來源與降級覆蓋、延遲 ≤4.2s、SUS ≥80。
+
+### 1.2 完整工程規格摘要（A–F 詳盡版）
+
 **(A) Attention Getter — Motivation**  
 根據世界衛生組織（WHO）與 Health Effects Institute（HEI）於 2025 年發布的《State of Global Air 2025》報告，空氣污染仍是全球第二大早逝風險因子（僅次於高血壓），於 2023 年造成全球約 **790 萬人死亡**（約佔全球死亡人數八分之一），其中室外 PM2.5 導致 **490 萬人早逝**，且 86% 死亡來自心血管疾病、中風與慢性呼吸道疾病等非傳染性疾病 [1]。在台灣，雖然環境部統計全國 PM2.5 年均濃度已降至 2024 年的 **12.8 μg/m³**（台中亦由 2018 年 18.8 降至近年約 12.9 μg/m³，不良日數大減 85%）並於 2024 年 9 月加嚴國家標準（年均 12 / 日均 30 μg/m³），更於 **2025 年 5 月發布《空氣品質政策白皮書》**訂定 2030 年 10 μg/m³、2035 年 8 μg/m³ 目標並將預報細化為「4 日暨早晚分流預報」[3, 25]；但秋冬季節受東北季風與背風面逆溫滯留影響，中南部大型戶外賽事仍曾屢傳「紅害照常起跑、跑者淪為人體空氣清淨機」之爭議新聞（如台中資訊盃與高雄國際馬拉松事件）[24]，衛福部國健署亦多次於秋冬發布空污「防護 3 招」警示全台約 **140 至 200 萬名氣喘族群** [21, 26]；2025 年國立中興大學主導之 152 萬人大型統合研究更證實，當長期 PM2.5 暴露超過 25 μg/m³ 時，規律運動降低死亡率的保護效益將由約 30% 銳減至 12%–15% [16]。
 
@@ -61,7 +72,7 @@
 | **Related Work** | **M–O** | 方法分類（1/2 AI + 1/2 Domain）→ 創新技術 → 比較總表與缺口收斂 | §4.1–§4.4；26 篇查證文獻＋§4.3 8 篇 2024–2026 Article Summary Table 收斂 Research Gap。 |
 | **Proposed Scheme** | **PA–PM** | 目標（PA）· 基礎（PB）· 成因（PC）· 典範轉移（PD）· 模組（PE）· 公式（PF）· 圖表（PG）· 實作（PH–PI）· 實例（PJ）· 貢獻（PK）· 模擬（PL）· 邏輯不變式（PM） | §6.1–§6.4；①–⑧ 模組對應 OpenSpec 4 Capabilities；Dose/風(u,v)/ΔT 公式、雙圖、`Algo 1 & 2` 行號虛擬碼與 `TimeBasedRollingSplit` 防漏不變式。 |
 | **Simulation / Eval** | **Q–V** | 評估指標（Q）· 比較基準（R）· 實驗環境（S）· 調參（T）· 產出（U）· 驗證（V） | §6.5 E1–E4（含臺中測站子集）；對比 Persistence/GPT-4o/純 RAG/無 SHAP，達成 RMSE ≤ 9.5、對齊 ≥ 95–96%、100% 來源揭露與安全降級率。 |
-| **Conclusion** | **W–Z** | 回顧總結（W）· 專精優勢（X）· 交付物（Y）· 反思展望（Z） | §6.6、`DESIGN.md` §12；專精台灣高濕與逆溫預警，交付 GitHub + OpenSpec + 24 頁簡報與 A4 解析圖表，預留無 CO₂ 感測推估之擴充點。 |
+| **Conclusion** | **W–Z** | 回顧總結（W）· 專精優勢（X）· 交付物（Y）· 反思展望（Z） | §6.6、`DESIGN.md` §12；專精台灣高濕與逆溫預警，交付 GitHub + OpenSpec + 25 頁簡報與 A4 解析圖表，預留無 CO₂ 感測推估之擴充點。 |
 
 ---
 
@@ -98,11 +109,20 @@ Why is this project worth doing? 本章依循 **A–F 結構**，與上述摘要
 | **通用生成式 AI** | 原始 ChatGPT、Claude | 強大對話理解與文字生成 | 無法存取即時台灣 IoT 測站與個人檔案，且醫療實證約束不足，易產生捏造建議之安全幻覺。 |
 | **近年空品 LLM 研究** | Policy Agent、MCP/Alert Agent [9–12] | 工具串接、政策草案或局部警報 | 多聚焦宏觀災難政策 [9]、純即時監測 [10, 11] 或純預測 [12]，缺少台灣在地高濕校正、24h 預報與雙軌醫學 RAG 護欄之整合。 |
 
-### 3.5 E. Innovation（本專題創新點）
-1. **感測＋預測＋臨床 RAG 三維閉環架構**：以 LangGraph ReAct 統一調度「雙層 IoT 即時感知」、「雙軌 ML 24 小時預報 + SHAP 歸因」與「ChromaDB 環境醫學 RAG」，補足現有單點研究缺口。
-2. **高濕校正與雙層空間感知機制**：結合環境部 3 公里標準站基準與 Civil IoT 1 公里微感測網，並於 RH > 75% 時啟動光散射吸濕膨脹校正與 5 公里離群比對，解決台灣亞熱帶高濕環境下的感測失真痛點 [15, 20]。
-3. **動態暴露劑量與雙軌風險門檻引擎**：依據活動換氣係數與個人病史自動切換一般（MOENV 2024/2025）與敏感族群（WHO 2021）門檻，實現精準分級防護。
-4. **強制引用護欄（`SafetyGuardrail`）與 OpenSpec 規格驅動工程**：任何回答未涵蓋測站編號、預測信賴狀態或醫學出處即觸發自我反思重寫；全專案以 OpenSpec `proposal → specs → design → tasks` 鎖定可測試需求場景與交付品質。
+### 3.5 E. Innovation：AI Air Doctor Three Core Innovations（三大核心創新與核心研究價值）
+
+本研究提出 **AI Air Doctor**：一套結合自然語言主動代理互動、雙層感測融合校正與可解釋時序環境醫學推理的個人化空氣品質健康代理人，旨在突破現有官方 App 被動查表、ML 黑盒無行動轉譯以及通用 LLM 缺乏即時感測與臨床護欄之三大限制。本系統具備 **Three Core Innovations（三大核心創新）**：
+
+1. **Natural Language & Proactive Dual-Layer IoT Interaction — 自然語言與主動式雙層感知互動**  
+   以 LangGraph ReAct 狀態機與主動追問澄清迴圈解析時間、地點與活動強度，並即時串接環境部 3 km 標準站與 Civil IoT 1 km 微感測器（`RH > 75%` 吸濕膨脹補償、異常觸發 5 km 比對、API 逾 3 秒自動降級 72h 本地快取），免除使用者跨平台查表與手動判讀感測異常之操作負擔 [4, 15, 20]。
+2. **Explainable Spatio-Temporal Forecasting & Exposure Dose Engine — 可解釋時序預報與生理劑量引擎**  
+   以嚴格 `TimeBasedRollingSplit` 防洩漏管線訓練 XGBoost / 雙向 LSTM 預測未來 24 小時 PM2.5，搭配 SHAP 拆解風場 `(u, v)` 與逆溫潛勢 `ΔT` 成因，再依靜止至跑步 1.0–1.8× 換氣倍數換算個體實際吸入暴露劑量 [14, 16, 19, 23]。
+3. **Context-Aware Clinical RAG & Evidence Guardrail — 情境感知環境醫學 RAG 與雙層安全護欄**  
+   依 SQLite 本地健康檔案自動切換一般（MOENV 2024/2025）與敏感族群（WHO 2021）雙軌門檻，透過 ChromaDB 檢索台灣臨床指引與國健署防護 3 招，並由 `SafetyGuardrail` 強制核對 100% 測站與文獻出處（未通過即自我反思重寫），完全納入 OpenSpec `proposal → specs → design → tasks` 規格驅動驗證 [2, 3, 21, 22, 26]。
+
+> **核心研究價值**：從「被動式單點 AQI 查詢（Passive Point AQI Lookup）」，邁向「主動式、情境感知、生理劑量量化與實證可追溯的個人化空氣品質健康代理（Proactive, Context-Aware, Dose-Quantified & Evidence-Grounded Air Health Agent）」。
+
+（上述三大核心創新直接落地為四大細部工程突破：① 感測＋預測＋臨床 RAG 三維閉環；② 高濕校正與 3km/1km/5km 雙層空間感知；③ 動態換氣暴露劑量與雙軌風險引擎；④ 100% 強制引用護欄與 OpenSpec SDD。）
 
 ### 3.6 F. 預期貢獻與學術研究價值（Expected Contributions & Academic Value）
 

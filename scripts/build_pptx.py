@@ -27,7 +27,7 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 BLANK = prs.slide_layouts[6]
-TOTAL = 24
+TOTAL = 25
 _page = [0]
 
 
@@ -206,9 +206,9 @@ for i, (it, ib, ic) in enumerate(three_i):
     card(s, 0.6 + i * 4.1, 4.15, 3.9, 2.5, it, ib, ic, 14.5, 11.5)
 
 # ---------------- 4. Abstract & Introduction Structure Alignment ----------------
-s = new_slide("Abstract（摘要）與 Introduction（緒論）結構對照", "六段式 (A–F) 嚴密呼應 · 嚴格遵循「未實驗者僅列 Expected Outcomes，不虛構數據」")
+s = new_slide("Abstract（摘要）與 Introduction（緒論）結構對照", "六段式 (A–F) 精煉約 500 字摘要 × 詳盡規格版 · 嚴守「僅列 Expected Outcomes，不虛構數據」")
 rect(s, 0.6, 1.55, 6.2, 5.2, CARD)
-text(s, 0.85, 1.7, 5.7, 0.4, "📋 Abstract 六段式（A–F）對照", 16, CYAN, True)
+text(s, 0.85, 1.7, 5.7, 0.4, "📋 Abstract 六段式（A–F，約 500 字精煉對照）", 15.5, CYAN, True)
 af_items = [
     ("A. Attention Getter：", "引用 HEI 2025 全球 790 萬早逝、台 2024 年均 12.8 / 白皮書早晚分流、路跑紅害新聞、140–200 萬氣喘與 152 萬人運動閾值 [1,3,16,21,24–26]。"),
     ("B. But（挑戰）：", "現有 App 僅單點數值無個人化；純 ML 缺語意轉譯；通用 LLM 缺即時感測與護欄易生幻覺；微感測 RH>75% 易虛高 [9–15,20]。"),
@@ -381,6 +381,37 @@ for i, (t, b, c) in enumerate(pillars):
 rect(s, 0.6, 6.0, 12.1, 0.75, CARD2, line=CYAN)
 text(s, 0.8, 6.05, 11.7, 0.65, "核心原則: 每一則建議都附上「測站來源 + 預測信心 + 醫學指引出處」，拒絕偽建議",
      16, WHITE, True, PP_ALIGN.CENTER, MSO_ANCHOR.MIDDLE)
+
+# ---------------- 13. Three Core Innovations & Core Research Value ----------------
+s = new_slide("AI Air Doctor: Three Core Innovations", "三大核心創新（中英雙語定位）與一句話核心研究價值典範轉移")
+rect(s, 0.6, 1.44, 12.1, 0.66, CARD2)
+text(s, 0.8, 1.49, 11.7, 0.56,
+     "本研究提出 AI Air Doctor：結合自然語言主動代理、雙層 IoT 高濕校正與可解釋環境醫學推理之個人化空氣品質健康代理人，旨在突破傳統被動查表、ML 黑盒無行動轉譯及 LLM 缺乏即時感測與臨床護欄之限制。",
+     12, WHITE, False, PP_ALIGN.LEFT, MSO_ANCHOR.MIDDLE)
+
+innov_3 = [
+    ("1. Natural Language & Proactive Dual-Layer IoT Interaction — 自然語言與主動式雙層感知互動",
+     "以 LangGraph ReAct 狀態機與主動追問迴圈解析時間/地點/活動，即時串接環境部 3km 標準站與 Civil IoT 1km 微感測（RH>75% 補償、5km 比對、API 逾 3s 降級 72h 快取），免除跨平台人工判讀負擔 [4,15,20]。",
+     CYAN),
+    ("2. Explainable Spatio-Temporal Forecasting & Exposure Dose Engine — 可解釋時序預報與生理劑量引擎",
+     "以 TimeBasedRollingSplit 防洩漏管線訓練 XGBoost / Bi-LSTM 預測 24h PM2.5，搭配 SHAP 拆解風場 (u,v) 與逆溫潛勢 ΔT 成因，再依 1.0–1.8× 運動換氣倍數換算實際吸入暴露劑量 [14,16,19,23]。",
+     GREEN),
+    ("3. Context-Aware Clinical RAG & Evidence Guardrail — 情境感知環境醫學 RAG 與雙層安全護欄",
+     "依 SQLite 健康檔案自動切換一般（MOENV 2024）與敏感族群（WHO 2021）門檻，透過 ChromaDB 檢索臨床指引與國健署防護 3 招，並由 SafetyGuardrail 強制核對 100% 測站與文獻出處 [2,3,21,22,26]。",
+     VIOLET),
+]
+for i, (it, ib, ic) in enumerate(innov_3):
+    y = 2.24 + i * 1.14
+    rect(s, 0.6, y, 12.1, 1.02, CARD)
+    rect(s, 0.6, y, 0.1, 1.02, ic, shape=MSO_SHAPE.RECTANGLE)
+    text(s, 0.85, y + 0.08, 11.65, 0.34, it, 13.5, ic, True)
+    text(s, 0.85, y + 0.42, 11.65, 0.54, ib, 11.2, WHITE, False, spacing=1.08)
+
+rect(s, 0.6, 5.74, 12.1, 0.96, CARD2, line=GREEN)
+inline_box(s, 0.85, 5.86, 11.6, 0.74,
+           "核心研究價值：",
+           "從「被動式單點 AQI 查詢（Passive Point AQI Lookup）」，邁向「主動式、情境感知、生理劑量量化與實證可追溯的個人化空氣品質健康代理（Proactive, Context-Aware, Dose-Quantified & Evidence-Grounded Air Health Agent）」。",
+           AMBER, size=12.5, spacing=1.18)
 
 # ---------------- 9. Agent design ----------------
 s = new_slide("Agent 設計 Agent Design", "Role · Tools · Decision Logic · 暴露劑量矩陣")
@@ -557,7 +588,7 @@ table(s, 0.6, 1.5, 5.95, [
 table(s, 6.75, 1.5, 5.95, [
     ["元件", "A2Z 定義 → Proposed Scheme (PA–PM) 落實映射"],
     ["PA–PB", "目標與基礎：以 WHO 2021 / MOENV 2024 / Civil IoT / TSPCCM 打造可追溯 Agent"],
-    ["PC–PD", "有效與典範轉移：用確定性劑量×RAG 取代猜測；由看 AQI 轉為主動處方推演"],
+    ["PC–PD", "有效與典範轉移：用確定性劑量×RAG 取代猜測；由被動查AQI轉主動情境代理"],
     ["PE–PF", "①–⑧ 模組對應 OpenSpec 4 能力；公式 Dose=C×w_act、風(u,v)、ΔT=Ts−Td"],
     ["PG–PI", "architecture/flowchart 雙圖 + Algo 1 (L01–29) 與 Algo 2 (L01–20) 行號虛擬碼"],
     ["PJ–PM", "65歲氣喘跑者案例 (38×1.8=68.4)；TimeBasedRollingSplit 防洩漏與雙軌不變式"],
@@ -572,11 +603,11 @@ table(s, 0.6, 1.55, 6.45, [
     ["S–T", "環境調參", "2022–25 全台與臺中測站、72h 快取、RH 75/85%閘門、XGB n=500/LSTM"],
     ["U–V", "產出驗證", "處方+24h+SHAP+Citation；RMSE ≤9.5、對齊 ≥95–96%、100% 降級"],
     ["W–X", "總結專精", "打通感測/預報/暴露/RAG 關卡；專精台灣高濕校正與逆溫預警"],
-    ["Y–Z", "交付展望", "GitHub + README + DESIGN.md + OpenSpec + 24頁簡報；無CO₂推估展望"],
+    ["Y–Z", "交付展望", "GitHub + README + DESIGN.md + OpenSpec + 25頁簡報；無CO₂推估展望"],
 ], [0.95, 1.15, 4.35], 11, 0.72)
 
 review_cards = [
-    ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 A–F 摘要與緒論、3I 說服力與案例新聞、A2Z 26+ 字母、8 模組/流程/虛擬碼與 Deep Research (5/3/10)，OpenSpec 通過 4/4 artifacts。", CYAN),
+    ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 500 字與完整版 A–F、3I 與 Three Core Innovations、A2Z 26+ 字母、8 模組/雙演算法與 Deep Research (5/3/10)，OpenSpec 4/4 完成。", CYAN),
     ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆明確標註為 Expected Outcomes，且與 DESIGN.md 及 OpenSpec 數值 100% 統一（含 100% 來源揭露與安全降級覆蓋率）。", GREEN),
     ("3. 文獻新聞查核 & 貢獻價值", "已淘汰 5 筆無效舊引文並完成 [1]–[26] arXiv/DOI/新聞查核 [24–26]；獨立論證 4 大實務貢獻與 3 項方法學學術價值。", AMBER),
 ]
