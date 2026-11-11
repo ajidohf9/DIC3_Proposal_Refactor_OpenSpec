@@ -20,9 +20,11 @@
 ---
 
 ## 提案階段核心交付物（Proposal Package）
-- 📄 **主提案文件**：[docs/proposal.md](docs/proposal.md)（完整 A–F 摘要、緒論、文獻摘要表、三大核心問題與演算法虛擬碼）
+- 📄 **主提案文件**：[docs/proposal.md](docs/proposal.md)（完整 A–F 摘要與緒論對照、A2Z SOP 映射總表、1/2 AI + 1/2 Domain 文獻摘要表、Deep Research 與演算法虛擬碼）
 - 📑 **Word 正式提案書**：[docs/Proposal_AI_Air_Doctor.docx](docs/Proposal_AI_Air_Doctor.docx)
-- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（17 頁深色高質感專業簡報，涵蓋 A–F 結構對照、Deep Research 與 8 大模組）
+- 📋 **系統性解析報告（對標《期末專題規範》×《2020 A-Z SOP》）**：[docs/AI_Air_Doctor_Proposal_Analysis.md](docs/AI_Air_Doctor_Proposal_Analysis.md) / [Word 版](docs/AI_Air_Doctor_Proposal_Analysis.docx)
+- 🗺️ **A4 橫式高密度編號資訊圖表**：[docs/img/infographic_A4.png](docs/img/infographic_A4.png)（`3508×2480` 300 DPI，涵蓋 `1.1–7.3` 全編號總覽）
+- 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（21 頁專業簡報，涵蓋規範符合度、A–F 結構對照、Deep Research、8 大模組與 A2Z SOP 總覽）
 - 🧩 **系統設計與移交文件**：[DESIGN.md](DESIGN.md)（依據 11 步移交鏈條編寫）
 - 📐 **OpenSpec 規格驅動工作流**：[openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/)（由 `DESIGN.md` 轉換之 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md`）
 
@@ -56,14 +58,15 @@ python -m venv venv
 .\venv\Scripts\activate   # Windows
 
 # 2. 安裝必要套件
-pip install python-docx python-pptx matplotlib requests
+pip install python-docx python-pptx matplotlib pillow requests
 
 # 3. 檢查並驗證 OpenSpec 規格與任務進度
 openspec.cmd status --change ai-air-doctor-mvp
 openspec.cmd validate ai-air-doctor-mvp
 
-# 4. 重新產出架構圖與流程圖 (PNG)
+# 4. 重新產出架構圖、流程圖與 A4 橫式高密度資訊圖表 (PNG)
 python scripts/diagrams.py
+python scripts/render_infographic.py
 
 # 5. 自動編譯輸出最新 Word 報告與 PPT 簡報
 python scripts/build_docx.py

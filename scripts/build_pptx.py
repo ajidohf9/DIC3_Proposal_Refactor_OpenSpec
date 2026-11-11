@@ -27,7 +27,7 @@ prs = Presentation()
 prs.slide_width = Inches(13.333)
 prs.slide_height = Inches(7.5)
 BLANK = prs.slide_layouts[6]
-TOTAL = 17
+TOTAL = 21
 _page = [0]
 
 
@@ -202,7 +202,21 @@ table(s, 7.05, 1.55, 5.65, [
     ["E. Experiments\nF. Findings", "F. Contributions", "統一 E1–E4 預計指標並歸納架構/技術/知識/應用貢獻"],
 ], [1.65, 1.55, 2.45], 11.5, 0.96)
 
-# ---------------- 3. Problem ----------------
+# ---------------- 4. Final Project Spec Compliance ----------------
+s = new_slide("期末專題規範符合度總覽 (1.1–1.4 × OpenSpec)", "超越單一 Model 與 Chatbot · 規格驅動之 Domain AI Agent 雙軌對齊")
+table(s, 0.6, 1.55, 12.1, [
+    ["編號", "規範評估維度", "AI Air Doctor 設計實踐", "OpenSpec / 文件對應", "符合度"],
+    ["1.1", "AI Agent\n(推理與調度)", "LangGraph ReAct 狀態機、參數追問迴圈、時態路由與 Tool Calling，搭配強制引用反思護欄", "react-agent-guardrail\nAlgorithm 1 (L01–29)", "✓ 高"],
+    ["1.2", "Domain Knowledge\n(領域知識)", "WHO 2021 (15) 與 MOENV 2024 (12/30)、運動換氣係數 (1.0–1.8×)、RH>75% 校正與 CO₂ 換氣權衡", "personalized-exposure-rag\nDeep Research §5", "✓ 高"],
+    ["1.3", "Data Analytics\n(數據分析)", "MOENV (3km) + Civil IoT (1km/5km) + CWA、時空 KNN 補值、風向量 (u,v)、XGBoost/Bi-LSTM + SHAP", "realtime-iot-ingestion\npm25-forecast-shap", "✓ 高"],
+    ["1.4", "Real-World App\n(真實應用)", "鎖定台灣 140–200 萬氣喘族群 [21] 與 152 萬人運動閾值 [16]，支援 Streamlit 與 LINE Bot 雙介面", "Proposal §1–§3\nDESIGN.md §1–§12", "✓ 高"],
+], [0.7, 2.15, 5.2, 2.95, 1.1], 12, 0.72)
+card(s, 0.6, 5.3, 5.9, 1.45, "OpenSpec Spec-Driven 驗證狀態 (v1.2.0)",
+     "openspec validate ai-air-doctor-mvp → Valid | Progress: 4/4 artifacts complete\n(proposal.md · design.md · tasks.md · 4 Capability Specs)", CYAN, 15, 12.5)
+card(s, 6.8, 5.3, 5.9, 1.45, "核心評量準則檢核",
+     "✓ 完整整合「懂大氣與環境醫學 + 會取台灣即時數據 + 能定量預報 + 有客觀實證出處」\n✓ 嚴禁虛構數據：E1–E4 全面採 Expected Outcomes 標示", GREEN, 15, 12.5)
+
+# ---------------- 5. Problem ----------------
 s = new_slide("問題定義 Problem", "民眾真正想問的，不是「AQI 多少」，而是「我該怎麼做」")
 rect(s, 0.7, 1.75, 5.6, 1.6, CARD2, line=VIOLET)
 text(s, 0.95, 1.9, 5.2, 0.4, "💬 使用者提問情境", 15, VIOLET, True)
@@ -440,7 +454,60 @@ for i, t in enumerate(["24h PM2.5 預測誤差明顯低於 Persistence Baseline�
     rect(s, 0.6 + i * 4.07, 5.3, 3.9, 1.45, CARD)
     text(s, 0.8 + i * 4.07, 5.4, 3.5, 1.3, t, 14, WHITE, anchor=MSO_ANCHOR.MIDDLE)
 
-# ---------------- 15. Timeline & Handover ----------------
+# ---------------- 17. A2Z SOP Part I (A-O, PA-PM) ----------------
+s = new_slide("A2Z SOP 全結構映射總覽 (I)：A–O & PA–PM", "對標《2020 A-Z SOP》完整論文與提案邏輯映射 (docs/AI_Air_Doctor_Proposal_Analysis.md)")
+table(s, 0.6, 1.5, 5.95, [
+    ["區段", "字母", "A2Z 定義 → AI Air Doctor 落實映射"],
+    ["Abstract", "A–C", "A: 790萬/台12.8/152萬人  B: 單點/無預報/RH>75%/幻覺  C: AI Air Doctor"],
+    ["Abstract", "D–F", "D: ReAct+IoT+ML+SHAP+RAG  E: E1–E4 規劃  F: Expected Outcomes 不虛構"],
+    ["Intro", "G–I", "G: 80+MOENV+萬顆Civil IoT+OpenSpec  H: 晨跑四大關卡  I: ML→MCP/Agent演進"],
+    ["Intro", "J–L", "J: 四類系統瓶頸表  K: 工程/技術/知識/應用貢獻  L: 全文 §1–§7 章節導覽"],
+    ["Related", "M–O", "M: 1/2 AI + 1/2 Domain  N: 三閉環+RH校正+雙軌護欄  O: §4.3 8篇表→缺口"],
+], [1.05, 0.75, 4.15], 11, 0.86)
+
+table(s, 6.75, 1.5, 5.95, [
+    ["元件", "A2Z 定義 → Proposed Scheme (PA–PM) 落實映射"],
+    ["PA–PB", "目標與基礎：以 WHO 2021 / MOENV 2024 / Civil IoT / TSPCCM 打造可追溯 Agent"],
+    ["PC–PD", "有效與典範轉移：用確定性劑量×RAG 取代猜測；由看 AQI 轉為主動處方推演"],
+    ["PE–PF", "①–⑧ 模組對應 OpenSpec 4 能力；公式 Dose=C×w_act、風(u,v)、ΔT=Ts−Td"],
+    ["PG–PI", "architecture/flowchart 雙圖 + Algo 1 (L01–29) 與 Algo 2 (L01–20) 行號虛擬碼"],
+    ["PJ–PM", "65歲氣喘跑者案例 (38×1.8=68.4)；TimeBasedRollingSplit 防洩漏與雙軌不變式"],
+], [0.95, 5.0], 11, 0.86)
+
+# ---------------- 18. A2Z SOP Part II (Q-Z) & Review Highlights ----------------
+s = new_slide("A2Z SOP 全結構映射 (II)：Q–Z 與綜合審查總檢", "Simulation (Q–V) · Conclusion (W–Z) · 學術誠實度與文獻 DOI 查核")
+table(s, 0.6, 1.55, 6.45, [
+    ["字母", "A2Z 定義", "AI Air Doctor 驗證與交付落實"],
+    ["Q. 指標", "評估指標", "MAE/RMSE/R² (1h/6h/24h)、指引對齊率、幻覺率、Likert、延遲/SUS"],
+    ["R. 基準", "比較對象", "Persistence/MLR (E1)、無工具 GPT-4o & 純 RAG (E2)、無 SHAP (E3)"],
+    ["S–T", "環境調參", "2022–25 全台逐時、72h SQLite 快取、RH 75/85%閘門、XGB n=500/Bi-LSTM"],
+    ["U–V", "產出驗證", "處方+24h趨勢+Top-3 SHAP+Citation；RMSE ≤9.5、對齊 ≥95%、SUS ≥80"],
+    ["W–X", "總結專精", "打通感測/預報/暴露/RAG 關卡；專精台灣高濕校正與逆溫預警"],
+    ["Y–Z", "交付展望", "GitHub + README + DESIGN.md + OpenSpec + 21頁簡報；無CO₂感測推估展望"],
+], [0.95, 1.15, 4.35], 11, 0.72)
+
+review_cards = [
+    ("1. 結構完備度：雙規範 × OpenSpec", "完整涵蓋 A–F 摘要與緒論對照、A2Z 26+ 字母映射、8 模組/流程圖/行號虛擬碼，以及 Deep Research (5/3/10)，並以 OpenSpec v1.2.0 驗證 4/4 artifacts。", CYAN),
+    ("2. 學術誠實度：嚴守零虛構原則", "所有指標皆明確標註為 Proposed Expected Outcomes，絕不將預期值偽稱為實測結果，且與 DESIGN.md 及 OpenSpec 數值 100% 統一。", GREEN),
+    ("3. 文獻查核 & W1–W8 移交標準", "已淘汰 5 筆舊草稿無效引文，確認 [1]–[23] 全數具備 arXiv ID / DOI / 官方來源；後續依 tasks.md 實作並同步回寫 DESIGN.md。", AMBER),
+]
+for i, (rt, rb, rc) in enumerate(review_cards):
+    card(s, 7.25, 1.55 + i * 1.75, 5.45, 1.62, rt, rb, rc, 14.5, 11.5)
+
+# ---------------- 19. A4 High-Density Numbered Infographic ----------------
+s = new_slide("系統全覽資訊圖表（A4 橫式高密度編號）", "依據課程 Prompt 製作 (1.1–7.3 全編號 · 3508×2480 300 DPI · docs/img/infographic_A4.png)")
+rect(s, 0.55, 1.45, 7.62, 5.38, WHITE)
+s.shapes.add_picture(os.path.join(IMG, "infographic_A4.png"), Inches(0.62), Inches(1.51), height=Inches(5.26))
+card(s, 8.35, 1.45, 4.38, 5.38, "📐 圖表結構導讀 (1–7)", [
+    "1 符合度總覽 (1.1–1.4)：AI Agent、領域知識、數據分析、真實應用。",
+    "2 Abstract ↔ Intro (2.1–2.2)：A–F 六段對照與晨跑四支柱痛點。",
+    "3 文獻與深研 (3.1–3.5)：1/2 AI + 1/2 Domain 23 篇查證文獻，5 Cores / 3 Trade-offs / 10 Details。",
+    "4 Proposed Scheme (4.1–4.4)：①–⑧ 模組、SVG 雙迴圈流程圖、Algo 1 & 2 行號虛擬碼。",
+    "5 A2Z SOP Outline (5.1)：A–Z 暨 PA–PM 全 38 項映射。",
+    "6–7 評估與結論 (6.1–7.3)：E1–E4 Expected Outcomes 與 OpenSpec 移交。",
+], CYAN, 15.5, 12)
+
+# ---------------- 20. Timeline & Handover ----------------
 s = new_slide("時程規劃與交接規範 Timeline & Handover Package")
 tl = [("W1–2", "Proposal 提案\n文獻 · API 串接", CYAN), ("W3–4", "特徵工程\n預測模型訓練", GREEN),
       ("W5–6", "知識庫 RAG\nAgent 工具開發", AMBER), ("W7", "前端 UI 整合\nStreamlit / LINE", VIOLET),

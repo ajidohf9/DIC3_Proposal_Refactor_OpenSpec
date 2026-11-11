@@ -41,7 +41,7 @@
 * **E. Experiments（評估）**：規劃台灣環境部 2022–2025 逐時資料集（2025 盲測）對比 Persistence／線性回歸（E1）、30 組臨床醫師審核案例對比原始 GPT-4o 與純 RAG（E2）、10 場歷史紅害事件 SHAP 專家一致度評核（E3），以及 100 次並行請求延遲與 SUS 問卷評估（E4）。
 * **F. Findings（預期產出）**：嚴格遵循「未實驗者僅列 Expected Outcomes，不虛構數據」，預期達成 24h PM2.5 預測 RMSE ≤ 9.5 μg/m³（較基準降 35%+，6h R² ≥ 0.82）、臨床指引對齊率 ≥ 95%–96%、幻覺率 ≤ 2%–3%、100% 來源引用追溯、平均回應 ≤ 4.2s（95% ≤ 5s）與 SUS ≥ 80。
 
-### Abstract（A–F）↔ Introduction（A–F）映射對照表
+### 2.1 Abstract（A–F）↔ Introduction（A–F）映射對照表
 
 | Abstract 六段式 | 對應 Introduction 章節 | 核心問題意識與敘事分工 | 關鍵客觀依據與引用 |
 | :--- | :--- | :--- | :--- |
@@ -49,6 +49,19 @@
 | **B. But（挑戰）** | **3.2 B. Background** / **3.3 C. Problem** / **3.4 D. Limitations** | Abstract 濃縮現況三大斷層；Introduction 補齊台灣 IoT 基礎建設、以氣喘晨跑情境定義四大技術支柱，並表列拆解既有四類系統瓶頸。 | MOENV/Civil IoT/CWA [3–6]、LLM/Geo-AI 文獻 [9–15]、Hua et al. 2021 [20]、Daigle et al. 2003 [23] |
 | **C. Cure（解藥）** ＋ **D. Development（方法）** | **3.5 E. Innovation** | Abstract 揭示 AI Air Doctor 解法與八模組／OpenSpec 四大能力；Introduction E 提煉四項相較既有研究之差異化創新點。 | ReAct [7]、RAG [8]、OpenSpec (`openspec/changes/ai-air-doctor-mvp/`) |
 | **E. Experiments（評估）** ＋ **F. Findings（預期產出）** | **3.6 F. Contributions** | Abstract 定義 E1–E4 量化實驗與不虛構之預期驗證目標；Introduction F 收斂架構、技術、知識與應用四大專題貢獻。 | 統一對齊 `DESIGN.md` §11 與 OpenSpec `design.md` 驗證計畫 |
+
+### 2.2 《2020 A-Z SOP》全結構映射總表（A–Z 暨 PA–PM）
+
+依循課程附件《A2Z outline example.pdf》（2020 A-Z SOP），本專題將全篇結構（`A–F` 摘要、`G–L` 緒論、`M–O` 文獻、`PA–PM` 系統設計、`Q–V` 實驗評估、`W–Z` 結論交付）完整落實對應如下（完整逐字母深析詳見 [AI_Air_Doctor_Proposal_Analysis.md](AI_Air_Doctor_Proposal_Analysis.md)）：
+
+| A2Z 區段 | 字母範圍 | A2Z SOP 核心任務 | AI Air Doctor 落實與章節／OpenSpec 對應 |
+| :--- | :---: | :--- | :--- |
+| **Abstract** | **A–F** | 引題 → 挑戰 → 解藥 → 方法 → 評估 → 預期成果 | §1 (A–F) 與 §2.0；嚴格區分 E1–E4 Expected Outcomes，絕不虛構數據。 |
+| **Introduction** | **G–L** | 現況背景 → 深層瓶頸 → 文獻演進 → 優劣評析 → 核心設計 → 全文導覽 | §3.1–§3.6；80+ MOENV + 上萬 Civil IoT + CWA [3–6]，對比四類方案並條列四大貢獻。 |
+| **Related Work** | **M–O** | 方法分類（1/2 AI + 1/2 Domain）→ 創新技術 → 比較總表與缺口收斂 | §4.1–§4.4；23 篇查證文獻＋§4.3 8 篇 2024–2026 Article Summary Table 收斂 Research Gap。 |
+| **Proposed Scheme** | **PA–PM** | 目標（PA）· 基礎（PB）· 成因（PC）· 典範轉移（PD）· 模組（PE）· 公式（PF）· 圖表（PG）· 實作（PH–PI）· 實例（PJ）· 貢獻（PK）· 模擬（PL）· 邏輯不變式（PM） | §6.1–§6.4；①–⑧ 模組對應 OpenSpec 4 Capabilities；Dose/風(u,v)/ΔT 公式、雙圖、`Algo 1 & 2` 行號虛擬碼與 `TimeBasedRollingSplit` 防漏不變式。 |
+| **Simulation / Eval** | **Q–V** | 評估指標（Q）· 比較基準（R）· 實驗環境（S）· 調參（T）· 產出（U）· 驗證（V） | §6.5 E1–E4；對比 Persistence/GPT-4o/純 RAG/無 SHAP，達成 RMSE ≤ 9.5、對齊 ≥ 95–96%、幻覺 ≤ 2–3%、SUS ≥ 80。 |
+| **Conclusion** | **W–Z** | 回顧總結（W）· 專精優勢（X）· 交付物（Y）· 反思展望（Z） | §6.6、`DESIGN.md` §12；專精台灣高濕與逆溫預警，交付 GitHub + OpenSpec + 21 頁簡報，預留無 CO₂ 感測推估之擴充點。 |
 
 ---
 
@@ -451,6 +464,12 @@ Output: Trained best forecast model M_best, Evaluated metrics dict E
   *應對*：設置相對濕度閘門（RH > 75% 啟用補償、RH > 85% 異常突增強制觸發 5 公里標準站交叉比對與離群剔除）。
 * **風險 3：使用者過度依賴系統延誤急性就醫**  
   *應對*：於所有輸出卡片頂端與底端強制固定渲染免責警語，明示系統僅供環境暴露與生活防護參考，無臨床診斷效力。
+
+### 6.7 A4 橫式高密度編號系統解析圖表（對標《期末專題規範》×《A2Z SOP》）
+
+完整解析報告見 [AI_Air_Doctor_Proposal_Analysis.md](AI_Air_Doctor_Proposal_Analysis.md)（Word 版：[AI_Air_Doctor_Proposal_Analysis.docx](AI_Air_Doctor_Proposal_Analysis.docx)），以下呈現彙整規範符合度（`1.1–1.4`）、Abstract–Introduction（`2.1–2.2`）、Related Work & Deep Research（`3.1–3.5`）、Proposed Scheme 八模組/流程/演算法（`4.1–4.4`）、A2Z 全 26+ 字母映射（`5.1`）、評估與預期成效（`6.1–6.3`）及結論（`7.1–7.3`）之一頁式 A4 橫式總覽圖：
+
+![AI Air Doctor 專題提案系統性解析資訊圖表（A4 橫式高密度編號）](img/infographic_A4.png)
 
 ---
 
