@@ -147,7 +147,7 @@ flowchart TB
 ## 9. Implementation（系統實作目錄結構）
 
 ```
-IOT_group_proposal/
+DIC3_Proposal_Refactor_OpenSpec/
 ├── openspec/                     # OpenSpec spec-driven 工作流 (proposal / specs / design / tasks)
 │   ├── config.yaml               # 專案背景與規格規則設定
 │   └── changes/ai-air-doctor-mvp/# 由 DESIGN.md 轉換之完整變更提案與 4 大能力規格
@@ -214,3 +214,21 @@ python scripts/build_pptx.py
 | **醫療偽偏方幻覺率** | 22% (通用 LLM) | **$\le 2\%\text{–}3\%$**、**100% 來源揭露率** | 引用來源強制勾稽與自我反思機制 (`E2`) |
 | **SHAP 成因可解釋性** | 無歸因解釋之純文字輸出 | **專家診斷一致度 $\ge 4.5 / 5$** (Likert) | 10 場台灣典型高污染事件評核 (`E3`) |
 | **端到端延遲、降級與易用性** | > 8 秒 | **平均 $\le 4.2$ 秒**（95% $\le 5$ 秒）、**安全降級率 100%**、**SUS $\ge 80$** | 100 次並行請求暨故障注入與問卷 (`E4`) |
+
+---
+
+## 12. Limitations & Handover（系統限制與後續移交規劃）
+
+### 12.1 提案階段邊界聲明（Proposal Stage Boundary）
+* **預期目標與實測分離**：目前專案處於 Proposal & OpenSpec 規格定稿階段（`src/` 與 `tests/` 尚未進入開發），§11 所列指標均為依據規格定義之 **Expected Outcomes**，嚴禁虛構尚未執行的實驗數據；後續將於 W1–W8 實作與 E1–E4 測試完成後以實測數據回填更新本文件。
+
+### 12.2 技術、感測與應用限制（System Limitations）
+1. **無室內 CO₂ 感測之換氣推估限制**：台灣多數一般住宅缺乏室內 CO₂ 感測器，於室外紅害與室內認知衰退的脈衝換氣（10–15 分鐘）權衡中，現階段僅能依據時序預報低谷與空間人數啟發式給予建議，尚無法即時讀取真實室內 CO₂（對應 `openspec/changes/ai-air-doctor-mvp/design.md` Open Questions）。
+2. **微型感測器物理漂移與定位邊界**：Civil IoT 光散射微感測器無加熱除濕裝置，於高濕環境（`RH > 75%`／`> 85%`）及長期曝露老化下仍可能出現飄移，僅作社區微環境輔助預警，不能取代環境部法規測站作為執法依據。
+3. **時序預測模型目前聚焦 PM2.5**：`Algorithm 2` 與 `E1` 優先針對未來 1–24 小時 PM2.5 濃度進行建模；夏季午後光化學臭氧（O₃）等其他指標現階段以即時多污染物觀測監控為主，尚未建置獨立 24 小時 O₃ 預測模型。
+4. **外部服務與運算延遲依賴**：系統依賴政府 OpenAPI（超過 3 秒自動降級為 72 小時 SQLite 快取）及語言模型推理服務，須在平均 $\le 4.2$ 秒（95% $\le 5$ 秒）預算內維持繁體中文醫療引用格式與護欄通過率。
+5. **非臨床醫療診斷定位**：本系統僅供個人化環境暴露評估與生活防護參考，不具備臨床醫師醫療診斷、處方或急症分診效力；所有輸出皆強制呈現固定免責聲明。
+
+### 12.3 後續實作與交接規劃（Handover Checklist）
+* **W1–W8 開發追蹤**：依照 [tasks.md](openspec/changes/ai-air-doctor-mvp/tasks.md) 5 大階段共 **19 項**可追蹤任務依序建置 `src/tools/`、`src/models/`、`src/agent/`、`src/web/` 與 `tests/`，並逐一完成 E1–E4 驗證。
+* **雙軌文件維護**：後續每次完成關鍵功能或實驗後，須同步更新 [README.md](README.md)、本文件 `DESIGN.md`（Implementation Mapping / Results / Limitations）與 OpenSpec 任務狀態，確保下一位開發者可依 GitHub 專案直接重現、驗證並接手開發。

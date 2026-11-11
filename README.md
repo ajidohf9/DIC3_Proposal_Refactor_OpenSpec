@@ -14,7 +14,7 @@
 | :--- | :--- | :--- |
 | **1. OpenSpec Spec-Driven Workflow** | 安裝 OpenSpec v1.2.0 並建立 `ai-air-doctor-mvp`（`4/4 artifacts complete` 與 4 項能力規格驗證通過） | [openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/) |
 | **2. A–F 摘要 + 5 Cores / 3 Trade-offs / 10 Details** | 提供約 500 字精煉版＋完整工程版 `(A)–(F)` 雙軌摘要（嚴守不虛構 Expected Outcomes）與完整 5/3/10 領域深研 | [docs/proposal.md §1, §5](docs/proposal.md) |
-| **3. `DESIGN.md` 轉換為 OpenSpec 工作流** | 完整轉換至 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md` 18 項可追蹤開發與 E1–E4 驗收任務 | [DESIGN.md](DESIGN.md) ↔ [openspec/](openspec/changes/ai-air-doctor-mvp/) |
+| **3. `DESIGN.md` 轉換為 OpenSpec 工作流** | 完整轉換至 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md` 19 項可追蹤開發與 E1–E4 驗收任務 | [DESIGN.md](DESIGN.md) ↔ [openspec/](openspec/changes/ai-air-doctor-mvp/) |
 | **4. Introduction Refactor** | 補齊 3I（Interesting · Innovative · Important）說服力、台灣新聞與政策實例 `[24–26]`、Three Core Innovations 與三大方法學學術價值 | [docs/proposal.md §3](docs/proposal.md) |
 | **5. Related Work Refactor** | 1/2 AI Technology + 1/2 Domain Know-how 平衡彙整 26 篇查證文獻暨新聞政策 `[1–26]`，含 8 篇 2024–2026 Article Summary Table | [docs/proposal.md §4](docs/proposal.md) |
 
@@ -38,7 +38,7 @@
 - 📋 **系統性解析報告（對標《期末專題規範》×《2020 A-Z SOP》）**：[docs/AI_Air_Doctor_Proposal_Analysis.md](docs/AI_Air_Doctor_Proposal_Analysis.md) / [Word 版](docs/AI_Air_Doctor_Proposal_Analysis.docx)
 - 🗺️ **A4 橫式高密度編號資訊圖表**：[docs/img/infographic_A4.png](docs/img/infographic_A4.png)（`3508×2480` 300 DPI，涵蓋 `1.1–7.3` 全編號總覽）
 - 📊 **簡報投影片**：[docs/Proposal_AI_Air_Doctor.pptx](docs/Proposal_AI_Air_Doctor.pptx)（25 頁專業簡報，涵蓋規範符合度、台灣案例新聞與 3I 說服力、約 500 字 A–F 精煉摘要對照、Deep Research 5/3/10、獨立《Three Core Innovations》暨核心研究價值、8 大模組與 A2Z SOP 總覽）
-- 🧩 **系統設計與移交文件**：[DESIGN.md](DESIGN.md)（依據 11 步移交鏈條編寫）
+- 🧩 **系統設計與移交文件**：[DESIGN.md](DESIGN.md)（依據 11 步移交鏈條編寫，含 Limitations 與移交規劃）
 - 📐 **OpenSpec 規格驅動工作流**：[openspec/changes/ai-air-doctor-mvp/](openspec/changes/ai-air-doctor-mvp/)（由 `DESIGN.md` 轉換之 `proposal.md`、`specs/*/spec.md`、`design.md` 與 `tasks.md`）
 
 ---
@@ -67,8 +67,8 @@
 
 ```bash
 # 1. 建立並啟動虛擬環境
-python -m venv venv
-.\venv\Scripts\activate   # Windows
+python -m venv .venv
+.\.venv\Scripts\activate   # Windows
 
 # 2. 安裝必要套件
 pip install python-docx python-pptx matplotlib pillow requests
